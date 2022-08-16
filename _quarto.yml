@@ -1,0 +1,33 @@
+project:
+  type: book
+
+book:
+  title: "The Tidy Econometrics Workbook"
+  subtitle: "An Undergraduate's Guide to Causal Inference, Instrumental Variables, and Time Series with R"
+  author: "Colleen O'Briant"
+  date: "8/14/2022"
+  chapters:
+    - index.qmd
+    - least_squares.qmd
+    - exogeneity.qmd
+    - causal_inference.qmd
+    - consistency.qmd
+    - heteroskedasticity.qmd
+    - time_series.qmd
+    - stationarity.qmd
+    - instrumental_vars.qmd
+    - diff_in_diff.qmd
+    - classwork.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+    codecopy: true
+  pdf:
+    documentclass: scrreprt
+
+
+

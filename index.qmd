@@ -1,0 +1,188 @@
+# Preface {.unnumbered}
+
+This book is the companion text to EC 421, Econometrics Part 2, taught by Colleen O'Briant. In this course, we'll build on the foundation laid in EC 320 (Econometrics Part 1) and MATH 243 (Probability and Statistics). We'll cover a range of econometric tools and techniques that can be used for data analysis with cross-sectional, time series, and panel data. We'll also spend some time on causal inference.
+
+The course will teach you how to write programs in R to solve your problems, with a focus on clarity and readability. You will learn to program in a functional, declarative style, and to think about using layers of abstraction to develop simple solutions to complicated problems.
+
+# Course Schedule
+
+Classwork for the week is always due on Wednesdays at 5pm. Homework is always due before the next class period.
+
+| Date | Day | Classwork | Homework |
+|----|----|-----------|----------|
+| Wed 9/28 | 1 | Syllabus  | [CH1: Least Squares](/least_squares.html) |
+| Mon 10/3 | 2 | [CW1: Deriving OLS Estimators (analytical)](classwork.html#cw1-deriving-ols-estimators-analytical)  | [Koans 1-3](#install-the-tidyverse-koans) |
+| Wed 10/5 | 3 | CW2: lm and qplot (R) | Koans 4-7 |
+| Mon 10/10 | 4 | CW3: dplyr murder mystery (R) | CH2: Exogeneity |
+| Wed 10/12 | 5 | CW4: hypothesis testing (analytical) | CH3: Causal Inference|
+| Mon 10/17 | 6 | CW5: causal inference (analytical) | Koans 8-10 |
+| Wed 10/19 | 7 | CW6: causal inference (R) | CH4: Consistency |
+| Mon 10/24 | 8 | CW7: consistency (analytical) | Ch 5: Heteroskedasticity |
+| Wed 10/26 | 9 | CW8: heteroskedasticity (analytical) | Koans 11-14 |
+| Mon 10/31 | 10 | CW9: heteroskedasticity (R) | practice midterm |
+| Wed 11/2 | 11 | **Midterm Exam** | Koans 15-16 |
+| Mon 11/7 | 12 | CW10: simulation (R) | CH6: Time Series |
+| Wed 11/9 | 13 | CW11: dynamics (analytical) | Koans 17-18 |
+| Mon 11/14 | 14 | CW12: dynamics (R) | CH7: Stationarity |
+| Wed 11/16 | 15 | CW13: time trends (analytical) | Koans 19-20 |
+| Mon 11/21 | 16 | CW14: random walks (half analytical, half R) | CH8: IV for causal inference|
+| Wed 11/23 | 17 | CW15: IV (analtyical) | CH9: IV for simultaneous equations |
+| Mon 11/28 | 18 | CW16: IV (R) | CH10: Diff-in-diff |
+| Mon 11/30 | 19 | CW17: Diff-in-diff (anayltical) | practice final |
+| TBA | 20 | **Final Exam** | |
+
+# Programming Philosophy
+
+## Q: "How does R compare to other languages?"
+
+A: R is a statistical programming language, which means it is designed for working with data. Other languages, such as Python and Java, are general-purpose programming languages, which means they can be used for a wider variety of tasks. But R (with the tidyverse especially) is a great choice for us because of its affinities with functional programming languages like Lisp. In R, your focus will be to program using functions and compositions instead of always needing to get into the nitty-gritty with objects and inheritance.
+
+## Declarative vs Imperative Programming
+
+Programming in the tidyverse may feel pretty different from your other experiences learning to program. That's because the tidyverse is *declarative*, not *imperative*. What's the difference? Imperative programming is relatively low-level: you think in terms of manipulating values using for loops and if statements. Declarative programming is programming at a higher abstraction level: you make use of handy functions (AKA abstractions) to manipulate large swaths of data at one time instead of going value-by-value.
+
+A good metaphor for the difference between imperative and declarative programming is this: suppose I'm trying to help you drive from your house to school. Imperative programming is when I send you turn-by-turn directions, and declarative programming is when I tell you to just put "University of Oregon" into your GPS. With declarative programming, I can declare *what I want you to do* without telling you exactly *how I want you to do it* like with imperative programming. Telling you to put "University of Oregon" into your GPS has advantages over giving you turn-by-turn directions: the GPS may have information about traffic and road closures that I'm not aware of. And the declarative approach is much easier for me: I could help the whole class get from their houses to the university by telling everyone to put "University of Oregon" into their GPS's, while sending each person their own set of turn-by-turn instructions would be a lot more work. 
+
+Likewise, when you use the tidyverse's abstractions like `filter()`, `mutate()`, `map()`, `reduce()`, and all of ggplot2's great plotting functions, you're taking advantage of the fact that the engineers who built those functions know efficiency tricks in R that you may not be aware of. And when you're programming declaratively, you can continue thinking about your problem at a high level instead of getting weighed down by nitty-gritty details. When it comes to data analysis, declarative programming has a lot of huge benefits.
+
+But under the hood, all these great tidyverse functions are just a few for loops and if statements. Imperative programming certainly has its time and place, and that time and place is when your problems include implementing an *algorithm* by hand. If you're interested, I highly recommend [Project Euler](https://projecteuler.net/about) for teaching yourself imperative programming. But imperative programming is not something you'll need for this class. You may have mixed declarative with imperative programming in previous classes, but we'll stay strictly in the declarative territory in this class.
+
+## Things to Avoid when Programming Declaratively in the Tidyverse
+
+Use these only when you're programming imperatively in base R:
+
+- for loops (we'll use `map()` instead)
+- if statements (we'll use the vectorized function from dplyr `if_else()`)
+- `matrix()` (our 2d data structure of choice is the `tibble()`)
+- `$` syntax for extracting a column vector from a tibble. We avoid this because our workflow goes like this: vectors go into tibbles and we do data analysis on *tibbles*. Going from tibbles to vectors (what `$` lets you do) is the reverse of what we need, so we avoid it in this class. It just causes unnecessary headaches!
+
+One more thing: I often see students using assignment `<-` wayyyy too much. If you're creating a variable for something, and you only use that thing one other time, and naming that thing doesn't help the readability of your code, why are you creating that variable? If you let your default be "no assignment" instead of "always assignment", then your code will be much prettier and your global environment will stay clean.
+
+## Your Approach
+
+ When you're stuck on a hard problem, here are the steps I recommend:
+
+ 1. Get crystal clear about the problem you're trying to solve. Write out what you *have* versus what you *want*.
+
+ 2. Break the problem into small steps and make a plan about how you're going to do each step.
+
+ 3. Not sure about how to do a certain step? *Don't* just guess wildly and stop googling every problem you're stuck on. And **get the hell off of stack overflow!** The solutions on that site are usually written in base R, they sometimes pre-date the tidyverse, and even if they work, they won't help your understanding. Instead, get in the habit of reading the help docs for functions. I've created a package called `qelp` (quick help) which is just beginner friendly help docs for almost all the functions you'll need in this class. Other helpful resources are the [tidyverse cheat sheets](https://www.rstudio.com/resources/cheatsheets/) from RStudio (especially on ggplot, dplyr, and purrr), and of course office hours.
+
+## What is "Good Code"?
+
+ What are we trying to do here?
+
+ First, come to terms with the fact that there's no such thing as good code. All code is bad code, and it's OK! You can't be a perfectionist with this stuff.
+
+ But *really bad* code is code that is unnecessarily complicated. If you want examples, just check out stackoverflow! We should always be striving to write simple, elegant solutions because those are easy for others to read and understand, easy for *ourselves* to read and understand, they're easy for a data engineer at your future company to optimize, and when something is broken, it's easy to debug.
+
+ Let's not get ahead of ourselves though! Good code, first and foremost, solves the problem at hand! If your solution works, you can always just leave it there. That is sometimes the best thing you can do for your sanity.
+
+ + Good code...
+   + Solves the problem.
+   + Solves the problem in the simplest way.
+   + Solves the problem in the simplest way, that's also clear and readable for others.
+   + Solves the problem in the simplest way, that's also clear and readable for others, with comments that tell readers why you're doing what you're doing.
+
+
+# Setting up your workspace
+
+## Install R and RStudio
+
+Follow the instructions [here](https://www.youtube.com/watch?v=TFGYlKvQEQ4&t=14s) if you don't have R or RStudio downloaded. Select the CRAN mirror nearest to you (probably Oregon State University). If you have a new apple silicon macbook, make sure to download the version of R that says "Apple silicon arm64 build".
+
+An alternative: R and RStudio are both already installed on [all academic workstations](https://library.uoregon.edu/library-technology-services/public-info/a-software) at UO. The downside is the limited hours, especially on weekends.
+
+## Get Acquainted with the RStudio IDE
+
+ Watch this [video from RStudio](https://www.rstudio.com/products/rstudio/?wvideo=520zbd3tij) to learn a little about the RStudio IDE. Don't get overwhelmed, we'll only use a small subset of the things in there and you'll learn very quickly what's useful to you.
+
+## Install the Tidyverse
+
+Run these lines of code in your console to make sure you have the tidyverse installed and attached to your current session.
+
+```{r}
+#| eval: false
+
+install.packages("tidyverse", dependencies = TRUE)
+library(tidyverse)
+```
+
+## Install gapminder
+
+  You'll use this package a lot in the koans.
+
+```{r}
+#| eval: false
+
+install.packages("gapminder")
+library(gapminder)
+```
+
+## Install a few Packages we'll use for Plots
+
+```{r}
+#| eval: false
+install.packages("gganimate", dependencies = TRUE)
+install.packages("hexbin")
+```
+
+## Install `qelp`
+
+ `qelp` (quick help) is an alternative set of beginner friendly help docs I created (with contributions from previous EC421 students) for commonly used functions in R and the tidyverse. Once you have the package installed, you can access the help docs from inside RStudio.
+
+```{r}
+#| eval: false
+ install.packages("Rcpp", dependencies = TRUE)
+ install.packages("devtools", dependencies = TRUE)
+ library(devtools)
+ install_github("cobriant/qelp")
+```
+
+ Now run:
+
+```{r}
+#| eval: false
+?qelp::install.packages
+```
+
+ If everything went right, the help docs I wrote on the function `install.packages` should pop up in the lower right hand pane. Whenever you want to read the qelp docs on a function, you type `?`, `qelp`, two colons `::` which say "I want the help docs on this function which is from the package qelp", and then the name of the function you're wondering about.
+
+## Install the Tidyverse Koans
+
+Visit the [koans on github](https://github.com/cobriant/tidyverse_koans).
+
+Click on the green button that says `Code` and then hit `Download ZIP`.
+
+Find the file (probably in your downloads folder) and open it to unzip it. Navigate to the new folder named `tidyverse_koans-main` and double click on the R project `tidyversekoans.Rproj`. RStudio should open. If it doesn't, open RStudio and go to `File > Open Project` and then find `tidyversekoans.Rproj`.
+
+In RStudio, go to the lower righthand panel and hit the folder `R`. This takes you to a list of 20 exercises (koans) you'll complete as homework over the course of the quarter. The first 3 (`K01_vector`, `K02_tibble`, and `K03_pipe`) will be due before class on Wednesday (July 20).
+
+Open the first koan: `K01_vector.R`. Before you start, modify 2 keybindings: 
+
+First, make it so that you can hit `Cmd/Ctrl Shift K` to compile a notebook:
+
+`Macs: Tools > Modify keyboard shortcuts > filter for Compile a Notebook > Cmd Shift K`
+
+`Windows: Tools > > Modify keyboard shortcuts > filter for Compile a Notebook > Ctrl Shift K`
+
+Second, make it so that you can hit `Cmd/Ctrl Shift T` to run the test for only the active koan instead of all the koans:
+
+`Macs: Tools > Modify keyboard shortcuts > Run a test file > Cmd Shift T`
+
+`Windows: Tools > Modify keyboard shortcuts > Run a test file > Ctrl Shift T`
+
+Now hit `Cmd/Ctrl Shift T` (Cmd Shift T on a mac; Ctrl Shift T on windows). You've just tested the first koan. You should see:
+
+`[ FAIL 0 | WARN 0 | SKIP 9 | PASS 0 ]`
+
+What does this mean? If there are errors in your R script, the test will not complete. Since it completed, you know there are no errors. Since `FAIL` is 0, you also haven't failed any of the questions yet. But `PASS` is also 0, so you haven't passed the questions either. Since they're blank right now, the test will skip them. That's why `SKIP` is 9.
+
+The tests are meant to help you figure out whether you're on the right track, but they're not perfect: if you keep failing the tests but you think your answer is correct, don't spend too much time worrying about it. The tests are sometimes a little fragile... They're a work in progress!
+
+Go ahead and start working on the koans and learning about the tidyverse! There's no need to wait until they're due to start the koans. I find that the students who end up becoming the strongest programmers spend a lot of time making sure their koans are well done. 
+
+When you're finished with a koan, make sure to run the tests one last time (`Ctrl/Cmd Shift T`) and then publish an html verson of the document (`Ctrl/Cmd Shift K`, and if that doesn't do anything, change the keybinding for `File > Compile Report` to be `Ctrl/Cmd Shift K`). You'll upload the html version to Canvas for me to grade.
+
+One last thing: whenever you want to work on the koans, make sure you open RStudio by opening the `tidyverse_koans-main` project, not just the individ
+ual koan file. If you open the koans in a session that's not associated with the `tidyverse_koans-main` project, the tests will fail to run. You can always see which project your current session is being associated with by looking at the upper right hand corner of RStudio: if you're in the `tidyverse_koans-main` project, you'll see `tidyverse_koans-main` up there. That's good. If you're in no project at all, you'll see `Project: (None)` up there. That's not good, especially if you want the tests to run. If you see `Project: (None)`, just click that text and you'll be able to switch over to the `tidyverse_koans-main` project.

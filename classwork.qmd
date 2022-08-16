@@ -1,0 +1,50 @@
+# Classwork {.unnumbered}
+
+## CW1: Deriving OLS Estimators (analytical)
+
+<html>  
+<body>
+    <center>
+        <iframe src=
+"https://cobriant.github.io/421/materials/Classwork1.pdf" 
+                width="750" 
+                height="400">
+        </iframe>
+    </center>
+</body>
+</html>
+
+## CW2: lm and qplot (R)
+
+## CW3: dplyr murder mystery (R)
+
+## CW4: hypothesis testing (analytical)
+
+## CW5: causal inference (analytical)
+
+## CW6: causal inference (R)
+
+## CW7: consistency (analytical)
+
+## CW8: heteroskedasticity (analytical)
+
+## CW9: heteroskedasticity (R)
+
+## CW10: simulation (R)
+
+## CW11: dynamics (analytical)
+
+## CW12: dynamics (R)
+
+## CW13: time trends (analytical)
+
+## CW14: random walks (half analytical, half R)
+
+## CW15: IV (analtyical)
+
+## CW16: IV (R)
+
+## CW17: Diff-in-diff (anayltical)
+
+
+

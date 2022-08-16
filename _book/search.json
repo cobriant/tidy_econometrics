@@ -1,0 +1,541 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "The Tidy Econometrics Workbook",
+    "section": "",
+    "text": "This book is the companion text to EC 421, Econometrics Part 2, taught by Colleen O’Briant. In this course, we’ll build on the foundation laid in EC 320 (Econometrics Part 1) and MATH 243 (Probability and Statistics). We’ll cover a range of econometric tools and techniques that can be used for data analysis with cross-sectional, time series, and panel data. We’ll also spend some time on causal inference.\nThe course will teach you how to write programs in R to solve your problems, with a focus on clarity and readability. You will learn to program in a functional, declarative style, and to think about using layers of abstraction to develop simple solutions to complicated problems."
+  },
+  {
+    "objectID": "intro.html",
+    "href": "intro.html",
+    "title": "1  The Method of Least Squares",
+    "section": "",
+    "text": "See Knuth (1984) for additional discussion of literate programming.\n\n\n\n\nKnuth, Donald E. 1984. “Literate Programming.” Comput. J. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97."
+  },
+  {
+    "objectID": "summary.html",
+    "href": "summary.html",
+    "title": "10  Summary",
+    "section": "",
+    "text": "In summary, this book has no content whatsoever."
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References",
+    "section": "",
+    "text": "Angrist, J. D., and J. S. Pischke. 2014. Mastering ’Metrics: The\nPath from Cause to Effect. Princeton University Press. https://books.google.com/books?id=dEh-BAAAQBAJ.\n\n\nDougherty, C. 2016. Introduction to Econometrics. Oxford\nUniversity Press. https://books.google.com/books?id=Q5cMEAAAQBAJ.\n\n\nLim, Milton, COVID-19 Mortality Working Group, Mike Callan, Actuaries\nInstitute, James Pyne, Chris Dolman, Kitty Chan, and John Connor. 2021.\n“Gauss, Least Squares, and the Missing Planet.”\nActuaries Digital. https://www.actuaries.digital/2021/03/31/gauss-least-squares-and-the-missing-planet/#:~:text=The%20early%20history%20of%20statistics,subject%20to%20random%20measurement%20errors."
+  },
+  {
+    "objectID": "least_squares.html",
+    "href": "least_squares.html",
+    "title": "1  Least Squares",
+    "section": "",
+    "text": "In this chapter, we’ll be recalling what the method of least squares is and how it works. We’ll be starting from scratch, so if EC 320 is not top of mind, don’t worry!\nI’ll refer to \\(\\hat{\\beta_0}\\) and \\(\\hat{\\beta_1}\\) as the estimates for the true parameters of a simple linear model: \\[y_i = \\beta_0 + \\beta_1 x_i + u_i\\] The hats on \\(\\hat{\\beta_0}\\) and \\(\\hat{\\beta_1}\\) just mean they are estimates. \\(\\beta_0\\) is the true value of the intercept: if x takes on a 0, this is the expected value for y to take on. So \\(E[y | x = 0] = \\beta_0\\), which is pronounced “the expectation of y given x takes 0 is \\(\\beta_0\\)”. And \\(\\beta_1\\) is the true effect of x on y: if x increases by one unit, \\(\\beta_1\\) is the amount by which y is expected to increase. So \\(E[y | x = \\alpha + 1] - E[y | x = \\alpha] = \\beta_1\\) for any \\(\\alpha\\).\n\n1: Introduction to OLS\n\n\n\n\n2: OLS is a method to combine observations\n\n\n\nThe method of least squares was first published by Frenchman Adrien Marie Legendre in 1805, but there is controversy about whether he was the first inventor or it was the German mathematician and physicist Carl Friedrich Gauss. The method of least squares founded the study of statistics, which was then called “the combination of observations,” because that’s what least squares helps you do: combine observations to understand a true underlying process. Least squares helped to solve two huge scientific problems in the beginning of the 1800s:\n\nThere’s a field of science called Geodesy that was, at the time, concerned with measuring the circumference of the globe. They had measurements of distances between cities and angles of the stars at each of the cities, done by different observers through different procedures. But until least squares, they had no way to combine those observations.\nCeres (the largest object in the asteroid belt between Mars and Jupiter) was discovered. “Speculation about extra-terrestrial life on other planets was open to debate, and the potential new discovery of such a close neighbour to Earth was the buzz of the scientific community,” Lim et al. (2021). Astronomers wanted to figure out the position and orbit of Ceres, but couldn’t extrapolate that with only a few noisy observations. Until least squares came along.\n\nThe method of least squares quickly became the dominant way to solve this statistical problem and remains dominant today.\nOne reason the method of least squares is so popular is that it’s so simple: the entire procedure can be summed up in one statement: the method of least squares fits a linear model that minimizes the sum of the squared residuals.\nIn the next few videos, we’ll see that for a simple regression, we can take that statement of the method of least squares and derive:\n\\[\\hat{\\beta_0} = \\bar{y} - \\beta_1 \\bar{x}\\]\n\\[\\hat{\\beta_1} = \\frac{\\sum_i x_i y_i - \\bar{x}\\bar{y}n}{\\sum_i x_i^2 - \\bar{x}^2 n}\\]\n\n3: Residuals are vertical distances: \\(e_i = y_i - \\hat{y_i}\\)\n\n\n\n\n4: OLS as \\(\\displaystyle\\min_{\\hat{\\beta_0}, \\hat{\\beta_1}} \\sum_i e_i^2 = \\min_{\\hat{\\beta_0}, \\hat{\\beta_1}} \\sum_i (y_i - \\hat{\\beta_0} - \\hat{\\beta_1} x_i)^2\\)\n\n\n\n\n5: \\(e_i^2 = y_i^2 - 2 \\hat{\\beta_0} y_i - 2 \\hat{\\beta_1} x_i y_i + 2 \\hat{\\beta_0} \\hat{\\beta_1} x_i + \\hat{\\beta_0}^2 + \\hat{\\beta_1}^2 x_i^2\\)\n\n\n\n\n6: Some summation rules\n\n\n\n\n7: Taking first order conditions\n\n\n\n\n8: Simplifying the FOC for \\(\\hat{\\beta_0}\\)\n\n\n\n\n9: Simplifying the FOC for \\(\\hat{\\beta_1}\\)"
+  },
+  {
+    "objectID": "exogeneity.html",
+    "href": "exogeneity.html",
+    "title": "2  Exogeneity",
+    "section": "",
+    "text": "🚧 This page is coming soon! 🚧"
+  },
+  {
+    "objectID": "causal_inference.html",
+    "href": "causal_inference.html",
+    "title": "3  Causal Inference",
+    "section": "",
+    "text": "🚧 This page is coming soon! 🚧"
+  },
+  {
+    "objectID": "consistency.html",
+    "href": "consistency.html",
+    "title": "4  Consistency",
+    "section": "",
+    "text": "🚧 This page is coming soon! 🚧"
+  },
+  {
+    "objectID": "heteroskedasticity.html",
+    "href": "heteroskedasticity.html",
+    "title": "5  Heteroskedasticity",
+    "section": "",
+    "text": "🚧 This page is coming soon! 🚧"
+  },
+  {
+    "objectID": "time_series.html",
+    "href": "time_series.html",
+    "title": "6  Time Series",
+    "section": "",
+    "text": "🚧 This page is coming soon! 🚧"
+  },
+  {
+    "objectID": "stationarity.html",
+    "href": "stationarity.html",
+    "title": "7  Stationarity",
+    "section": "",
+    "text": "🚧 This page is coming soon! 🚧"
+  },
+  {
+    "objectID": "instrumental_vars.html",
+    "href": "instrumental_vars.html",
+    "title": "8  Instrumental Variables",
+    "section": "",
+    "text": "🚧 This page is coming soon! 🚧"
+  },
+  {
+    "objectID": "diff_in_diff.html",
+    "href": "diff_in_diff.html",
+    "title": "9  Differences-in-differences",
+    "section": "",
+    "text": "🚧 This page is coming soon! 🚧"
+  },
+  {
+    "objectID": "index.html#q-im-not-a-developer.-why-would-i-learn-to-program",
+    "href": "index.html#q-im-not-a-developer.-why-would-i-learn-to-program",
+    "title": "The Tidy Econometrics Workbook",
+    "section": "Q: “I’m not a developer. Why would I learn to program?”",
+    "text": "Q: “I’m not a developer. Why would I learn to program?”\nA: First, programming can make you more productive, even if you’re not a developer. You’re probably interacting with a computer the majority of your waking hours, so learning to take advantage of it more fully can be really useful.\nR is a huge step up from a tool like excel for data analytics. In R, you can write programs to clean your data, query it, visualize it, and model it. Then when you get more data, repeating all those steps for a few million more observations is as easy as a push of a button. And when someone has a question about the steps you took to do your analysis, you can just point them toward the program you wrote. In fact, it’s very common for economists to publish their data and their programs alongside their papers so that people can reproduce their work."
+  },
+  {
+    "objectID": "index.html#how-to-approach-programming-in-r",
+    "href": "index.html#how-to-approach-programming-in-r",
+    "title": "The Tidy Econometrics Workbook",
+    "section": "How to Approach Programming in R",
+    "text": "How to Approach Programming in R\nWhen you’re stuck on a hard problem, here are the steps I recommend:\n\nGet crystal clear about the problem you’re trying to solve. Write out what you have versus what you want.\nBreak the problem into small steps and make a plan about how you’re going to do each step.\nNot sure about how to do a certain step? Don’t just guess wildly and stop googling every problem you’re stuck on. And get the hell off of stack overflow! The solutions on that site are usually written in base R, they sometimes pre-date the tidyverse, and even if they work, they won’t help your understanding. Instead, get in the habit of reading the help docs for functions. I’ve created a package called qelp (quick help) which is just beginner friendly help docs for almost all the functions you’ll need in this class. Other helpful resources are the tidyverse cheat sheets from RStudio (especially on ggplot, dplyr, and purrr), and of course office hours."
+  },
+  {
+    "objectID": "index.html#what-is-good-code",
+    "href": "index.html#what-is-good-code",
+    "title": "The Tidy Econometrics Workbook",
+    "section": "What is “Good Code”?",
+    "text": "What is “Good Code”?\nWhat are we trying to do here?\nFirst, come to terms with the fact that there’s no such thing as good code. All code is bad code, and it’s OK! You can’t be a perfectionist with this stuff.\nBut really bad code is code that is unnecessarily complicated. If you want examples, just check out stackoverflow! We should always be striving to write simple, elegant solutions because those are easy for others to read and understand, easy for ourselves to read and understand, they’re easy for a data engineer at your future company to optimize, and when something is broken, it’s easy to debug.\nLet’s not get ahead of ourselves though! Good code, first and foremost, solves the problem at hand! If your solution works, you can always just leave it there. That is sometimes the best thing you can do for your sanity.\n\nGood code…\n\nSolves the problem.\nSolves the problem in the simplest way.\nSolves the problem in the simplest way, that’s also clear and readable for others.\nSolves the problem in the simplest way, that’s also clear and readable for others, with comments that tell readers why you’re doing what you’re doing."
+  },
+  {
+    "objectID": "index.html#setting-up-your-workspace",
+    "href": "index.html#setting-up-your-workspace",
+    "title": "The Tidy Econometrics Workbook",
+    "section": "Setting up your workspace",
+    "text": "Setting up your workspace\n\nInstall R and RStudio\nFollow the instructions here if you don’t have R or RStudio downloaded. Select the CRAN mirror nearest to you (probably Oregon State University). If you have a new apple silicon macbook, make sure to download the version of R that says “Apple silicon arm64 build”.\nAn alternative: R and RStudio are both already installed on all academic workstations at UO. The downside is the limited hours, especially on weekends.\n\n\nGet Acquainted with the RStudio IDE\nWatch this video to learn a little about the RStudio IDE. Don’t get overwhelmed, we’ll only use a small subset of the things in there and you’ll learn very quickly what’s useful to you.\n\n\nInstall the Tidyverse\nWatch this video to learn how to install the tidyverse.\n\ninstall.packages(\"tidyverse\", dependencies = TRUE)\nlibrary(tidyverse)\n\n\n\nInstall gapminder\nYou’ll use this package a lot in the koans.\n\ninstall.packages(\"gapminder\")\nlibrary(gapminder)\n\n\n\nInstall a few Packages we’ll use for Plots\n#+BEGIN_SRC R install.packages(“gganimate”, dependencies = TRUE) install.packages(“hexbin”) #+END_SRC\n\n\nInstall qelp\nqelp (quick help) is an alternative set of beginner friendly help docs I created (with contributions from previous EC421 students) for commonly used functions in R and the tidyverse. Once you have the package installed, you can access the help docs from inside RStudio.\n#+BEGIN_SRC R install.packages(“devtools”) library(devtools) install_github(“cobriant/qelp”) #+END_SRC\nNow run:\n#+BEGIN_SRC R ?qelp::install.packages #+END_SRC\nIf everything went right, the help docs I wrote on the function install.packages should pop up in the lower right hand pane.\n\n\nInstall the Tidyverse Koans\nVisit this website: https://github.com/cobriant/tidyverse_koans\nClick on the green button that says “Code” and then hit “~Download ZIP~”.\nFind the file (probably in your downloads folder) and open it to unzip it. Navigate to the new folder named “tidyverse_koans-main” and double click on the R project “tidyversekoans.Rproj”. RStudio should open. If it doesn’t, open RStudio and go to File > Open Project and then find tidyversekoans.Rproj.\nIn RStudio, go to the lower righthand panel and hit the folder “R”. This takes you to a list of 20 exercises (koans) you’ll complete as homework over the course of the quarter. The first 3 (K01_vector, K02_tibble, and K03_pipe) will be due before class on Wednesday (July 20).\nOpen the first koan: K01_vector.R. Before you start, modify a keybinding:\nMacs: Tools > Modify keyboard shortcuts > Run a test file > Cmd Shift T\nWindows: Tools > Modify keyboard shortcuts > Run a test file > Ctrl Shift T\nNow hit Cmd/Ctrl Shift T (Cmd Shift T on a mac; Ctrl Shift T on windows). You’ve just tested the first koan. You should see:\n[ FAIL 0 | WARN 0 | SKIP 9 | PASS 0 ]\nWhat does this mean? If there are errors in your R script, the test will not complete. Since it completed, you know there are no errors. Since FAIL is 0, you also haven’t failed any of the questions yet. But PASS is also 0, so you haven’t passed the questions either. Since they’re blank right now, the test will skip them. That’s why SKIP is 9.\nThe tests are meant to help you figure out whether you’re on the right track, but they’re not perfect: if you keep failing the tests but you think your answer is correct, don’t spend too much time worrying about it. The tests are a little fragile… They’re a work in progress!\nGo ahead and start working on the koans and learning about the tidyverse! There’s no need to wait until they’re due to start the koans. I find that the students who end up becoming the strongest programmers spend a lot of time making sure their koans are well done.\nWhen you’re finished with a koan, make sure to run the tests one last time (Ctrl/Cmd Shift T) and then publish an html verson of the document (Ctrl/Cmd Shift K, and if that doesn’t do anything, change the keybinding for File > Compile Report to be Ctrl/Cmd Shift K). You’ll upload the html version to Canvas for me to grade.\n\n\n\n\nAngrist, J. D., and J. S. Pischke. 2014. Mastering ’Metrics: The Path from Cause to Effect. Princeton University Press. https://books.google.com/books?id=dEh-BAAAQBAJ.\n\n\nDougherty, C. 2016. Introduction to Econometrics. Oxford University Press. https://books.google.com/books?id=Q5cMEAAAQBAJ."
+  },
+  {
+    "objectID": "index.html#q-how-does-r-compare-to-other-languages",
+    "href": "index.html#q-how-does-r-compare-to-other-languages",
+    "title": "The Tidy Econometrics Workbook",
+    "section": "Q: “How does R compare to other languages?”",
+    "text": "Q: “How does R compare to other languages?”\nA: R is a statistical programming language, which means it is designed for working with data. Other languages, such as Python and Java, are general-purpose programming languages, which means they can be used for a wider variety of tasks. But R (with the tidyverse especially) is a great choice for us because of its affinities with functional programming languages like Lisp. In R, your focus will be to program using functions and compositions instead of always needing to get into the nitty-gritty with objects and inheritance."
+  },
+  {
+    "objectID": "index.html#install-r-and-rstudio",
+    "href": "index.html#install-r-and-rstudio",
+    "title": "The Tidy Econometrics Workbook",
+    "section": "Install R and RStudio",
+    "text": "Install R and RStudio\nFollow the instructions here if you don’t have R or RStudio downloaded. Select the CRAN mirror nearest to you (probably Oregon State University). If you have a new apple silicon macbook, make sure to download the version of R that says “Apple silicon arm64 build”.\nAn alternative: R and RStudio are both already installed on all academic workstations at UO. The downside is the limited hours, especially on weekends."
+  },
+  {
+    "objectID": "index.html#get-acquainted-with-the-rstudio-ide",
+    "href": "index.html#get-acquainted-with-the-rstudio-ide",
+    "title": "The Tidy Econometrics Workbook",
+    "section": "Get Acquainted with the RStudio IDE",
+    "text": "Get Acquainted with the RStudio IDE\nWatch this video from RStudio to learn a little about the RStudio IDE. Don’t get overwhelmed, we’ll only use a small subset of the things in there and you’ll learn very quickly what’s useful to you."
+  },
+  {
+    "objectID": "index.html#install-the-tidyverse",
+    "href": "index.html#install-the-tidyverse",
+    "title": "The Tidy Econometrics Workbook",
+    "section": "Install the Tidyverse",
+    "text": "Install the Tidyverse\nRun these lines of code in your console to make sure you have the tidyverse installed and attached to your current session.\n\ninstall.packages(\"tidyverse\", dependencies = TRUE)\nlibrary(tidyverse)"
+  },
+  {
+    "objectID": "index.html#install-gapminder",
+    "href": "index.html#install-gapminder",
+    "title": "The Tidy Econometrics Workbook",
+    "section": "Install gapminder",
+    "text": "Install gapminder\nYou’ll use this package a lot in the koans.\n\ninstall.packages(\"gapminder\")\nlibrary(gapminder)"
+  },
+  {
+    "objectID": "index.html#install-a-few-packages-well-use-for-plots",
+    "href": "index.html#install-a-few-packages-well-use-for-plots",
+    "title": "The Tidy Econometrics Workbook",
+    "section": "Install a few Packages we’ll use for Plots",
+    "text": "Install a few Packages we’ll use for Plots\n\ninstall.packages(\"gganimate\", dependencies = TRUE)\ninstall.packages(\"hexbin\")"
+  },
+  {
+    "objectID": "index.html#install-qelp",
+    "href": "index.html#install-qelp",
+    "title": "The Tidy Econometrics Workbook",
+    "section": "Install qelp",
+    "text": "Install qelp\nqelp (quick help) is an alternative set of beginner friendly help docs I created (with contributions from previous EC421 students) for commonly used functions in R and the tidyverse. Once you have the package installed, you can access the help docs from inside RStudio.\n\n install.packages(\"Rcpp\", dependencies = TRUE)\n install.packages(\"devtools\", dependencies = TRUE)\n library(devtools)\n install_github(\"cobriant/qelp\")\n\nNow run:\n\n?qelp::install.packages\n\nIf everything went right, the help docs I wrote on the function install.packages should pop up in the lower right hand pane. Whenever you want to read the qelp docs on a function, you type ?, qelp, two colons :: which say “I want the help docs on this function which is from the package qelp”, and then the name of the function you’re wondering about."
+  },
+  {
+    "objectID": "index.html#install-the-tidyverse-koans",
+    "href": "index.html#install-the-tidyverse-koans",
+    "title": "The Tidy Econometrics Workbook",
+    "section": "Install the Tidyverse Koans",
+    "text": "Install the Tidyverse Koans\nVisit the koans on github.\nClick on the green button that says Code and then hit Download ZIP.\nFind the file (probably in your downloads folder) and open it to unzip it. Navigate to the new folder named tidyverse_koans-main and double click on the R project tidyversekoans.Rproj. RStudio should open. If it doesn’t, open RStudio and go to File > Open Project and then find tidyversekoans.Rproj.\nIn RStudio, go to the lower righthand panel and hit the folder R. This takes you to a list of 20 exercises (koans) you’ll complete as homework over the course of the quarter. The first 3 (K01_vector, K02_tibble, and K03_pipe) will be due before class on Wednesday (July 20).\nOpen the first koan: K01_vector.R. Before you start, modify 2 keybindings:\nFirst, make it so that you can hit Cmd/Ctrl Shift K to compile a notebook:\nMacs: Tools > Modify keyboard shortcuts > filter for Compile a Notebook > Cmd Shift K\nWindows: Tools > > Modify keyboard shortcuts > filter for Compile a Notebook > Ctrl Shift K\nSecond, make it so that you can hit Cmd/Ctrl Shift T to run the test for only the active koan instead of all the koans:\nMacs: Tools > Modify keyboard shortcuts > Run a test file > Cmd Shift T\nWindows: Tools > Modify keyboard shortcuts > Run a test file > Ctrl Shift T\nNow hit Cmd/Ctrl Shift T (Cmd Shift T on a mac; Ctrl Shift T on windows). You’ve just tested the first koan. You should see:\n[ FAIL 0 | WARN 0 | SKIP 9 | PASS 0 ]\nWhat does this mean? If there are errors in your R script, the test will not complete. Since it completed, you know there are no errors. Since FAIL is 0, you also haven’t failed any of the questions yet. But PASS is also 0, so you haven’t passed the questions either. Since they’re blank right now, the test will skip them. That’s why SKIP is 9.\nThe tests are meant to help you figure out whether you’re on the right track, but they’re not perfect: if you keep failing the tests but you think your answer is correct, don’t spend too much time worrying about it. The tests are sometimes a little fragile… They’re a work in progress!\nGo ahead and start working on the koans and learning about the tidyverse! There’s no need to wait until they’re due to start the koans. I find that the students who end up becoming the strongest programmers spend a lot of time making sure their koans are well done.\nWhen you’re finished with a koan, make sure to run the tests one last time (Ctrl/Cmd Shift T) and then publish an html verson of the document (Ctrl/Cmd Shift K, and if that doesn’t do anything, change the keybinding for File > Compile Report to be Ctrl/Cmd Shift K). You’ll upload the html version to Canvas for me to grade.\nOne last thing: whenever you want to work on the koans, make sure you open RStudio by opening the tidyverse_koans-main project, not just the individ ual koan file. If you open the koans in a session that’s not associated with the tidyverse_koans-main project, the tests will fail to run. You can always see which project your current session is being associated with by looking at the upper right hand corner of RStudio: if you’re in the tidyverse_koans-main project, you’ll see tidyverse_koans-main up there. That’s good. If you’re in no project at all, you’ll see Project: (None) up there. That’s not good, especially if you want the tests to run. If you see Project: (None), just click that text and you’ll be able to switch over to the tidyverse_koans-main project."
+  },
+  {
+    "objectID": "index.html#declarative-vs-imperative-programming",
+    "href": "index.html#declarative-vs-imperative-programming",
+    "title": "The Tidy Econometrics Workbook",
+    "section": "Declarative vs Imperative Programming",
+    "text": "Declarative vs Imperative Programming\nProgramming in the tidyverse may feel pretty different from your other experiences learning to program. That’s because the tidyverse is declarative, not imperative. What’s the difference? Imperative programming is relatively low-level: you think in terms of manipulating values using for loops and if statements. Declarative programming is programming at a higher abstraction level: you make use of handy functions (AKA abstractions) to manipulate large swaths of data at one time instead of going value-by-value.\nA good metaphor for the difference between imperative and declarative programming is this: suppose I’m trying to help you drive from your house to school. Imperative programming is when I send you turn-by-turn directions, and declarative programming is when I tell you to just put “University of Oregon” into your GPS. With declarative programming, I can declare what I want you to do without telling you exactly how I want you to do it like with imperative programming. Telling you to put “University of Oregon” into your GPS has advantages over giving you turn-by-turn directions: the GPS may have information about traffic and road closures that I’m not aware of. And the declarative approach is much easier for me: I could help the whole class get from their houses to the university by telling everyone to put “University of Oregon” into their GPS’s, while sending each person their own set of turn-by-turn instructions would be a lot more work.\nLikewise, when you use the tidyverse’s abstractions like filter(), mutate(), map(), reduce(), and all of ggplot2’s great plotting functions, you’re taking advantage of the fact that the engineers who built those functions know efficiency tricks in R that you may not be aware of. And when you’re programming declaratively, you can continue thinking about your problem at a high level instead of getting weighed down by nitty-gritty details. When it comes to data analysis, declarative programming has a lot of huge benefits.\nBut under the hood, all these great tidyverse functions are just a few for loops and if statements. Imperative programming certainly has its time and place, and that time and place is when your problems include implementing an algorithm by hand. If you’re interested, I highly recommend Project Euler for teaching yourself imperative programming. But imperative programming is not something you’ll need for this class. You may have mixed declarative with imperative programming in previous classes, but we’ll stay strictly in the declarative territory in this class."
+  },
+  {
+    "objectID": "index.html#things-to-avoid-when-programming-declaratively-in-the-tidyverse",
+    "href": "index.html#things-to-avoid-when-programming-declaratively-in-the-tidyverse",
+    "title": "The Tidy Econometrics Workbook",
+    "section": "Things to Avoid when Programming Declaratively in the Tidyverse",
+    "text": "Things to Avoid when Programming Declaratively in the Tidyverse\nUse these only when you’re programming imperatively in base R:\n\nfor loops (we’ll use map() instead)\nif statements (we’ll use the vectorized function from dplyr if_else())\nmatrix() (our 2d data structure of choice is the tibble())\n$ syntax for extracting a column vector from a tibble. We avoid this because our workflow goes like this: vectors go into tibbles and we do data analysis on tibbles. Going from tibbles to vectors (what $ lets you do) is the reverse of what we need, so we avoid it in this class. It just causes unnecessary headaches!\n\nOne more thing: I often see students using assignment <- wayyyy too much. If you’re creating a variable for something, and you only use that thing one other time, and naming that thing doesn’t help the readability of your code, why are you creating that variable? If you let your default be “no assignment” instead of “always assignment”, then your code will be much prettier and your global environment will stay clean."
+  },
+  {
+    "objectID": "index.html#your-approach",
+    "href": "index.html#your-approach",
+    "title": "The Tidy Econometrics Workbook",
+    "section": "Your Approach",
+    "text": "Your Approach\nWhen you’re stuck on a hard problem, here are the steps I recommend:\n\nGet crystal clear about the problem you’re trying to solve. Write out what you have versus what you want.\nBreak the problem into small steps and make a plan about how you’re going to do each step.\nNot sure about how to do a certain step? Don’t just guess wildly and stop googling every problem you’re stuck on. And get the hell off of stack overflow! The solutions on that site are usually written in base R, they sometimes pre-date the tidyverse, and even if they work, they won’t help your understanding. Instead, get in the habit of reading the help docs for functions. I’ve created a package called qelp (quick help) which is just beginner friendly help docs for almost all the functions you’ll need in this class. Other helpful resources are the tidyverse cheat sheets from RStudio (especially on ggplot, dplyr, and purrr), and of course office hours."
+  },
+  {
+    "objectID": "least_squares.html#numerical-example",
+    "href": "least_squares.html#numerical-example",
+    "title": "1  Least Squares",
+    "section": "1.2 Numerical Example",
+    "text": "1.2 Numerical Example\n\n10: Calculate \\(\\hat{\\beta_0}\\) and \\(\\hat{\\beta_1}\\) for a 3 observation example\n\n\n\n\n11: Calculate fitted values \\(\\hat{y_i}\\) and residuals \\(e_i\\) for a 3 observation example\n\n\n\n\n12: \\(u_i\\) versus \\(e_i\\)"
+  },
+  {
+    "objectID": "least_squares.html#unobservable-u_i-versus-ols-residuals-e_i",
+    "href": "least_squares.html#unobservable-u_i-versus-ols-residuals-e_i",
+    "title": "1  Least Squares",
+    "section": "1.3 Unobservable \\(u_i\\) versus OLS residuals \\(e_i\\)",
+    "text": "1.3 Unobservable \\(u_i\\) versus OLS residuals \\(e_i\\)"
+  },
+  {
+    "objectID": "least_squares.html#unobservable-term-u_i-versus-ols-residuals-e_i",
+    "href": "least_squares.html#unobservable-term-u_i-versus-ols-residuals-e_i",
+    "title": "1  Least Squares",
+    "section": "1.3 Unobservable term \\(u_i\\) versus OLS residuals \\(e_i\\)",
+    "text": "1.3 Unobservable term \\(u_i\\) versus OLS residuals \\(e_i\\)\n\n\n\n\nLim, Milton, COVID-19 Mortality Working Group, Mike Callan, Actuaries Institute, James Pyne, Chris Dolman, Kitty Chan, and John Connor. 2021. “Gauss, Least Squares, and the Missing Planet.” Actuaries Digital. https://www.actuaries.digital/2021/03/31/gauss-least-squares-and-the-missing-planet/#:~:text=The%20early%20history%20of%20statistics,subject%20to%20random%20measurement%20errors."
+  },
+  {
+    "objectID": "least_squares.html#practice-problems",
+    "href": "least_squares.html#practice-problems",
+    "title": "1  Least Squares",
+    "section": "1.3 Practice Problems",
+    "text": "1.3 Practice Problems\nThis chapter built some econometrics from scratch about a simple linear model \\(y_i = \\beta_0 + \\beta_1 x_i + u_i\\).\nConsider instead a linear model with the intercept omitted:\n\\[y_i = \\beta_0 x_i + u_i\\]\nIn these three problems, we’ll build the econometrics of this model from scratch.\n\nRecall that OLS minimizes the sum of squared residuals. Write down what that means in this context and take first order conditions. Show that \\(\\hat{\\beta_0} = \\frac{\\sum_i x_i y_i}{\\sum_i x_i^2}\\).\nNext, show that as long as the model is correctly specified so that \\(y_i = \\beta_0 x_i + u_i\\), .\n(4pts) Finally, let and show that  is an unbiased estimator of under one crucial assumption.\n\n\n\n\n\n\n\n\nLim, Milton, COVID-19 Mortality Working Group, Mike Callan, Actuaries Institute, James Pyne, Chris Dolman, Kitty Chan, and John Connor. 2021. “Gauss, Least Squares, and the Missing Planet.” Actuaries Digital. https://www.actuaries.digital/2021/03/31/gauss-least-squares-and-the-missing-planet/#:~:text=The%20early%20history%20of%20statistics,subject%20to%20random%20measurement%20errors."
+  },
+  {
+    "objectID": "least_squares.html#a-practice-problem",
+    "href": "least_squares.html#a-practice-problem",
+    "title": "1  Least Squares",
+    "section": "1.3 A Practice Problem",
+    "text": "1.3 A Practice Problem\nThis chapter built some econometrics from scratch about a simple linear model \\(y_i = \\beta_0 + \\beta_1 x_i + u_i\\).\nConsider instead a linear model with the intercept omitted:\n\\[y_i = \\beta_0 x_i + u_i\\]\nLet’s build some econometrics of this model from scratch.\nRecall that OLS minimizes the sum of squared residuals. Write down what that means in this context and take first order conditions. Show that \\(\\hat{\\beta_0} = \\frac{\\sum_i x_i y_i}{\\sum_i x_i^2}\\)."
+  },
+  {
+    "objectID": "least_squares.html#section",
+    "href": "least_squares.html#section",
+    "title": "1  Least Squares",
+    "section": "1.4 ",
+    "text": "1.4 \n\n\n\n\nLim, Milton, COVID-19 Mortality Working Group, Mike Callan, Actuaries Institute, James Pyne, Chris Dolman, Kitty Chan, and John Connor. 2021. “Gauss, Least Squares, and the Missing Planet.” Actuaries Digital. https://www.actuaries.digital/2021/03/31/gauss-least-squares-and-the-missing-planet/#:~:text=The%20early%20history%20of%20statistics,subject%20to%20random%20measurement%20errors."
+  },
+  {
+    "objectID": "least_squares.html#classwork-practice-problems",
+    "href": "least_squares.html#classwork-practice-problems",
+    "title": "1  Least Squares",
+    "section": "1.3 Classwork Practice Problems",
+    "text": "1.3 Classwork Practice Problems"
+  },
+  {
+    "objectID": "least_squares.html#classwork",
+    "href": "least_squares.html#classwork",
+    "title": "1  Least Squares",
+    "section": "1.4 Classwork",
+    "text": "1.4 Classwork\n\n\n\n\nLim, Milton, COVID-19 Mortality Working Group, Mike Callan, Actuaries Institute, James Pyne, Chris Dolman, Kitty Chan, and John Connor. 2021. “Gauss, Least Squares, and the Missing Planet.” Actuaries Digital. https://www.actuaries.digital/2021/03/31/gauss-least-squares-and-the-missing-planet/#:~:text=The%20early%20history%20of%20statistics,subject%20to%20random%20measurement%20errors."
+  },
+  {
+    "objectID": "classwork.html",
+    "href": "classwork.html",
+    "title": "Classwork",
+    "section": "",
+    "text": "Classwork 1\n\n\nDeriving OLS Estimators (analytical)"
+  },
+  {
+    "objectID": "classwork.html#cw1-deriving-ols-estimators-analytical-1",
+    "href": "classwork.html#cw1-deriving-ols-estimators-analytical-1",
+    "title": "Classwork",
+    "section": "CW1: Deriving OLS Estimators (analytical)",
+    "text": "CW1: Deriving OLS Estimators (analytical)"
+  },
+  {
+    "objectID": "classwork.html#cw2-deriving-ols-estimators-analytical",
+    "href": "classwork.html#cw2-deriving-ols-estimators-analytical",
+    "title": "Classwork",
+    "section": "CW2: Deriving OLS Estimators (analytical)",
+    "text": "CW2: Deriving OLS Estimators (analytical)"
+  },
+  {
+    "objectID": "least_squares.html#practice",
+    "href": "least_squares.html#practice",
+    "title": "1  Least Squares",
+    "section": "1.3 Practice",
+    "text": "1.3 Practice\nClasswork 1\n\n\n\n\nLim, Milton, COVID-19 Mortality Working Group, Mike Callan, Actuaries Institute, James Pyne, Chris Dolman, Kitty Chan, and John Connor. 2021. “Gauss, Least Squares, and the Missing Planet.” Actuaries Digital. https://www.actuaries.digital/2021/03/31/gauss-least-squares-and-the-missing-planet/#:~:text=The%20early%20history%20of%20statistics,subject%20to%20random%20measurement%20errors."
+  },
+  {
+    "objectID": "least_squares.html#exercises",
+    "href": "least_squares.html#exercises",
+    "title": "1  Least Squares",
+    "section": "1.3 Exercises",
+    "text": "1.3 Exercises\nClasswork 1: Deriving OLS Estimators\nKoans 1-3: Vectors, Tibbles, and Pipes"
+  },
+  {
+    "objectID": "least_squares.html#references",
+    "href": "least_squares.html#references",
+    "title": "1  Least Squares",
+    "section": "1.4 References",
+    "text": "1.4 References\nDougherty, C. 2016. Introduction to Econometrics, Chapter 1: Simple Regression Analysis. Oxford University Press.\nLim, Milton, COVID-19 Mortality Working Group, Mike Callan, Actuaries Institute, James Pyne, Chris Dolman, Kitty Chan, and John Connor. 2021. “Gauss, Least Squares, and the Missing Planet.” Actuaries Digital. https://www.actuaries.digital/2021/03/31/gauss-least-squares-and-the-missing-planet/#:~:text=The%20early%20history%20of%20statistics,subject%20to%20random%20measurement%20errors.\n\n\n\n\nLim, Milton, COVID-19 Mortality Working Group, Mike Callan, Actuaries Institute, James Pyne, Chris Dolman, Kitty Chan, and John Connor. 2021. “Gauss, Least Squares, and the Missing Planet.” Actuaries Digital. https://www.actuaries.digital/2021/03/31/gauss-least-squares-and-the-missing-planet/#:~:text=The%20early%20history%20of%20statistics,subject%20to%20random%20measurement%20errors."
+  },
+  {
+    "objectID": "classwork.html#cw1",
+    "href": "classwork.html#cw1",
+    "title": "Classwork",
+    "section": "CW1:",
+    "text": "CW1:"
+  },
+  {
+    "objectID": "classwork.html#cw1-1",
+    "href": "classwork.html#cw1-1",
+    "title": "Classwork",
+    "section": "CW1:",
+    "text": "CW1:"
+  },
+  {
+    "objectID": "classwork.html#cw1-2",
+    "href": "classwork.html#cw1-2",
+    "title": "Classwork",
+    "section": "CW1:",
+    "text": "CW1:"
+  },
+  {
+    "objectID": "classwork.html#cw2",
+    "href": "classwork.html#cw2",
+    "title": "Classwork",
+    "section": "CW2:",
+    "text": "CW2:"
+  },
+  {
+    "objectID": "classwork.html#cw3",
+    "href": "classwork.html#cw3",
+    "title": "Classwork",
+    "section": "CW3:",
+    "text": "CW3:"
+  },
+  {
+    "objectID": "classwork.html#cw4",
+    "href": "classwork.html#cw4",
+    "title": "Classwork",
+    "section": "CW4:",
+    "text": "CW4:"
+  },
+  {
+    "objectID": "classwork.html#cw5",
+    "href": "classwork.html#cw5",
+    "title": "Classwork",
+    "section": "CW5:",
+    "text": "CW5:"
+  },
+  {
+    "objectID": "classwork.html#cw6",
+    "href": "classwork.html#cw6",
+    "title": "Classwork",
+    "section": "CW6:",
+    "text": "CW6:"
+  },
+  {
+    "objectID": "classwork.html#cw7",
+    "href": "classwork.html#cw7",
+    "title": "Classwork",
+    "section": "CW7:",
+    "text": "CW7:"
+  },
+  {
+    "objectID": "classwork.html#cw8",
+    "href": "classwork.html#cw8",
+    "title": "Classwork",
+    "section": "CW8:",
+    "text": "CW8:"
+  },
+  {
+    "objectID": "classwork.html#cw9",
+    "href": "classwork.html#cw9",
+    "title": "Classwork",
+    "section": "CW9:",
+    "text": "CW9:"
+  },
+  {
+    "objectID": "classwork.html#cw10",
+    "href": "classwork.html#cw10",
+    "title": "Classwork",
+    "section": "CW10:",
+    "text": "CW10:"
+  },
+  {
+    "objectID": "classwork.html#cw11",
+    "href": "classwork.html#cw11",
+    "title": "Classwork",
+    "section": "CW11:",
+    "text": "CW11:"
+  },
+  {
+    "objectID": "classwork.html#cw12",
+    "href": "classwork.html#cw12",
+    "title": "Classwork",
+    "section": "CW12:",
+    "text": "CW12:"
+  },
+  {
+    "objectID": "classwork.html#cw13",
+    "href": "classwork.html#cw13",
+    "title": "Classwork",
+    "section": "CW13:",
+    "text": "CW13:"
+  },
+  {
+    "objectID": "classwork.html#cw14",
+    "href": "classwork.html#cw14",
+    "title": "Classwork",
+    "section": "CW14:",
+    "text": "CW14:"
+  },
+  {
+    "objectID": "classwork.html#cw15",
+    "href": "classwork.html#cw15",
+    "title": "Classwork",
+    "section": "CW15:",
+    "text": "CW15:"
+  },
+  {
+    "objectID": "classwork.html#cw16",
+    "href": "classwork.html#cw16",
+    "title": "Classwork",
+    "section": "CW16:",
+    "text": "CW16:"
+  },
+  {
+    "objectID": "classwork.html#cw17",
+    "href": "classwork.html#cw17",
+    "title": "Classwork",
+    "section": "CW17:",
+    "text": "CW17:"
+  },
+  {
+    "objectID": "classwork.html#cw2-lm-and-qplot-r",
+    "href": "classwork.html#cw2-lm-and-qplot-r",
+    "title": "Classwork",
+    "section": "CW2: lm and qplot (R)",
+    "text": "CW2: lm and qplot (R)"
+  },
+  {
+    "objectID": "classwork.html#cw3-dplyr-murder-mystery-r",
+    "href": "classwork.html#cw3-dplyr-murder-mystery-r",
+    "title": "Classwork",
+    "section": "CW3: dplyr murder mystery (R)",
+    "text": "CW3: dplyr murder mystery (R)"
+  },
+  {
+    "objectID": "classwork.html#cw4-hypothesis-testing-analytical",
+    "href": "classwork.html#cw4-hypothesis-testing-analytical",
+    "title": "Classwork",
+    "section": "CW4: hypothesis testing (analytical)",
+    "text": "CW4: hypothesis testing (analytical)"
+  },
+  {
+    "objectID": "classwork.html#cw5-causal-inference-analytical",
+    "href": "classwork.html#cw5-causal-inference-analytical",
+    "title": "Classwork",
+    "section": "CW5: causal inference (analytical)",
+    "text": "CW5: causal inference (analytical)"
+  },
+  {
+    "objectID": "classwork.html#cw6-causal-inference-r",
+    "href": "classwork.html#cw6-causal-inference-r",
+    "title": "Classwork",
+    "section": "CW6: causal inference (R)",
+    "text": "CW6: causal inference (R)"
+  },
+  {
+    "objectID": "classwork.html#cw7-consistency-analytical",
+    "href": "classwork.html#cw7-consistency-analytical",
+    "title": "Classwork",
+    "section": "CW7: consistency (analytical)",
+    "text": "CW7: consistency (analytical)"
+  },
+  {
+    "objectID": "classwork.html#cw8-heteroskedasticity-analytical",
+    "href": "classwork.html#cw8-heteroskedasticity-analytical",
+    "title": "Classwork",
+    "section": "CW8: heteroskedasticity (analytical)",
+    "text": "CW8: heteroskedasticity (analytical)"
+  },
+  {
+    "objectID": "classwork.html#cw9-heteroskedasticity-r",
+    "href": "classwork.html#cw9-heteroskedasticity-r",
+    "title": "Classwork",
+    "section": "CW9: heteroskedasticity (R)",
+    "text": "CW9: heteroskedasticity (R)"
+  },
+  {
+    "objectID": "classwork.html#cw10-simulation-r",
+    "href": "classwork.html#cw10-simulation-r",
+    "title": "Classwork",
+    "section": "CW10: simulation (R)",
+    "text": "CW10: simulation (R)"
+  },
+  {
+    "objectID": "classwork.html#cw11-dynamics-analytical",
+    "href": "classwork.html#cw11-dynamics-analytical",
+    "title": "Classwork",
+    "section": "CW11: dynamics (analytical)",
+    "text": "CW11: dynamics (analytical)"
+  },
+  {
+    "objectID": "classwork.html#cw12-dynamics-r",
+    "href": "classwork.html#cw12-dynamics-r",
+    "title": "Classwork",
+    "section": "CW12: dynamics (R)",
+    "text": "CW12: dynamics (R)"
+  },
+  {
+    "objectID": "classwork.html#cw13-time-trends-analytical",
+    "href": "classwork.html#cw13-time-trends-analytical",
+    "title": "Classwork",
+    "section": "CW13: time trends (analytical)",
+    "text": "CW13: time trends (analytical)"
+  },
+  {
+    "objectID": "classwork.html#cw14-random-walks-half-analytical-half-r",
+    "href": "classwork.html#cw14-random-walks-half-analytical-half-r",
+    "title": "Classwork",
+    "section": "CW14: random walks (half analytical, half R)",
+    "text": "CW14: random walks (half analytical, half R)"
+  },
+  {
+    "objectID": "classwork.html#cw15-iv-analtyical",
+    "href": "classwork.html#cw15-iv-analtyical",
+    "title": "Classwork",
+    "section": "CW15: IV (analtyical)",
+    "text": "CW15: IV (analtyical)"
+  },
+  {
+    "objectID": "classwork.html#cw16-iv-r",
+    "href": "classwork.html#cw16-iv-r",
+    "title": "Classwork",
+    "section": "CW16: IV (R)",
+    "text": "CW16: IV (R)"
+  },
+  {
+    "objectID": "classwork.html#cw17-diff-in-diff-anayltical",
+    "href": "classwork.html#cw17-diff-in-diff-anayltical",
+    "title": "Classwork",
+    "section": "CW17: Diff-in-diff (anayltical)",
+    "text": "CW17: Diff-in-diff (anayltical)"
+  }
+]
