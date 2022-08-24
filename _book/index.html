@@ -179,32 +179,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./heteroskedasticity.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Heteroskedasticity</span></a>
+  <a href="./specification.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Model Specification</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./time_series.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Time Series</span></a>
+  <a href="./heteroskedasticity.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Heteroskedasticity</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./stationarity.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Stationarity</span></a>
+  <a href="./time_series.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Time Series</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./instrumental_vars.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Instrumental Variables</span></a>
+  <a href="./stationarity.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Stationarity</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./diff_in_diff.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Differences-in-differences</span></a>
+  <a href="./instrumental_vars.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Instrumental Variables</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./diff_in_diff.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Differences-in-differences</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./classwork.html" class="sidebar-item-text sidebar-link">Classwork</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./koans.html" class="sidebar-item-text sidebar-link">Koans</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./math.html" class="sidebar-item-text sidebar-link">Math Rules and Formulas</a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -221,7 +236,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a></li>
+  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a>
+  <ul class="collapse">
+  <li><a href="#r" id="toc-r" class="nav-link" data-scroll-target="#r">R</a></li>
+  <li><a href="#econometrics-topics" id="toc-econometrics-topics" class="nav-link" data-scroll-target="#econometrics-topics">Econometrics topics</a></li>
+  </ul></li>
   <li><a href="#course-schedule" id="toc-course-schedule" class="nav-link" data-scroll-target="#course-schedule">Course Schedule</a></li>
   <li><a href="#programming-philosophy" id="toc-programming-philosophy" class="nav-link" data-scroll-target="#programming-philosophy">Programming Philosophy</a>
   <ul class="collapse">
@@ -278,8 +297,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="preface" class="level1 unnumbered">
 <h1 class="unnumbered">Preface</h1>
-<p>This book is the companion text to EC 421, Econometrics Part 2, taught by Colleen O’Briant. In this course, we’ll build on the foundation laid in EC 320 (Econometrics Part 1) and MATH 243 (Probability and Statistics). We’ll cover a range of econometric tools and techniques that can be used for data analysis with cross-sectional, time series, and panel data. We’ll also spend some time on causal inference.</p>
+<p>This book is the companion text to the flipped class EC 421, Econometrics Part 2, taught by Colleen O’Briant in Fall 2022.</p>
+<section id="r" class="level2">
+<h2 class="anchored" data-anchor-id="r">R</h2>
 <p>The course will teach you how to write programs in R to solve your problems, with a focus on clarity and readability. You will learn to program in a functional, declarative style, and to think about using layers of abstraction to develop simple solutions to complicated problems.</p>
+</section>
+<section id="econometrics-topics" class="level2">
+<h2 class="anchored" data-anchor-id="econometrics-topics">Econometrics topics</h2>
+<p>This workbook will cover a variety of topics in econometrics that will allow readers to better understand and critically analyze applied research in economics, including:</p>
+<ul>
+<li>The basics of deriving the least-squares estimators for a simple regression (Chapter 1)</li>
+<li>How the crucial assumption of exogeneity affects the estimators (Chapter 2)</li>
+<li>How exogeneity allows estimators to have a causal interpretation (Chapter 3)</li>
+<li>The property of consistency and how it can be used to sign the bias of estimators suffering from omitted variable bias (Chapter 4)</li>
+<li>Different model specifications and their interpretations (Chapter 5)</li>
+<li>Heteroskedasticity and how it can be caused by a misspecified model (Chapter 6)</li>
+<li>Topics in Time series models (Chapters 7 and 8)</li>
+<li>Strategies for causal inference when exogeneity cannot be assumed, including instrumental variables and the differences-in-differences estimator (Chapters 9 and 10)</li>
+</ul>
+</section>
 </section>
 <section id="course-schedule" class="level1">
 <h1>Course Schedule</h1>

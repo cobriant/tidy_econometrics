@@ -1,3 +1,9 @@
 # Instrumental Variables
 
  🚧 This page is coming soon! 🚧
+
+## Exercises
+
+Classwork 15: IV part 1
+
+Classwork 16: IV part 2

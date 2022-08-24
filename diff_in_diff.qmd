@@ -1,3 +1,7 @@
 # Differences-in-differences
 
  🚧 This page is coming soon! 🚧
+
+## Exercises
+
+Classwork 17: diff-in-diff

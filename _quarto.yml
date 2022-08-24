@@ -12,12 +12,15 @@ book:
     - exogeneity.qmd
     - causal_inference.qmd
     - consistency.qmd
+    - specification.qmd
     - heteroskedasticity.qmd
     - time_series.qmd
     - stationarity.qmd
     - instrumental_vars.qmd
     - diff_in_diff.qmd
     - classwork.qmd
+    - koans.qmd
+    - math.qmd
     - references.qmd
 
 bibliography: references.bib

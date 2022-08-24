@@ -1,10 +1,18 @@
 # Least Squares
 
-## Deriving $\hat{\beta_0}$ and $\hat{\beta_1}$
+## Deriving OLS Estimators $\hat{\beta_0}$ and $\hat{\beta_1}$
 
 In this chapter, we'll be recalling what the method of least squares is and how it works. We'll be starting from scratch, so if EC 320 is not top of mind, don't worry!
 
-I'll refer to $\hat{\beta_0}$ and $\hat{\beta_1}$ as the **estimates** for the true parameters of a simple linear model: $$y_i = \beta_0 + \beta_1 x_i + u_i$$ The hats on $\hat{\beta_0}$ and $\hat{\beta_1}$ just mean they are estimates. $\beta_0$ is the true value of the intercept: if x takes on a 0, this is the expected value for y to take on. So $E[y | x = 0] = \beta_0$, which is pronounced "the expectation of y **given** x takes 0 is $\beta_0$". And $\beta_1$ is the true effect of x on y: if x increases by one unit, $\beta_1$ is the amount by which y is expected to increase. So $E[y | x = \alpha + 1] - E[y | x = \alpha] = \beta_1$ for any $\alpha$.
+Suppose education (x) has a linear effect on wage (y). If someone has zero years of education, they will earn $5 per hour on average, and every extra year of education a person has results in an extra 50 cents added to their wage. Then a linear model would be the correct specification:
+
+$$wage_i = \beta_0 + \beta_1 education_i + u_i$$
+
+Where $\beta_0 = 5$ and $\beta_1 = 0.50$.
+
+When we take some data on the education and earnings of a bunch of people, we could use OLS to *estimate* $\beta_0$ and $\beta_1$. I'll put hats on the betas to indicate they are estimates: $\hat{\beta_0}$ and $\hat{\beta_1}$ are our estimates of the true parameters $\beta_0$ and $\beta_1$. We might get $\hat{\beta_0} = 4$ and $\hat{\beta_1} = 0.75$ instead of the true values of the parameters $\beta_0 = 5$ and $\beta_1 = 0.50$.
+
+$\beta_0$ is the true value of the intercept: if x takes on a 0, this is the expected value for y to take on. In mathematical terms, this is a conditional expectation: $E[y | x = 0] = \beta_0$, which is pronounced "the expectation of y **given** x takes 0 is $\beta_0$". And $\beta_1$ is the true effect of x on y: if x increases by one unit, $\beta_1$ is the amount by which y is expected to increase. In mathematical terms: $E[y | x = \alpha + 1] - E[y | x = \alpha] = \beta_1$ for any $\alpha$.
 
 > 1: Introduction to OLS
 
@@ -48,6 +56,8 @@ $$\hat{\beta_1} = \frac{\sum_i x_i y_i - \bar{x}\bar{y}n}{\sum_i x_i^2 - \bar{x}
 
 <iframe src="https://uoregon.hosted.panopto.com/Panopto/Pages/Embed.aspx?id=710208aa-b2e3-42ad-8a5a-aec0010e7ac2&autoplay=false&offerviewer=true&showtitle=true&showbrand=true&captions=false&start=0&interactivity=all" height="405" width="720" style="border: 1px solid #464646;" allowfullscreen allow="autoplay"></iframe>
 
+[Reference these summation rules in the future here.](math.html#summation-rules)
+
 > 7: Taking first order conditions
 
 <iframe src="https://uoregon.hosted.panopto.com/Panopto/Pages/Embed.aspx?id=6c304212-039b-48eb-9b07-aef2014ad04d&autoplay=false&offerviewer=true&showtitle=true&showbrand=true&captions=false&start=0&interactivity=all" height="405" width="720" style="border: 1px solid #464646;" allowfullscreen allow="autoplay"></iframe>
@@ -80,8 +90,15 @@ $$\hat{\beta_1} = \frac{\sum_i x_i y_i - \bar{x}\bar{y}n}{\sum_i x_i^2 - \bar{x}
 
 [Koans 1-3: Vectors, Tibbles, and Pipes](/#install-the-tidyverse-koans)
 
+[Classwork 2: lm and qplot](classwork.html#cw2-lm-and-qplot-r)
+
+Koans 4-7: dplyr
+
+[Classwork 3: dplyr murder mystery](classwork.html#cw3-dplyr-murder-mystery-r)
+
 ## References
 
-Dougherty, C. 2016. Introduction to Econometrics, Chapter 1: Simple Regression Analysis. Oxford University Press.
+@dougherty2016 Chapter 1: Simple Regression Analysis
 
-Lim, Milton, COVID-19 Mortality Working Group, Mike Callan, Actuaries Institute, James Pyne, Chris Dolman, Kitty Chan, and John Connor. 2021. “Gauss, Least Squares, and the Missing Planet.” Actuaries Digital. https://www.actuaries.digital/2021/03/31/gauss-least-squares-and-the-missing-planet/#:~:text=The%20early%20history%20of%20statistics,subject%20to%20random%20measurement%20errors.
+@least_squares_web
+
