@@ -95,140 +95,217 @@
     "href": "least_squares.html",
     "title": "1  Least Squares",
     "section": "",
-    "text": "In this chapter, we’ll be recalling what the method of least squares is and how it works. We’ll be starting from scratch, so if EC 320 is not top of mind, don’t worry!\nSuppose education (x) has a linear effect on wage (y). If someone has zero years of education, they will earn $5 per hour on average, and every extra year of education a person has results in an extra 50 cents added to their wage. Then a linear model would be the correct specification:\n\\[wage_i = \\beta_0 + \\beta_1 education_i + u_i\\]\nWhere \\(\\beta_0 = 5\\) and \\(\\beta_1 = 0.50\\).\nWhen we take some data on the education and earnings of a bunch of people, we could use OLS to estimate \\(\\beta_0\\) and \\(\\beta_1\\). I’ll put hats on the betas to indicate they are estimates: \\(\\hat{\\beta_0}\\) and \\(\\hat{\\beta_1}\\) are our estimates of the true parameters \\(\\beta_0\\) and \\(\\beta_1\\). We might get \\(\\hat{\\beta_0} = 4\\) and \\(\\hat{\\beta_1} = 0.75\\) instead of the true values of the parameters \\(\\beta_0 = 5\\) and \\(\\beta_1 = 0.50\\).\n\\(\\beta_0\\) is the true value of the intercept: if x takes on a 0, this is the expected value for y to take on. In mathematical terms, this is a conditional expectation: \\(E[y | x = 0] = \\beta_0\\), which is pronounced “the expectation of y given x takes 0 is \\(\\beta_0\\)”. And \\(\\beta_1\\) is the true effect of x on y: if x increases by one unit, \\(\\beta_1\\) is the amount by which y is expected to increase. In mathematical terms: \\(E[y | x = \\alpha + 1] - E[y | x = \\alpha] = \\beta_1\\) for any \\(\\alpha\\).\n\n1: Introduction to OLS\n\n\n\n\n2: OLS is a method to combine observations\n\n\n\nThe method of least squares was first published by Frenchman Adrien Marie Legendre in 1805, but there is controversy about whether he was the first inventor or it was the German mathematician and physicist Carl Friedrich Gauss. The method of least squares founded the study of statistics, which was then called “the combination of observations,” because that’s what least squares helps you do: combine observations to understand a true underlying process. Least squares helped to solve two huge scientific problems in the beginning of the 1800s:\n\nThere’s a field of science called Geodesy that was, at the time, concerned with measuring the circumference of the globe. They had measurements of distances between cities and angles of the stars at each of the cities, done by different observers through different procedures. But until least squares, they had no way to combine those observations.\nCeres (the largest object in the asteroid belt between Mars and Jupiter) was discovered. “Speculation about extra-terrestrial life on other planets was open to debate, and the potential new discovery of such a close neighbour to Earth was the buzz of the scientific community,” Lim et al. (2021). Astronomers wanted to figure out the position and orbit of Ceres, but couldn’t extrapolate that with only a few noisy observations. Until least squares came along.\n\nThe method of least squares quickly became the dominant way to solve this statistical problem and remains dominant today.\nOne reason the method of least squares is so popular is that it’s so simple: the entire procedure can be summed up in one statement: the method of least squares fits a linear model that minimizes the sum of the squared residuals.\nIn the next few videos, we’ll see that for a simple regression, we can take that statement of the method of least squares and derive:\n\\[\\hat{\\beta_0} = \\bar{y} - \\beta_1 \\bar{x}\\]\n\\[\\hat{\\beta_1} = \\frac{\\sum_i x_i y_i - \\bar{x}\\bar{y}n}{\\sum_i x_i^2 - \\bar{x}^2 n}\\]\n\n3: Residuals are vertical distances: \\(e_i = y_i - \\hat{y_i}\\)\n\n\n\n\n4: OLS as \\(\\displaystyle\\min_{\\hat{\\beta_0}, \\hat{\\beta_1}} \\sum_i e_i^2 = \\min_{\\hat{\\beta_0}, \\hat{\\beta_1}} \\sum_i (y_i - \\hat{\\beta_0} - \\hat{\\beta_1} x_i)^2\\)\n\n\n\n\n5: \\(e_i^2 = y_i^2 - 2 \\hat{\\beta_0} y_i - 2 \\hat{\\beta_1} x_i y_i + 2 \\hat{\\beta_0} \\hat{\\beta_1} x_i + \\hat{\\beta_0}^2 + \\hat{\\beta_1}^2 x_i^2\\)\n\n\n\n\n6: Some summation rules\n\n\n\nReference these summation rules in the future here.\n\n7: Taking first order conditions\n\n\n\n\n8: Simplifying the FOC for \\(\\hat{\\beta_0}\\)\n\n\n\n\n9: Simplifying the FOC for \\(\\hat{\\beta_1}\\)"
+    "text": "In this chapter, we’ll be recalling what the method of least squares is and how it works. We’ll be starting from scratch, so if EC 320 is not top of mind, don’t worry!\nIn section 1.2, I’ll introduce the method of least squares as the method to combine observations in order to make a guess about a linear relationship. In section 1.3, I’ll derive OLS estimators from scratch by using the definition of the method of least squares. Finally in section 1.4, I’ll do a numerical example where you’ll find \\(\\hat{\\beta_0}\\) and \\(\\hat{\\beta_1}\\) with 3 observations.\n\n\n\n\n\n\n\n\n\n\nSymbol\nMeaning\nExample\n\n\n\n\n\\(\\beta_0\\)\nIntercept parameter in a linear model\n\\(y_i = \\beta_0 + \\beta_1 x_i + u_i\\)\n\n\n\\(\\beta_1\\)\nSlope parameter in a linear model\nsee above\n\n\n\\(y_i\\)\ndependent variable, outcome variable\nsee above\n\n\n\\(x_i\\)\nexplanatory variable\nsee above\n\n\n\\(u_i\\)\nunobservable term, disturbance, shock\nsee above\n\n\n\\(\\hat{\\beta}_0\\)\nEstimate of the intercept\n\\(y_i = \\hat{\\beta}_0 + \\hat{\\beta}_1 x_i + e_i\\)\n\n\n\\(\\hat{\\beta}_1\\)\nEstimate of the slope\nsee above\n\n\n\\(\\hat{y}_i\\)\nFitted value, prediction\n\\(\\hat{y}_i = \\hat{\\beta_0} + \\hat{\\beta_1} x_i\\)\n\n\n\\(e_i\\)\nresidual\n\\(\\hat{y}_i - y_i\\)"
+  },
+  {
+    "objectID": "least_squares.html#least-squares-as-the-combination-of-observations",
+    "href": "least_squares.html#least-squares-as-the-combination-of-observations",
+    "title": "1  Least Squares",
+    "section": "1.2 Least Squares as the Combination of Observations",
+    "text": "1.2 Least Squares as the Combination of Observations\nSuppose education (x) has a linear effect on wage (y). If someone has zero years of education, they will earn $5 per hour on average, and every extra year of education a person has results in an extra 50 cents added to their wage. Then a linear model would be the correct specification:\n\\[wage_i = \\beta_0 + \\beta_1 education_i + u_i\\]\nWhere \\(\\beta_0 = 5\\) and \\(\\beta_1 = 0.50\\).\nWhen we take some data on the education and earnings of a bunch of people, we could use OLS to estimate \\(\\beta_0\\) and \\(\\beta_1\\). I’ll put hats on the betas to indicate they are estimates: \\(\\hat{\\beta_0}\\) and \\(\\hat{\\beta_1}\\) are our estimates of the true parameters \\(\\beta_0\\) and \\(\\beta_1\\). We might get \\(\\hat{\\beta_0} = 4\\) and \\(\\hat{\\beta_1} = 0.75\\) instead of the true values of the parameters \\(\\beta_0 = 5\\) and \\(\\beta_1 = 0.50\\).\n\\(\\beta_0\\) is the true value of the intercept: if x takes on a 0, this is the expected value for y to take on. In mathematical terms, this is a conditional expectation: \\(E[y | x = 0] = \\beta_0\\), which is pronounced “the expectation of y given x takes 0 is \\(\\beta_0\\)”. And \\(\\beta_1\\) is the true effect of x on y: if x increases by one unit, \\(\\beta_1\\) is the amount by which y is expected to increase. In mathematical terms: \\(E[y | x = \\alpha + 1] - E[y | x = \\alpha] = \\beta_1\\) for any \\(\\alpha\\).\n\n\n\n\nThe method of least squares was first published by Frenchman Adrien Marie Legendre in 1805, but there is controversy about whether he was the first inventor or it was the German mathematician and physicist Carl Friedrich Gauss. The method of least squares founded the study of statistics, which was then called “the combination of observations,” because that’s what least squares helps you do: combine observations to understand a true underlying process. Least squares helped to solve two huge scientific problems in the beginning of the 1800s:\n\nThere’s a field of science called Geodesy that was, at the time, concerned with measuring the circumference of the globe. They had measurements of distances between cities and angles of the stars at each of the cities, done by different observers through different procedures. But until least squares, they had no way to combine those observations.\nCeres (the largest object in the asteroid belt between Mars and Jupiter) was discovered. “Speculation about extra-terrestrial life on other planets was open to debate, and the potential new discovery of such a close neighbour to Earth was the buzz of the scientific community,” Lim et al. (2021). Astronomers wanted to figure out the position and orbit of Ceres, but couldn’t extrapolate that with only a few noisy observations. Until least squares came along.\n\nThe method of least squares quickly became the dominant way to solve this statistical problem and remains dominant today.\nOne reason the method of least squares is so popular is that it’s so simple and mathematically tractable: the entire procedure can be summed up in one statement: the method of least squares fits a linear model that minimizes the sum of the squared residuals.\nIn the next few videos, we’ll see that for a simple regression, we can take that statement of the method of least squares and derive:\n\\[\\hat{\\beta_0} = \\bar{y} - \\beta_1 \\bar{x}\\]\n\\[\\hat{\\beta_1} = \\frac{\\sum_i x_i y_i - \\bar{x}\\bar{y}n}{\\sum_i x_i^2 - \\bar{x}^2 n}\\]"
+  },
+  {
+    "objectID": "least_squares.html#deriving-ols-estimators-hatbeta_0-and-hatbeta_1",
+    "href": "least_squares.html#deriving-ols-estimators-hatbeta_0-and-hatbeta_1",
+    "title": "1  Least Squares",
+    "section": "1.3 Deriving OLS Estimators \\(\\hat{\\beta_0}\\) and \\(\\hat{\\beta_1}\\)",
+    "text": "1.3 Deriving OLS Estimators \\(\\hat{\\beta_0}\\) and \\(\\hat{\\beta_1}\\)\n\n3: Residuals are vertical distances: \\(e_i = y_i - \\hat{y_i}\\)\n\n\n\n\n4: OLS as \\(\\displaystyle\\min_{\\hat{\\beta_0}, \\hat{\\beta_1}} \\sum_i e_i^2 = \\min_{\\hat{\\beta_0}, \\hat{\\beta_1}} \\sum_i (y_i - \\hat{\\beta_0} - \\hat{\\beta_1} x_i)^2\\)\n\n\n\n\n5: \\(e_i^2 = y_i^2 - 2 \\hat{\\beta_0} y_i - 2 \\hat{\\beta_1} x_i y_i + 2 \\hat{\\beta_0} \\hat{\\beta_1} x_i + \\hat{\\beta_0}^2 + \\hat{\\beta_1}^2 x_i^2\\)\n\n\n\n\n6: Some summation rules\n\n\n\nReference these summation rules in the future here.\n\n7: Taking first order conditions\n\n\n\n\n8: Simplifying the FOC for \\(\\hat{\\beta_0}\\)\n\n\n\n\n9: Simplifying the FOC for \\(\\hat{\\beta_1}\\)"
   },
   {
     "objectID": "least_squares.html#numerical-example",
     "href": "least_squares.html#numerical-example",
     "title": "1  Least Squares",
-    "section": "1.2 Numerical Example",
-    "text": "1.2 Numerical Example\n\n10: Calculate \\(\\hat{\\beta_0}\\) and \\(\\hat{\\beta_1}\\) for a 3 observation example\n\n\n\n\n11: Calculate fitted values \\(\\hat{y_i}\\) and residuals \\(e_i\\) for a 3 observation example\n\n\n\n\n12: \\(u_i\\) versus \\(e_i\\)"
+    "section": "1.4 Numerical Example",
+    "text": "1.4 Numerical Example\n\n10: Calculate \\(\\hat{\\beta_0}\\) and \\(\\hat{\\beta_1}\\) for a 3 observation example\n\n\n\n\n11: Calculate fitted values \\(\\hat{y_i}\\) and residuals \\(e_i\\) for a 3 observation example\n\n\n\n\n12: \\(u_i\\) versus \\(e_i\\)"
   },
   {
     "objectID": "least_squares.html#exercises",
     "href": "least_squares.html#exercises",
     "title": "1  Least Squares",
-    "section": "1.3 Exercises",
-    "text": "1.3 Exercises\nClasswork 1: Deriving OLS Estimators\nKoans 1-3: Vectors, Tibbles, and Pipes\nClasswork 2: lm and qplot\nKoans 4-7: dplyr\nClasswork 3: dplyr murder mystery"
+    "section": "1.5 Exercises",
+    "text": "1.5 Exercises\nClasswork 1: Deriving OLS Estimators\nKoans 1-3: Vectors, Tibbles, and Pipes\nClasswork 2: lm and qplot\nKoans 4-7: dplyr\nClasswork 3: dplyr murder mystery"
   },
   {
     "objectID": "least_squares.html#references",
     "href": "least_squares.html#references",
     "title": "1  Least Squares",
-    "section": "1.4 References",
-    "text": "1.4 References\nDougherty (2016) Chapter 1: Simple Regression Analysis\nLim et al. (2021)\n\n\n\n\nDougherty, C. 2016. Introduction to Econometrics. Oxford University Press. https://books.google.com/books?id=Q5cMEAAAQBAJ.\n\n\nLim, Milton, COVID-19 Mortality Working Group, Mike Callan, Actuaries Institute, James Pyne, Chris Dolman, Kitty Chan, and John Connor. 2021. “Gauss, Least Squares, and the Missing Planet.” Actuaries Digital. https://www.actuaries.digital/2021/03/31/gauss-least-squares-and-the-missing-planet/#:~:text=The%20early%20history%20of%20statistics,subject%20to%20random%20measurement%20errors."
+    "section": "1.6 References",
+    "text": "1.6 References\nDougherty (2016) Chapter 1: Simple Regression Analysis\nLim et al. (2021)\n\n\n\n\nDougherty, C. 2016. Introduction to Econometrics. Oxford University Press. https://books.google.com/books?id=Q5cMEAAAQBAJ.\n\n\nLim, Milton, COVID-19 Mortality Working Group, Mike Callan, Actuaries Institute, James Pyne, Chris Dolman, Kitty Chan, and John Connor. 2021. “Gauss, Least Squares, and the Missing Planet.” Actuaries Digital. https://www.actuaries.digital/2021/03/31/gauss-least-squares-and-the-missing-planet/#:~:text=The%20early%20history%20of%20statistics,subject%20to%20random%20measurement%20errors."
   },
   {
     "objectID": "exogeneity.html",
     "href": "exogeneity.html",
     "title": "2  Exogeneity",
     "section": "",
-    "text": "We’ll pick up where we left off from chapter 1 with a formula for \\(\\hat{\\beta_1}\\) from a simple regression \\(y_i = \\beta_0 + \\beta_1 x_i + u_i\\):\n\\[\\hat{\\beta_1} = \\frac{\\sum_i (x_i y_i) - n \\bar{x}\\bar{y}}{\\sum_i (x_i^2) - n \\bar{x}^2}\\]"
+    "text": "What to expect in this chapter:\n\nWe’ll build more intuition about what OLS does in sections 2.2 and 2.3. In 2.2, we’ll see that \\(\\hat{\\beta_1}\\) is just the sample covariance of x and y divided by the sample variance of x. In 2.3 we’ll see that \\(\\hat{\\beta_1}\\) is also a weighted sum of the \\(y_i\\)’s, where observations far from \\(\\bar{x}\\) have the largest weights.\nIn sections 2.4-2.7, we’ll discuss the key assumption for estimates \\(\\hat{\\beta}\\) to be unbiased (the assumption is called “exogeneity”).\nOLS standard error derivation in section 2.8.\n\n\nDefinition. Exogeneity - the assumption that \\(E[u_i | X] = 0\\), where \\(u_i\\) is the unobserved term and \\(X\\) is all the explanatory variables in all observations. Exogeneity is not as strong an assumption as independence, but it’s stronger than zero covariance. The intuition is that when exogeneity holds, \\(u\\) is as good as random, conditioned on observables \\(X\\).\n\n\nDefinition. Standard Error - our estimate of the standard deviation of \\(\\hat{\\beta}\\). Under exogeneity, homoskedasticity, and no autocorrelation, the standard error for the slope parameter of a simple regression is: \\(se(\\hat{\\beta_1}) = \\sqrt{\\frac{\\sum_i e_i^2}{(n - 2) \\sum_i (x_i - \\bar{x})^2}}\\)."
   },
   {
     "objectID": "exogeneity.html#classwork-1-1",
     "href": "exogeneity.html#classwork-1-1",
     "title": "2  Exogeneity",
-    "section": "2.1 Classwork 1 #1",
-    "text": "2.1 Classwork 1 #1\nIn classwork 1, I asked you to take the formula above and show that:\n\\[\\hat{\\beta_1} = \\frac{\\sum_i (x_i - \\bar{x}) (y_i - \\bar{y}) }{\\sum_i (x_i - \\bar{x})^2}\\]\nWhy did we do that? What insight about OLS does this give us?\nRecall that the sample variance (I’ll invent some notation and use \\(sVar\\)) of the variable x is: \\(sVar(x_i) = \\frac{\\sum_i (x_i - \\bar{x})^2}{n - 1}\\). And the sample covariance of x and y is \\(sCov(x_i, y_i) = \\frac{\\sum_i (x_i - \\bar{x})(y_i - \\bar{y})}{n - 1}\\).\nSo you can see that: \\[\\hat{\\beta_1} = \\frac{sCov(x_i, y_i)}{sVar(x_i)}\\]\nA couple of interesting things to point out about this formula:\n\nIf x and y don’t covary (their sample covariance is 0), then we’d estimate the slope of the linear model to be 0.\nIf they covary negatively (when x is large, y is small and when x is small, y is large), then we’d estimate the slope of the linear model to be negative because the denominator is positive (variances are always positive). And if they covary positively, we’d estimate the slope of the lienar model to be positive.\nThe larger in magnitude the covariance of x and y is compared to the variance of x, the steeper the line of best fit is."
+    "section": "2.2 Classwork 1 #1",
+    "text": "2.2 Classwork 1 #1\nWe’ll pick up where we left off from chapter 1 with a formula for \\(\\hat{\\beta_1}\\) from a simple regression \\(y_i = \\beta_0 + \\beta_1 x_i + u_i\\):\n\\[\\hat{\\beta_1} = \\frac{\\sum_i (x_i y_i) - n \\bar{x}\\bar{y}}{\\sum_i (x_i^2) - n \\bar{x}^2}\\]\nIn classwork 1, I asked you to take the formula above and show that:\n\\[\\hat{\\beta_1} = \\frac{\\sum_i (x_i - \\bar{x}) (y_i - \\bar{y}) }{\\sum_i (x_i - \\bar{x})^2}\\]\nWhy did we do that? What insight about OLS does this give us?\nRecall that the sample variance (I’ll invent some notation and use \\(sVar\\)) of the variable x is: \\(sVar(x_i) = \\frac{\\sum_i (x_i - \\bar{x})^2}{n - 1}\\). And the sample covariance of x and y is \\(sCov(x_i, y_i) = \\frac{\\sum_i (x_i - \\bar{x})(y_i - \\bar{y})}{n - 1}\\).\nSo you can see that: \\[\\hat{\\beta_1} = \\frac{sCov(x_i, y_i)}{sVar(x_i)}\\]\nA couple of interesting things to point out about this formula:\n\nIf x and y don’t covary (that is, their sample covariance is 0), then we’d estimate the slope of the linear model to be 0 (see the drawing on the left in the image below).\nIf they covary negatively (when x is large, y is small and when x is small, y is large), then we’d estimate the slope of the linear model to be negative because the denominator is positive (variances are always positive). And if they covary positively, we’d estimate the slope of the lienar model to be positive. See the drawing in the middle in the image below.\nThe larger in magnitude the covariance of x and y is compared to the variance of x, the steeper the line of best fit is. See the drawing on the right in the image below."
   },
   {
     "objectID": "exogeneity.html#classwork-1-2",
     "href": "exogeneity.html#classwork-1-2",
     "title": "2  Exogeneity",
-    "section": "2.2 Classwork 1 #2",
-    "text": "2.2 Classwork 1 #2\nThe next thing we did in classwork 1 was to show:\n\\[\\hat{\\beta_1} = \\frac{\\sum_i (x_i - \\bar{x}) y_i}{\\sum_i (x_i - \\bar{x})^2}\\]\nWhat intuition does this formula give us?\n\n1: \\(\\hat{\\beta_1}\\) is a weighted sum of the yi’s\n\n\n\n\n2: Numerical Example: calculate \\(w_i\\)\n\n\n\n\n3: Numerical Example: calculate \\(\\hat{\\beta_1}\\)\n\n\n\n\n4: Numerical Example: calculate \\(\\hat{\\beta_1}\\) with some different values for \\(y_i\\)"
+    "section": "2.3 Classwork 1 #2",
+    "text": "2.3 Classwork 1 #2\nThe next thing we did in classwork 1 was to show:\n\\[\\hat{\\beta_1} = \\frac{\\sum_i (x_i - \\bar{x}) y_i}{\\sum_i (x_i - \\bar{x})^2}\\]\nWhat intuition does this formula give us?\n\n1: \\(\\hat{\\beta_1}\\) is a weighted sum of the yi’s\n\n\n\n\n2: Numerical Example: calculate \\(w_i\\)\n\n\n\n\n3: Numerical Example: calculate \\(\\hat{\\beta_1}\\)\n\n\n\n\n4: Numerical Example: calculate \\(\\hat{\\beta_1}\\) with some different values for \\(y_i\\)"
   },
   {
     "objectID": "exogeneity.html#classwork-1-3",
     "href": "exogeneity.html#classwork-1-3",
     "title": "2  Exogeneity",
-    "section": "2.3 Classwork 1 #3",
-    "text": "2.3 Classwork 1 #3\nFinally in question 3, I had you derive a final formula for \\(\\hat{\\beta_1}\\):\n\\[\\hat{\\beta_1} = \\beta_1 + \\frac{\\sum_i (x_i - \\bar{x}) u_i}{\\sum_i (x_i - \\bar{x})^2}\\]\nOr if we let \\(w_i = \\frac{x_i - \\bar{x}}{\\sum_i (x_i - \\bar{x})^2}\\), then\n\\[\\hat{\\beta_1} = \\beta_1 + \\sum_i w_i u_i\\]\nNote that the \\(\\hat{\\beta_1}\\) on the left hand side refers to the estimate and the \\(\\beta_1\\) on the right hand side refers to the true value of the effect of x on y. So this equation will give us some intuition about when the estimate may not be equal to the true value.\nIn particular, we’ll use this formula to show what assumptions are necessary for \\(\\hat{\\beta_1}\\) to be an unbiased estimator of \\(\\beta_1\\): that is, \\(E[\\hat{\\beta_1}] = \\beta_1\\). Taking the expectation of both sides of the equation above and recognizing that the true value of \\(\\beta_1\\) is a constant:\n\\[E[\\hat{\\beta_1}] = \\beta_1 + E[\\sum_i w_i u_i]\\]\nAnd since the expectation of a sum is the same as the sum of the expectations:\n\\[E[\\hat{\\beta_1}] = \\beta_1 + \\sum_i E[w_i u_i]\\]\nIn EC 320, you assumed that explanatory variables \\(x\\) were “predetermined”, “nonstochastic”, or “randomly assigned” like in a scientific experiment. For instance, \\(x_i\\) would take on 1 if the person was given the medication and \\(x_i\\) would take on 0 if the person was given a placebo. Then \\(u_i\\) absorbs the effect of any unobserved variable like “healthy habits”. Because \\(x_i\\) is randomized, we can assume x (medication or placebo) is independent of u (healthy habits). And since \\(w_i\\) is just a function of \\(x\\), then \\(w\\) would also be independent of \\(u\\). So by independence,\n\\[E[w_i u_i] = E[w_i] E[u_i]\\]\nAnd if we assume \\(E[u_i] = 0\\) (which is actually a freebie if our model contains an intercept because the intercept will absorb a nonzero expectation for u), then we get:\n\\[E[\\hat{\\beta_1}] = \\beta_1 + \\sum_i E[w_i] (0)\\]\nAnd \\(\\hat{\\beta_1}\\) is an unbiased estimator for \\(\\beta_1\\):\n\\[E[\\hat{\\beta_1}] = \\beta_1\\]\nBut we don’t actually need to make such a strong assumption: x doesn’t have to be randomly assigned for OLS to unbiased. A slightly weaker assumption is all that is required: that assumption is called exogeneity: \\(E[u_i | X] = 0\\). Exogeneity is that the conditional expectation of \\(u_i\\) given all the explanatory variables across all the observations is zero.\nBefore we do the proof of the unbiasedness of \\(\\hat{\\beta_1}\\) under exogeneity, let’s talk a little about conditional expectations."
+    "section": "2.4 Classwork 1 #3",
+    "text": "2.4 Classwork 1 #3\nFinally in question 3, I had you derive a final formula for \\(\\hat{\\beta_1}\\):\n\\[\\hat{\\beta_1} = \\beta_1 + \\frac{\\sum_i (x_i - \\bar{x}) u_i}{\\sum_i (x_i - \\bar{x})^2}\\]\nOr if we let \\(w_i = \\frac{x_i - \\bar{x}}{\\sum_i (x_i - \\bar{x})^2}\\), then\n\\[\\hat{\\beta_1} = \\beta_1 + \\sum_i w_i u_i\\]\nNote that the \\(\\hat{\\beta_1}\\) on the left hand side refers to the estimate and the \\(\\beta_1\\) on the right hand side refers to the true value of the effect of x on y. So this equation will give us some intuition about when the estimate may not be equal to the true value.\nIn particular, we’ll use this formula to show what assumptions are necessary for \\(\\hat{\\beta_1}\\) to be an unbiased estimator of \\(\\beta_1\\): that is, \\(E[\\hat{\\beta_1}] = \\beta_1\\). Taking the expectation of both sides of the equation above and recognizing that the true value of \\(\\beta_1\\) is a constant:\n\\[E[\\hat{\\beta_1}] = \\beta_1 + E[\\sum_i w_i u_i]\\]\nAnd since the expectation of a sum is the same as the sum of the expectations because \\(E[A + B] = E[A] + E[B]\\):\n\\[E[\\hat{\\beta_1}] = \\beta_1 + \\sum_i E[w_i u_i]\\]\nIn EC 320, you assumed that explanatory variables \\(x\\) were “predetermined”, “nonstochastic”, or “randomly assigned” like in a scientific experiment. For instance, \\(x_i\\) would take on 1 if the person was given the medication and \\(x_i\\) would take on 0 if the person was given a placebo. Then \\(u_i\\) absorbs the effect of any unobserved variable like “healthy habits”. Because \\(x_i\\) is randomized, we can assume x (medication or placebo) is independent of u (healthy habits). And since \\(w_i\\) is just a function of \\(x\\), then \\(w\\) would also be independent of \\(u\\). So by independence,\n\\[E[w_i u_i] = E[w_i] E[u_i]\\]\nAnd if we assume \\(E[u_i] = 0\\) (which is actually a freebie if our model contains an intercept because the intercept will absorb a nonzero expectation for u), then we get:\n\\[E[\\hat{\\beta_1}] = \\beta_1 + \\sum_i E[w_i] (0)\\]\nAnd \\(\\hat{\\beta_1}\\) is an unbiased estimator for \\(\\beta_1\\):\n\\[E[\\hat{\\beta_1}] = \\beta_1\\]\nBut we don’t actually need to make such a strong assumption: x doesn’t have to be randomly assigned for OLS to unbiased. A slightly weaker assumption is all that is required: that assumption is called exogeneity: \\(E[u_i | X] = 0\\). Exogeneity is that the conditional expectation of \\(u_i\\) given all the explanatory variables across all the observations is zero. The intuition is that when exogeneity holds, \\(u\\) is as good as random, conditioned on observables \\(X\\).\nBefore we do the proof of the unbiasedness of \\(\\hat{\\beta_1}\\) under exogeneity, let’s talk a little about conditional expectations."
   },
   {
     "objectID": "exogeneity.html#conditional-expectations",
     "href": "exogeneity.html#conditional-expectations",
     "title": "2  Exogeneity",
-    "section": "2.4 Conditional Expectations",
-    "text": "2.4 Conditional Expectations"
+    "section": "2.5 Conditional Expectations",
+    "text": "2.5 Conditional Expectations"
+  },
+  {
+    "objectID": "exogeneity.html#proof-of-the-unbiasedness-of-hatbeta_1-under-exogeneity",
+    "href": "exogeneity.html#proof-of-the-unbiasedness-of-hatbeta_1-under-exogeneity",
+    "title": "2  Exogeneity",
+    "section": "2.6 Proof of the unbiasedness of \\(\\hat{\\beta_1}\\) under exogeneity",
+    "text": "2.6 Proof of the unbiasedness of \\(\\hat{\\beta_1}\\) under exogeneity"
   },
   {
     "objectID": "exogeneity.html#exogeneity",
     "href": "exogeneity.html#exogeneity",
     "title": "2  Exogeneity",
-    "section": "2.6 Exogeneity",
-    "text": "2.6 Exogeneity\n\nEndogeneity of education in the education-wage model\n\n\n\n\n\n\nExogeneity of treatment in a randomized controlled trial"
+    "section": "2.7 Exogeneity",
+    "text": "2.7 Exogeneity\n\nEndogeneity of education in the education-wage model\n\n\n\n\n\n\nExogeneity of treatment in a randomized controlled trial"
   },
   {
     "objectID": "exogeneity.html#standard-errors",
     "href": "exogeneity.html#standard-errors",
     "title": "2  Exogeneity",
-    "section": "2.7 Standard Errors",
-    "text": "2.7 Standard Errors\nSo far, we’ve established that \\(\\hat{\\beta_1}\\) is a random variable where \\(E[\\hat{\\beta_1}] = \\beta_1\\) when we have exogeneity: \\(E[u_i | X] = 0\\). What else can we say about the distribution of \\(\\hat{\\beta_1}\\)?\n\n\\(\\hat{\\beta_1}\\) is distributed normally if \\(u_i\\) is distributed normally. Why? \\(\\hat{\\beta_1}\\) is a weighted sum of \\(u_i\\):\n\n\\[\\hat{\\beta_1} = \\beta_1 + \\sum_i w_i u_i\\]\nAnd according to the Central Limit Theorem, that makes \\(\\hat{\\beta_1}\\) be distributed normally.\n\nUnder exogeneity, homoskedasticity, and no autocorrelation, the standard error of \\(\\hat{\\beta_1}\\) (our approximation of the standard deviation of \\(\\hat{\\beta_1}\\)) is \\(\\sqrt{\\frac{\\sum_i e_i^2}{(n-2)\\sum_i (x_i - \\bar{x})^2}}\\). Here’s the proof of that:\n\n\\[\\hat{\\beta_1} = \\beta_1 + \\sum_i w_i u_i\\]\nTake the variance of both sides and recognize that \\(\\beta_1\\) is a constant that has zero variance:\n\\[Var(\\hat{\\beta_1}) = Var\\left(\\sum_i w_i u_i\\right)\\]\nRecall the definition of the variance of a random variable: \\(Var(Z) = E\\left[(Z - E[Z])^2\\right]\\).\n\\[Var(\\hat{\\beta_1}) = E\\left[(\\sum_i w_i u_i - E[\\sum_i w_i u_i])^2\\right]\\]\nBy exogeneity, we’ve already shown that \\(E\\left[\\sum_i w_i u_i\\right] = 0\\).\n\\[Var(\\hat{\\beta_1}) = E\\left[(\\sum_i w_i u_i)^2\\right]\\]\nWhich “foils” to be:\n\\[Var(\\hat{\\beta_1}) = E\\left[\\sum_i w_i^2 u_i^2 + 2 \\sum_i \\sum_j w_i w_j u_i u_j\\right]\\]\nAn expected value of a sum is the same as the sum of the expected values:\n\\[Var(\\hat{\\beta_1}) = \\sum_i E\\left[w_i^2 u_i^2\\right] + 2 \\sum_i \\sum_j E\\left[w_i w_j u_i u_j\\right]\\]\nWe’re stuck unless we consider the conditional expectations instead of the unconditional ones. If we can show that the conditional expectations are constants, then the unconditional expectations are the same constants:\n\\[\\sum_i E\\left[w_i^2 u_i^2 | X\\right] = \\sum_i w_i^2 E[u_i^2 | X]\\]\n\\[2 \\sum_i \\sum_j E\\left[w_i w_j u_i u_j | X\\right] = 2 \\sum_i \\sum_j w_i w_j E[u_i u_j | X]\\]\nNote: \\(Var(u_i | X) = E\\left[(u_i - E(u_i | X))^2 | X\\right]\\), and since we’re assuming exogeneity holds, \\(Var(u_i | X) = E[u_i^2 | X]\\). Here we make our next assumption called homoskedasticity: that \\(Var(u_i | X)\\) is a constant.\nThe same way, note that \\(Cov(u_i, u_j | X) = E\\left[(u_i - E[u_i | X])(u_j - E[u_j|X])|X\\right]\\), and with exogeneity, \\(Cov(u_i, u_j | X) = E[u_i u_j]\\). If we assume that \\(u_i\\) is not autocorrelated, we can assume \\(Cov(u_i, u_j | X) = 0\\). That will be our next big assumption.\nSo under these two assumptions of homoskedasticity and no autocorrelation,\n\\[Var(\\hat{\\beta_1}) = Var(u) \\sum_i w_i^2 + 0\\]\nSince \\(w_i = \\frac{x_i - \\bar{x}}{\\sum_i (x_i - \\bar{x})^2}\\), we have \\(\\sum_i w_i^2 = \\frac{1}{\\sum_i (x_i - \\bar{x})^2}\\).\n\\[Var(\\hat{\\beta_1}) = \\frac{Var(u)}{\\sum_i (x_i - \\bar{x})^2}\\]\nAnd the standard deviation of \\(\\hat{\\beta_1}\\) is the square root:\n\\[sd(\\hat{\\beta_1}) = \\sqrt{\\frac{Var(u)}{\\sum_i (x_i - \\bar{x})^2}}\\]\nThere’s just one last problem: \\(u\\) is unobservable, so we can’t calculate \\(Var(u)\\) or \\(sd(\\hat{\\beta_1})\\) directly. Instead, we estimate \\(sd(\\hat{\\beta_1})\\) using \\(sVar(e_i)\\) as an approximation for \\(Var(u)\\), and the estimation of the standard deviation of \\(\\hat{\\beta_1}\\) is what we call the standard error of \\(\\hat{\\beta_1}\\).\nThe sample variance of residuals \\(e_i\\) is \\(sVar(e_i) = \\frac{\\sum_i (e_i - \\bar{e})^2}{n-1}\\). Recall that \\(\\bar{e} = 0\\). To estimate \\(Var(u)\\) using \\(sVar(e_i)\\), we lose another degree of freedom and divide by \\(n-2\\) instead of \\(n-1\\). So \\(Var(u)\\) is estimated by \\(\\frac{\\sum_i e_i^2}{n - 2}\\). Thus:\n\\[se(\\hat{\\beta_1}) = \\sqrt{\\frac{\\sum_i e_i^2}{(n - 2) \\sum_i (x_i - \\bar{x})^2}}\\]"
+    "section": "2.8 Standard Errors",
+    "text": "2.8 Standard Errors\nSo far, we’ve established that \\(\\hat{\\beta_1}\\) is a random variable where \\(E[\\hat{\\beta_1}] = \\beta_1\\) when we have exogeneity: \\(E[u_i | X] = 0\\). What else can we say about the distribution of \\(\\hat{\\beta_1}\\)?\n\n\\(\\hat{\\beta_1}\\) is distributed normally if \\(u_i\\) is distributed normally. Why? \\(\\hat{\\beta_1}\\) is a weighted sum of \\(u_i\\):\n\n\\[\\hat{\\beta_1} = \\beta_1 + \\sum_i w_i u_i\\]\nAnd according to the Central Limit Theorem, that makes \\(\\hat{\\beta_1}\\) distributed normally.\n\nUnder exogeneity, homoskedasticity, and no autocorrelation, the standard error of \\(\\hat{\\beta_1}\\) (our approximation of the standard deviation of \\(\\hat{\\beta_1}\\)) is \\(\\sqrt{\\frac{\\sum_i e_i^2}{(n-2)\\sum_i (x_i - \\bar{x})^2}}\\). Here’s the proof of that:\n\n\\[\\hat{\\beta_1} = \\beta_1 + \\sum_i w_i u_i\\]\nTake the variance of both sides and recognize that \\(\\beta_1\\) is a constant that has zero variance:\n\\[Var(\\hat{\\beta_1}) = Var\\left(\\sum_i w_i u_i\\right)\\]\nRecall the definition of the variance of a random variable: \\(Var(Z) = E\\left[ \\left (Z - E[Z] \\right )^2 \\right]\\).\n\\[Var(\\hat{\\beta_1}) = E\\left[(\\sum_i w_i u_i - E[\\sum_i w_i u_i])^2\\right]\\]\nBy exogeneity, we’ve already shown that \\(E\\left[\\sum_i w_i u_i\\right] = 0\\).\n\\[Var(\\hat{\\beta_1}) = E\\left[(\\sum_i w_i u_i)^2\\right]\\]\nWhich “foils” to be:\n\\[Var(\\hat{\\beta_1}) = E\\left[\\sum_i w_i^2 u_i^2 + 2 \\sum_i \\sum_j w_i w_j u_i u_j\\right]\\]\nAn expected value of a sum is the same as the sum of the expected values:\n\\[Var(\\hat{\\beta_1}) = \\sum_i E\\left[w_i^2 u_i^2\\right] + 2 \\sum_i \\sum_j E\\left[w_i w_j u_i u_j\\right]\\]\nWe’re stuck unless we consider the conditional expectations instead of the unconditional ones. If we can show that the conditional expectations are constants, then the unconditional expectations are the same constants:\n\\[\\sum_i E\\left[w_i^2 u_i^2 | X\\right] = \\sum_i w_i^2 E[u_i^2 | X]\\]\n\\[2 \\sum_i \\sum_j E\\left[w_i w_j u_i u_j | X\\right] = 2 \\sum_i \\sum_j w_i w_j E[u_i u_j | X]\\]\nNote: \\(Var(u_i | X) = E\\left[(u_i - E(u_i | X))^2 | X\\right]\\), and since we’re assuming exogeneity holds, \\(Var(u_i | X) = E[u_i^2 | X]\\). Here we make our next assumption called homoskedasticity: that \\(Var(u_i | X)\\) is a constant.\nThe same way, note that \\(Cov(u_i, u_j | X) = E\\left[(u_i - E[u_i | X])(u_j - E[u_j|X])|X\\right]\\), and with exogeneity, \\(Cov(u_i, u_j | X) = E[u_i u_j]\\). If we assume that \\(u_i\\) is not autocorrelated, we can assume \\(Cov(u_i, u_j | X) = 0\\). That will be our next big assumption.\nSo under these two assumptions of homoskedasticity and no autocorrelation,\n\\[Var(\\hat{\\beta_1}) = Var(u) \\sum_i w_i^2 + 0\\]\nSince \\(w_i = \\frac{x_i - \\bar{x}}{\\sum_i (x_i - \\bar{x})^2}\\), we have \\(\\sum_i w_i^2 = \\frac{1}{\\sum_i (x_i - \\bar{x})^2}\\).\n\\[Var(\\hat{\\beta_1}) = \\frac{Var(u)}{\\sum_i (x_i - \\bar{x})^2}\\]\nAnd the standard deviation of \\(\\hat{\\beta_1}\\) is the square root:\n\\[sd(\\hat{\\beta_1}) = \\sqrt{\\frac{Var(u)}{\\sum_i (x_i - \\bar{x})^2}}\\]\nThere’s just one last problem: \\(u\\) is unobservable, so we can’t calculate \\(Var(u)\\) or \\(sd(\\hat{\\beta_1})\\) directly. Instead, we estimate \\(sd(\\hat{\\beta_1})\\) using \\(sVar(e_i)\\) as an approximation for \\(Var(u)\\), and the estimation of the standard deviation of \\(\\hat{\\beta_1}\\) is what we call the standard error of \\(\\hat{\\beta_1}\\).\nThe sample variance of residuals \\(e_i\\) is \\(sVar(e_i) = \\frac{\\sum_i (e_i - \\bar{e})^2}{n-1}\\). Recall that \\(\\bar{e} = 0\\). To estimate \\(Var(u)\\) using \\(sVar(e_i)\\), we lose another degree of freedom and divide by \\(n-2\\) instead of \\(n-1\\). So \\(Var(u)\\) is estimated by \\(\\frac{\\sum_i e_i^2}{n - 2}\\). Thus:\n\\[se(\\hat{\\beta_1}) = \\sqrt{\\frac{\\sum_i e_i^2}{(n - 2) \\sum_i (x_i - \\bar{x})^2}}\\]"
   },
   {
     "objectID": "exogeneity.html#summary",
     "href": "exogeneity.html#summary",
     "title": "2  Exogeneity",
-    "section": "2.8 Summary",
-    "text": "2.8 Summary\nIn this chapter we learned:\n\n\\(\\hat{\\beta_1} = \\frac{sCov(x_i, y_i)}{sVar(x_i)}\\)\n\\(\\hat{\\beta_1} = \\sum_i w_i y_i\\): observations far from \\(\\bar{x}\\) are the ones that determine the estimate of the effect of x on y.\n\\(\\hat{\\beta_1} = \\beta_1 + \\sum_i w_i u_i\\): exogeneity (\\(E[u_i | X] = 0\\)) is the key assumption for \\(\\hat{\\beta_1}\\) to be unbiased. Exogeneity is met in randomized experiments, but it’s violated when there is omitted variable bias.\nFinally, \\(se(\\hat{\\beta_1}) = \\sqrt{\\frac{\\sum_i e_i^2}{(n - 2) \\sum_i (x_i - \\bar{x})^2}}\\) under exogeneity, homoskedasticity, and no autocorrelation.\n\nNow that we can calculate standard errors, we can do hypothesis tests."
+    "section": "2.9 Summary",
+    "text": "2.9 Summary\nIn this chapter we learned:\n\n\\(\\hat{\\beta_1} = \\frac{sCov(x_i, y_i)}{sVar(x_i)}\\)\n\\(\\hat{\\beta_1} = \\sum_i w_i y_i\\): observations far from \\(\\bar{x}\\) are the ones that determine the estimate of the effect of x on y.\n\\(\\hat{\\beta_1} = \\beta_1 + \\sum_i w_i u_i\\): exogeneity (\\(E[u_i | X] = 0\\)) is the key assumption for \\(\\hat{\\beta_1}\\) to be unbiased. Exogeneity is met in randomized experiments, but it’s violated when there is omitted variable bias.\nFinally, \\(se(\\hat{\\beta_1}) = \\sqrt{\\frac{\\sum_i e_i^2}{(n - 2) \\sum_i (x_i - \\bar{x})^2}}\\) under exogeneity, homoskedasticity, and no autocorrelation."
   },
   {
     "objectID": "exogeneity.html#exercises",
     "href": "exogeneity.html#exercises",
     "title": "2  Exogeneity",
-    "section": "2.9 Exercises",
-    "text": "2.9 Exercises\nClasswork 4: hypothesis testing"
+    "section": "2.10 Exercises",
+    "text": "2.10 Exercises\nNow that we can calculate standard errors, we can do hypothesis tests:\nClasswork 4: hypothesis testing"
   },
   {
     "objectID": "exogeneity.html#references",
     "href": "exogeneity.html#references",
     "title": "2  Exogeneity",
-    "section": "2.10 References",
-    "text": "2.10 References\nDougherty (2016) Chapter 1: Simple Regression Analysis\nDougherty (2016) Chapter 8: Stochastic Regressors and Measurement Errors\n\n\n\n\nDougherty, C. 2016. Introduction to Econometrics. Oxford University Press. https://books.google.com/books?id=Q5cMEAAAQBAJ."
+    "section": "2.11 References",
+    "text": "2.11 References\nDougherty (2016) Chapter 1: Simple Regression Analysis\nDougherty (2016) Chapter 8: Stochastic Regressors and Measurement Errors\n\n\n\n\nDougherty, C. 2016. Introduction to Econometrics. Oxford University Press. https://books.google.com/books?id=Q5cMEAAAQBAJ."
   },
   {
     "objectID": "causal_inference.html",
     "href": "causal_inference.html",
     "title": "3  Causal Inference",
     "section": "",
-    "text": "What would it take to convince ourselves that \\(\\hat{\\beta_1}\\) is the causal effect of x on y instead of just describing a correlation?\nIn this chapter, I’ll show you the answer is exogeneity. While it’s true that:\n\\[correlation \\neq causation,\\]\nit’s also true that:\n\\[correlation + exogeneity = causation.\\]"
+    "text": "In this chapter, we’ll learn how exogeneity makes a causal interpretation of \\(\\hat{\\beta_1}\\) possible. We know that correlation does not equal causation, but in this chapter, I’ll explain why correlation + exogeneity equals causation.\nIn section 3.2, I’ll introduce the fundamental problem of causal inference.\n\nDefinition. The Fundamental Problem of Causal Inference: an individual treatment effect can never be identified because two parallel universes can never be observed at the same time. Example: you’ll never know how much your poor sleep effected your performance on an exam you took today because you can never observe your score on the exam in a universe where you got better sleep. The best we can do is to approximate that individual treatment effect with an average treatment effect by running an experiment.\n\nIn the absence of parallel universes, you might think that looking at the same person at different times will yield an estimate of the average treatment effect. That is, can you look at all the exams you’ve taken in the past year and the sleep you got the night before those exams, run the regression score ~ sleep, and interpret \\(\\hat{\\beta_1}\\) as causal? In section 3.3, I argue that no, omitted variable bias could be a big problem (maybe you got better sleep and scored higher when you were more confident about the material).\nIn section 3.4, I ask: could you instead compare different people at the same time? That is, take your whole class, ask each person what their score was on the exam, and how much sleep they got the night before. Then run the regression score ~ sleep. Does \\(\\hat{\\beta_1}\\) have a causal interpretation then? The answer is still no, there could be selection bias (the students who decided to get more sleep were the ones who were confident they’d get a good score).\n\nDefinition. Selection Bias: a type of omitted variable bias where the omitted variable is the person’s propensity to have certain values for X.\n\nIn section 3.5, I explain that even if you have data about twins at the exact same time (one twin got poor sleep before the exam; the other twin got good sleep), the interpretation is still not causal because of selection bias. The only way to make sure your \\(\\hat{\\beta_1}\\) is causal is to run a randomized controlled trial (RCT).\n\nDefinition. Randomized Controlled Trial: a study that assigns participants randomly between control and treatment groups, administers the treatment X, and observes outcome Y.\n\nThe chapter ends with section 3.6, which develops the theory of selection bias a little bit more with the Rubin Causal Model."
   },
   {
     "objectID": "causal_inference.html#effect-of-health-insurance-on-health",
     "href": "causal_inference.html#effect-of-health-insurance-on-health",
     "title": "3  Causal Inference",
-    "section": "3.1 Effect of Health Insurance on Health",
-    "text": "3.1 Effect of Health Insurance on Health\n\n\nIn the previous video, you calculated \\(\\hat{\\beta_1}\\), a measure of the correlation between x and y (recall that \\(\\hat{\\beta_1} = \\frac{sCov(x, y)}{sVar(x)})\\).\nTo be sure that we’ve estimated a causal effect with \\(\\hat{\\beta_1}\\), we would need to observe you (with health insurance), and measure your health. Then we would need to travel back in time, changing only one thing - your decision to buy health insurance. We would then press fast forward and observe your health in this moment, without health insurance.\nIn summary, I can only figure out how much health insurance has effected you by seeing you in two parallel universes. In one universe, you have decided to buy health insurance. In the other universe, you have not. But we can’t observe two parallel universes at once. This is the fundamental problem of causal inference: how much a variable truly effects a person is fundamentally unknowable because outcomes in two parallel universes can never be observed at once.\nSo what’s the second-best thing? Instead of trying to identify an individual treatment effect, we may be able to identify an average treatment effect: the amount that a treatment or a variable x effects a larger population on average.\nHow? In this chapter we’ll explore a couple of different possibilities. We’ve ruled out observing the same person at the same time with different levels of insurance because of the fundamental problem of causal inference.\nLet’s explore whether \\(\\hat{\\beta_1}\\) has a causal interpretation in each of these scenarios:\n\nThe same person at different times, where sometimes they have insurance and sometimes they don’t.\nDifferent people at the same time, where some people have insurance and some people don’t.\nTwins at the same time, where one twin has health insurance and one twin doesn’t."
+    "section": "3.2 Effect of Health Insurance on Health",
+    "text": "3.2 Effect of Health Insurance on Health\n\n\nIn the previous video, you calculated \\(\\hat{\\beta_1}\\), a measure of the correlation between x and y (recall that \\(\\hat{\\beta_1} = \\frac{sCov(x, y)}{sVar(x)})\\).\nTo be sure that we’ve estimated a causal effect with \\(\\hat{\\beta_1}\\), we would need to observe you (with health insurance), and measure your health. Then we would need to travel back in time, changing only one thing - your decision to buy health insurance. We would then press fast forward and observe your health in this moment, without health insurance.\nWe can only see the effects of health insurance by observing people in parallel universes. In one universe, people have decided to buy health insurance. In the other universe, they have not. But we can’t observe two parallel universes at once. This is the fundamental problem of causal inference: how much a variable truly effects a person is fundamentally unknowable because outcomes in two parallel universes can never be observed at the same time.\nSo what’s the second-best thing? Instead of trying to identify an individual treatment effect, we may be able to identify an average treatment effect: the amount that a treatment X effects some outcome Y for a larger population on average.\nHow? In this chapter we’ll explore a couple of different possibilities. We’ve ruled out observing the same person at the same time with different levels of insurance because of the fundamental problem of causal inference.\nLet’s explore whether \\(\\hat{\\beta_1}\\) has a causal interpretation in each of these scenarios:\n\nThe same person at different times, where sometimes they have insurance and sometimes they don’t.\nDifferent people at the same time, where some people have insurance and some people don’t.\nTwins at the same time, where one twin has health insurance and one twin doesn’t."
   },
   {
-    "objectID": "causal_inference.html#selection-bias-rubin-causal-model",
-    "href": "causal_inference.html#selection-bias-rubin-causal-model",
+    "objectID": "causal_inference.html#same-person-at-different-times",
+    "href": "causal_inference.html#same-person-at-different-times",
     "title": "3  Causal Inference",
-    "section": "3.5 Selection Bias: Rubin Causal Model",
-    "text": "3.5 Selection Bias: Rubin Causal Model\nThe Rubin Causal Model helps us think a little more rigorously about selection bias. Here it is:\nThere are two types of people: people that choose to get health insurance and people that don’t. The people who choose to not get health insurance have some health level which we’ll call \\(health_{0i}\\): the 0 indicates that’s their health in the universe that they are not insured.\nLet’s suppose health insurance has some causal effect on a person’s health, and we’ll call that effect \\(\\tau_i\\). Then for the types of people who choose to get health insurance, their health, \\(health_{1i}\\) is equal to their health if they hadn’t gotten insured plus the treatment effect: \\(health_{0i} + \\tau_i\\). So:\n\\[health_{1i} = health_{0i} + \\tau_i\\]\nWhen we estimate the model:\n\\[health_i = \\beta_0 + \\beta_1 insurance_i + u_i\\]\n\\(\\hat{\\beta_1}\\) will be the average difference in the insured people’s healths and the uninsured people’s healths:\n\\[\\begin{align*}\n\\hat{\\beta_1} = & E[health_{1i}\\ |\\ type\\ of\\ people\\ who\\ get\\ insured] - \\\\\n& E[health_{0i}\\ |\\ type\\ of\\ people\\ who\\ don't\\ get\\ insured]\n\\end{align*}\\]\n$$$$\nAnd since \\(health_{1i} = \\tau_i + health_{0i}\\),\n\\[\\begin{align*}\n\\hat{\\beta_1} = & E[\\tau_i + health_{0i}\\ |\\ type\\ of\\ people\\ who\\ get\\ insured] - \\\\\n& E[health_{0i}\\ |\\ type\\ of\\ people\\ who\\ don't\\ get\\ insured]\n\\end{align*}\\]\nDistributing the expectation across \\(\\tau_i + health_{0i}\\) and recognizing \\(E[\\tau_i] = \\bar{\\tau}\\):\n\\[\\begin{align*}\n\\hat{\\beta_1} = & \\bar{\\tau} + E[health_{0i}\\ |\\ type\\ of\\ people\\ who\\ get\\ insured] - \\\\\n& E[health_{0i}\\ |\\ type\\ of\\ people\\ who\\ don't\\ get\\ insured]\n\\end{align*}\\]\nThen define \\(selection \\ bias\\) as:\n\\[\\begin{align*}\nselection \\ bias = & E[health_{0i}\\ |\\ type\\ of\\ people\\ who\\ get\\ insured] - \\\\\n& E[health_{0i}\\ |\\ type\\ of\\ people\\ who\\ don't\\ get\\ insured]\n\\end{align*}\\]\nThat is, selection bias is the average difference in y for the two types of people (people who will choose x = 1 and people who will choose x = 0), insurance level held constant. It actually doesn’t matter if we hold insurance level constant at 0 or at 1: we’ll get the same answer. Finally:\n\\[\\begin{align*}\n\\hat{\\beta_1} = \\bar{\\tau} + selection \\ bias\n\\end{align*}\\]\n\nNumerical Example: Angrist and Pischke (2014)"
+    "section": "3.3 Same person at different times",
+    "text": "3.3 Same person at different times\nI’ll tackle 1) first. Suppose you don’t have health insurance between the ages of 26 and 30, and then you do have health insurance between the ages of 30 and 34. In your late 20’s your average health was a 7 and in your late 30’s, your average health was a 8.5. So did having health insurance cause the 1.5 point increase in health?\nMaybe, but maybe not: what if you had no health insurance in your late 20s because you were underemployed? And because you didn’t have a fulfilling job, you also found yourself anxious and depressed? But then at 30, you finally landed the job of your dreams, you got health insurance because you were employed full time, and you were much happier and healthier? It could look like health insurance boosted your health, but in reality it was just that you tend to have health insurance at times in your life when you also have steady employment, and you enjoy better health because of your employment."
+  },
+  {
+    "objectID": "causal_inference.html#different-people-at-the-same-time",
+    "href": "causal_inference.html#different-people-at-the-same-time",
+    "title": "3  Causal Inference",
+    "section": "3.4 Different people at the same time",
+    "text": "3.4 Different people at the same time\nCan we instead take the average healths of the insured, subtract the average healths of the uninsured, and consider this a causal effect?\nProbably not, because just like in the previous paragraph, there’s selection bias: those who have insurance may be different on unobservables from those who don’t. If the uninsured group is more likely to be underemployed (and perhaps more anxious and depressed), again it may look like health insurance makes people healthier, but actually it’s just the effect of steady employment.\nYou may be wondering: does this have anything to do with exogeneity? Of course it does!\n\nSelection bias is a type of omitted variable bias where the omitted variable is the person’s propensity to get treated (“buy health insurance”). A selection bias diagram: if “propensity to be insured” correlates both with “being insured” and someone’s “health”, then \\(\\hat{\\beta_1}\\) is biased.\n\nClearly, someone’s propensity to be insured correlates with whether they are insured or not. Does “propensity to be insured” correlate with a person’s health? Yes, through multiple channels:\n\nStable employment boosts people’s propensity to be insured and their health, as we’ve discussed before\nCareful, responsible people are more likely to be insured and they’re probably healthier because they take care of themselves in other ways as well\nBut these variables may be correlated in another way as well: consider a person with a chronic health condition that requires them to frequent the doctor’s office or hospital. They would have a higher propensity to be insured because they know they need to visit the doctor frequently. And they also would have a lower health than a person without such a condition.\n\nAll of these are reasons why \\(\\hat{\\beta_1}\\) might be biased due to selection."
+  },
+  {
+    "objectID": "causal_inference.html#twins-at-the-same-time",
+    "href": "causal_inference.html#twins-at-the-same-time",
+    "title": "3  Causal Inference",
+    "section": "3.5 Twins at the same time",
+    "text": "3.5 Twins at the same time\nFinally, let’s consider 3) “Twins at the same time, one of whom has health insurance while the other doesn’t”. If the twin who has health insurance has a health of 9 while the twin that doesn’t has a health of 7, does that mean health insurance boosts people’s healths by 2 points? No: we’re still worried about selection bias. What other things are different between these twins besides the fact that one has health insurance and one doesn’t? But what if we gave out health insurance randomly to one twin, and not to the other? That is, what if we did some kind of randomized experiment on these twins, and then observed their healths after a little while? And what if we got a bunch of twins and did the same thing? This would be one way to find the causal effect of health insurance on health because by randomizing who gets health insurance, we’re enforcing exogeneity. Why?\nImagine the two twins walk in to the room and you’re only told which one has health insurance and which one doesn’t. Does that give you any information about which one might have steadier employment, which one might be more responsible, or which one might have a chronic health condition? No! Because we randomized which of the twins got the insurance. So \\[E[unemployed,\\ responsible,\\ chronic\\ condition\\ |\\ health\\ insurance] = 0\\] in a randomized experiment, exogeneity holds and \\(\\hat{\\beta_1}\\) will be an unbiased estimator of the causal effect of health insurance on health.\nAnd actually we don’t need twins after all: we just need a big group of people who we can divide randomly into a treatment and a control group. As long as the treatment and control groups look enough like each other on average, exogeneity will hold. This is why we say \\(correlation + exogeneity = causation\\). And this is why a randomized controlled trial (RCT) is the gold standard for causal inference. At the end of this course, we’ll talk about a few second-best approaches for causal inference using instrumental variables and then differences-in-differences, but it’s good to keep in mind that if an experiment is ethical and cost-effective, it’s the best approach.\nSo what’s the ideal experiment to find the causal effect of some variable X on some variable Y? It’s an RCT where you randomize X and compare average differences in Y between treatment and control groups."
+  },
+  {
+    "objectID": "causal_inference.html#quantifying-selection-bias-with-the-rubin-causal-model",
+    "href": "causal_inference.html#quantifying-selection-bias-with-the-rubin-causal-model",
+    "title": "3  Causal Inference",
+    "section": "3.6 Quantifying Selection Bias with the Rubin Causal Model",
+    "text": "3.6 Quantifying Selection Bias with the Rubin Causal Model\nThe Rubin Causal Model helps us think a little more rigorously about selection bias. Here it is:\nThere are two types of people: people that choose to get health insurance and people that don’t. The people who choose to not get health insurance have some health level which we’ll call \\(health_{0i}\\): the 0 indicates that’s their health in the universe that they are not insured.\nLet’s suppose health insurance has some causal effect on a person’s health, and we’ll call that effect \\(\\tau_i\\). Then for the types of people who choose to get health insurance, their health, \\(health_{1i}\\) is equal to their health if they hadn’t gotten insured plus the treatment effect: \\(health_{0i} + \\tau_i\\). So:\n\\[health_{1i} = health_{0i} + \\tau_i\\]\nWhen we estimate the model:\n\\[health_i = \\beta_0 + \\beta_1 insurance_i + u_i\\]\n\\(\\hat{\\beta_1}\\) will be the average difference in the insured people’s healths and the uninsured people’s healths:\n\\[\\begin{align*}\n\\hat{\\beta_1} = & E[health_{1i}\\ |\\ type\\ of\\ people\\ who\\ get\\ insured] - \\\\\n& E[health_{0i}\\ |\\ type\\ of\\ people\\ who\\ don't\\ get\\ insured]\n\\end{align*}\\]\n$$$$\nAnd since \\(health_{1i} = \\tau_i + health_{0i}\\),\n\\[\\begin{align*}\n\\hat{\\beta_1} = & E[\\tau_i + health_{0i}\\ |\\ type\\ of\\ people\\ who\\ get\\ insured] - \\\\\n& E[health_{0i}\\ |\\ type\\ of\\ people\\ who\\ don't\\ get\\ insured]\n\\end{align*}\\]\nDistributing the expectation across \\(\\tau_i + health_{0i}\\) and recognizing \\(E[\\tau_i] = \\bar{\\tau}\\):\n\\[\\begin{align*}\n\\hat{\\beta_1} = & \\bar{\\tau} + E[health_{0i}\\ |\\ type\\ of\\ people\\ who\\ get\\ insured] - \\\\\n& E[health_{0i}\\ |\\ type\\ of\\ people\\ who\\ don't\\ get\\ insured]\n\\end{align*}\\]\nThen define \\(selection \\ bias\\) as:\n\\[\\begin{align*}\nselection \\ bias = & E[health_{0i}\\ |\\ type\\ of\\ people\\ who\\ get\\ insured] - \\\\\n& E[health_{0i}\\ |\\ type\\ of\\ people\\ who\\ don't\\ get\\ insured]\n\\end{align*}\\]\nThat is, selection bias is the average difference in y for the two types of people (people who will choose x = 1 and people who will choose x = 0), insurance level held constant. It actually doesn’t matter if we hold insurance level constant at 0 or at 1: we’ll get the same answer. Finally:\n\\[\\begin{align*}\n\\hat{\\beta_1} = \\bar{\\tau} + selection \\ bias\n\\end{align*}\\]\n\nNumerical Example: Angrist and Pischke (2014)"
   },
   {
     "objectID": "causal_inference.html#exercises",
     "href": "causal_inference.html#exercises",
     "title": "3  Causal Inference",
-    "section": "3.6 Exercises",
-    "text": "3.6 Exercises\nClasswork 5: Causal Inference (analytical)\nKoans 8-10: ggplot2\nClasswork 6: Causal Inference (R)"
+    "section": "3.7 Exercises",
+    "text": "3.7 Exercises\nClasswork 5: Causal Inference (analytical)\nKoans 8-10: ggplot2\nClasswork 6: Causal Inference (R)"
   },
   {
     "objectID": "causal_inference.html#references",
     "href": "causal_inference.html#references",
     "title": "3  Causal Inference",
-    "section": "3.7 References",
-    "text": "3.7 References\nAngrist and Pischke (2014) Chapter 1\n\n\n\n\nAngrist, J. D., and J. S. Pischke. 2014. Mastering ’Metrics: The Path from Cause to Effect. Princeton University Press. https://books.google.com/books?id=dEh-BAAAQBAJ."
+    "section": "3.8 References",
+    "text": "3.8 References\nAngrist and Pischke (2014) Chapter 1\n\n\n\n\nAngrist, J. D., and J. S. Pischke. 2014. Mastering ’Metrics: The Path from Cause to Effect. Princeton University Press. https://books.google.com/books?id=dEh-BAAAQBAJ."
   },
   {
     "objectID": "consistency.html",
     "href": "consistency.html",
     "title": "4  Consistency",
     "section": "",
-    "text": "We’ve already learned that estimators can be biased or unbiased. This chapter introduces a new property for estimators: estimators can be consistent or inconsistent.\n\nDefinition. An estimator \\(\\hat{\\beta_1}\\) is consistent if \\(plim(\\hat{\\beta_1}) = \\beta_1\\). That is, \\(\\hat{\\beta_1}\\) is consistent if it converges in probability to the true value \\(\\beta_1\\) as \\(n\\), the number of data points, goes to infinity.\n\nThe key assumption for \\(\\hat{\\beta_1}\\) to be consistent is for \\(Cov(x_i, u_i) = 0\\). Under omitted variable bias, this will not hold, so we know if an estimator suffers from omitted variable bias, not only is it biased, but it is also inconsistent. The discussion of consistency also gives us the tools to sign the bias under omitted variable bias."
+    "text": "What to expect in this chapter:\n\nSection 4.2 builds some motivation for when you’d need to use the concept of consistency.\n\n\nDefinition. An estimator \\(\\hat{\\beta_1}\\) is consistent if \\(plim(\\hat{\\beta_1}) = \\beta_1\\). That is, \\(\\hat{\\beta_1}\\) is consistent if it converges in probability to the true value \\(\\beta_1\\) as \\(n\\), the number of data points, goes to infinity.\n\n\nIn section 4.3, I discuss the differences between the concepts of biasedness and consistency.\nIn section 4.4, I provide some rules for the plim operator and I prove that \\(\\hat{\\beta_1}\\) is consistent when \\(Cov(x_i, u_i) = 0\\).\n\n\nDefinition: Probability Limit plim. For a sequence of random variables \\(x_n\\) and some value \\(x\\), \\(plim(x_n) = x\\) if, as \\(n\\) goes to infinity, the probability distribution of \\(x_n\\) collapses to a spike on the value \\(x\\).\n\n\nSection 4.5 explains how the key consistency assumption of 0 covariance between x and u does not hold under omitted variable bias.\nFinally in 4.6, I show how the discussion of consistency also gives us the tools to sign the bias under omitted variable bias."
+  },
+  {
+    "objectID": "consistency.html#motivation",
+    "href": "consistency.html#motivation",
+    "title": "4  Consistency",
+    "section": "4.2 Motivation",
+    "text": "4.2 Motivation\nLet’s fast forward a few years. You’re at your future job in a brand new data science department at a fast growing company. You’re in a meeting and you decide to bring up some concerns you have about selection bias in a model you’re developing. Your coworker is dismissive though: they say, “don’t worry about selection bias, we’ll just get twice the amount of data! How much data do you want? 4 times the amount of data? 10 times?”\nYou’ll have to remember back to econometrics: does selection bias disappear when we let \\(n\\) go to infinity? That is, under selection bias, is OLS consistent? That is the research question for today. (spoiler: the answer is no: no amount of data will help if there is selection bias or omitted variable bias. The only solution is to use causal inference techniques like an RCT, instrumental variables (Ch 9), of differences-in-differences (Ch 10).)"
+  },
+  {
+    "objectID": "consistency.html#bias-versus-consistency",
+    "href": "consistency.html#bias-versus-consistency",
+    "title": "4  Consistency",
+    "section": "4.3 Bias versus Consistency",
+    "text": "4.3 Bias versus Consistency\nRecall that \\(\\hat{\\beta_1}\\) is unbiased iff \\(E[\\hat{\\beta_1}] = \\beta_1\\), and that the key assumption for unbiasedness is exogeneity: \\(E[u_i | X] = 0\\).\nFor \\(\\hat{\\beta_1}\\) to be consistent however, we need \\(plim(\\hat{\\beta_1}) = \\beta_1\\). That is, as the number of data points \\(n\\) goes to infinity, the probability density function for \\(\\hat{\\beta_1}\\) must collapse to a spike on the true value \\(\\beta_1\\) for \\(\\hat{\\beta_1}\\) to be consistent. “Collapse to a spike” more formally means that \\(Var(\\hat{\\beta_1})\\) goes to 0 as n goes to infinity and if \\(\\hat{\\beta_1}\\) is biased, its bias goes to 0 as n goes to infinity. I’ll show at the end of the chapter that the key assumption required for \\(\\hat{\\beta_1}\\) to be consistent is that \\(Cov(x, u) = 0\\).\n\nBias versus Consistency\n\n\n\n\nEstimators that are consistent and inconsistent; biased and unbiased\n\n\n\n\nQuiz: bias and consistency"
+  },
+  {
+    "objectID": "consistency.html#proof-hatbeta_1-is-consistent-if-covx-u-0",
+    "href": "consistency.html#proof-hatbeta_1-is-consistent-if-covx-u-0",
+    "title": "4  Consistency",
+    "section": "4.4 Proof: \\(\\hat{\\beta_1}\\) is consistent if \\(Cov(x, u) = 0\\)",
+    "text": "4.4 Proof: \\(\\hat{\\beta_1}\\) is consistent if \\(Cov(x, u) = 0\\)\nConsistency is defined as \\(plim(\\hat{\\beta_1}) = 0\\), so to do this proof, first we need some rules about probability limits \\(plim\\).\n\n4.4.1 \\(plim\\) rules\nLet \\(c\\) be a constant. Let \\(x_n\\) and \\(y_n\\) be sequences of random variables where \\(plim(x_n) = x\\) and \\(plim(y_n) = y\\). That is, for large x, the probability density function of \\(x_n\\) collapses to a spike on the value x and the same for \\(y_n\\) and y. Then:\n\nThe probability limit of a constant is the constant: \\(plim(c) = c\\)\n\\(plim(x_n + y_n) = x + y\\)\n\\(plim(x_n y_n) = x y\\)\n\\(plim(\\frac{x_n}{y_n}) = \\frac{x}{y}\\)\n\\(plim(g(x_n, y_n)) = g(x, y)\\) for any function g.\n\n\n\n4.4.2 Proof\nWe’d like to show that \\(plim(\\hat{\\beta_1}) = \\beta_1\\) if \\(Cov(x, u) = 0\\).\nI’ll start with this formula for \\(\\hat{\\beta_1}\\), where \\(sCov\\) and \\(sVar\\) refer to the sample covariance and sample variance:\n\\[\\hat{\\beta_1} = \\frac{sCov(x_i, y_i)}{sVar(x_i)}\\]\nIf \\(y_i = \\beta_0 + \\beta_1 x_i + u_i\\), we can substitute in for \\(y_i\\):\n\\[\\hat{\\beta_1} = \\frac{sCov(x_i, \\beta_0 + \\beta_1 x_i + u_i)}{sVar(x_i)}\\]\nAnd use some covariance rules to simplify:\n\\[\\hat{\\beta_1} = \\beta_1 + \\frac{sCov(x_i, u_i)}{sVar(x_i)}\\]\nTake the probability limit of both sides and recognize that the probability limit of a constant is the constant:\n\\[plim(\\hat{\\beta_1}) = \\beta_1 + plim \\left ( \\frac{sCov(x_i, u_i)}{sVar(x_i)} \\right )\\]\nSince \\(plim(\\frac{x_n}{y_n}) = \\frac{x}{y}\\):\n\\[plim(\\hat{\\beta_1}) = \\beta_1 + \\frac{plim(sCov(x_i, u_i))}{plim(sVar(x_i))}\\]\nAs n increases, a sample variance collapses to the population variance, and the same for covariance:\n\\[plim(\\hat{\\beta_1}) = \\beta_1 + \\frac{Cov(x_i, u_i)}{Var(x_i)}\\]\nSo for \\(plim(\\hat{\\beta_1})\\) to be equal to \\(\\beta_1\\), we just need \\(Cov(x_i, u_i)\\) to be 0."
+  },
+  {
+    "objectID": "consistency.html#covx_i-u_i-neq-0-under-omitted-variable-bias",
+    "href": "consistency.html#covx_i-u_i-neq-0-under-omitted-variable-bias",
+    "title": "4  Consistency",
+    "section": "4.5 \\(Cov(x_i, u_i) \\neq 0\\) under omitted variable bias",
+    "text": "4.5 \\(Cov(x_i, u_i) \\neq 0\\) under omitted variable bias\nSuppose the true data generating process is this:\n\\[wage_i = \\alpha_0 + \\alpha_1 education_i + \\alpha_2 ability_i + v_i\\]\nBut we have to omit \\(ability\\), so we fit this model instead:\n\\[wage_i = \\beta_0 + \\beta_1 education_i + u_i\\]\nThen u absorbs v and \\(\\alpha_2 ability_i\\), so that \\(u_i = \\alpha_2 ability_i + v_i\\). So:\n\\[\\hat{\\beta_1} = \\beta_1 + \\frac{sCov(education_i, u_i)}{sVar(education_i)}\\]\nAnd taking probability limits of both sides while substituting in for \\(u_i\\):\n\\[plim(\\hat{\\beta_1}) = \\beta_1 + \\frac{Cov(education_i, \\alpha_2 ability_i + v_i)}{sVar(education_i)}\\]\n\\[\\begin{align*}\nplim(\\hat{\\beta_1}) = \\beta_1 + \\frac{\\alpha_2 Cov(education_i, ability_i) + Cov(education_i, v_i)}{Var(education_i)}\n\\end{align*}\\]\nAssuming \\(Cov(education_i, v_i) = 0\\):\n\\[\nplim(\\hat{\\beta_1}) = \\beta_1 + \\frac{\\alpha_2 Cov(education_i, ability_i)}{Var(education_i)}\n\\tag{4.1}\\]\nCompare this to the omitted variable bias diagram:\n\nIn the last chapter we learned that if you can draw both lines going out from u (if you can tell stories about why x and u are likely related and why u and y are likely related), then u confounds the relationship you’re trying to detect between x and y, and \\(\\hat{\\beta_1}\\) is likely biased.\nNow I’ve added one more detail to the diagram: we can label those lines. Specifically, the relationship between x and u is \\(Cov(x_i, u_i)\\) and the relationship between y and u is \\(\\alpha_2\\) from Equation 4.1. And if both \\(Cov(x_i, u_i)\\) and \\(\\alpha_2\\) are nonzero, both the diagram and Equation 4.1 verify that \\(\\hat{\\beta_1}\\) will be biased."
+  },
+  {
+    "objectID": "consistency.html#signing-the-bias",
+    "href": "consistency.html#signing-the-bias",
+    "title": "4  Consistency",
+    "section": "4.6 Signing the bias",
+    "text": "4.6 Signing the bias\nLabeling the lines in the diagram above does one more thing for us: it lets us sign the bias."
   },
   {
     "objectID": "consistency.html#exercises",
@@ -238,18 +315,60 @@
     "text": "4.7 Exercises\nClasswork 7: Consistency"
   },
   {
+    "objectID": "consistency.html#references",
+    "href": "consistency.html#references",
+    "title": "4  Consistency",
+    "section": "4.8 References",
+    "text": "4.8 References\nDougherty (2016) pages 68-75\nRubin (2022)\n\n\n\n\nDougherty, C. 2016. Introduction to Econometrics. Oxford University Press. https://books.google.com/books?id=Q5cMEAAAQBAJ.\n\n\nRubin, Ed. 2022. “Economics 421: Introduction to Econometrics.” Github. https://github.com/edrubin/EC421W22."
+  },
+  {
+    "objectID": "specification.html",
+    "href": "specification.html",
+    "title": "5  Model Specification",
+    "section": "",
+    "text": "When you’re reading papers in applied economics, you’ll often see models with transformations of variables (squared, interacted with other variables, logs of variables). This chapter offers some explanation about why you’ll see those things. All of these models can be estimated using OLS because while they’re not necessarily linear in variables, they’re linear in the parameters \\(\\beta\\).\nModels that are linear in parameters (and can be estimated with OLS):\n\\[\\begin{align}\ny_i &= \\beta_0 + \\beta_1 x_{1i} + \\beta_2 x_{2i} + u_i \\\\\ny_i &= \\beta_0 + \\beta_1 x_{i} + \\beta_2 x_{i}^2 + u_i \\\\\ny_i &= \\beta_0 + \\beta_1 x_{1i} + \\beta_2 x_{2i} + \\beta_3 x_{1i} x_{2i} + u_i \\\\\nlog(y_i) &= \\beta_0 + \\beta_1 log(x_{i}) + u_i \\\\\nlog(y_i) &= \\beta_0 + \\beta_1 x_{i} + u_i\n\\end{align}\\]\nAnd an example of a model that’s not linear in parameters (and can’t be estimated with OLS, because \\(\\beta_1\\) and \\(\\beta_2\\) can’t be separately identified here):\n\\[y_i = \\beta_0 + \\beta_1 \\beta_2 x_{i} + u_i\\]"
+  },
+  {
+    "objectID": "specification.html#linear",
+    "href": "specification.html#linear",
+    "title": "5  Model Specification",
+    "section": "5.1 Linear",
+    "text": "5.1 Linear\n\\(y_i = \\beta_0 + \\beta_1 x_i + u_i\\)\n\nIntercept: \\(\\beta_0 = E[y | x = 0]\\).\nSlope: \\(\\beta_1\\) is the expected change in y given an increase in x of one unit.\n\nFor example:\n\\(weight_i = -80 + 40 height_i + u_i\\)\nIf \\(weight_i\\) is measured in lbs and \\(height_i\\) is measured in feet, then we’d interpret -80 as: “Someone 0 feet tall is expected to weigh -80 lbs”. And we’d interpret 40 as “If you’re told that a person is 1 foot taller than average, you’d expect them to be 40 lbs heavier than average”."
+  },
+  {
+    "objectID": "specification.html#squared-terms",
+    "href": "specification.html#squared-terms",
+    "title": "5  Model Specification",
+    "section": "5.2 Squared terms",
+    "text": "5.2 Squared terms\n\\(y_i = \\beta_0 + \\beta_1 x_i + \\beta_2 x_i^2 + u_i\\)"
+  },
+  {
+    "objectID": "specification.html#interactions",
+    "href": "specification.html#interactions",
+    "title": "5  Model Specification",
+    "section": "5.3 Interactions",
+    "text": "5.3 Interactions\nAn interaction is two variables multiplied. They would usually appear in the model alone as well:\n\\(y_i = \\beta_0 + \\beta_1 x_{1i} + \\beta_2 x_{2i} + \\beta_3 x_{1i} x_{2i} + u_i\\)"
+  },
+  {
+    "objectID": "specification.html#log-linear",
+    "href": "specification.html#log-linear",
+    "title": "5  Model Specification",
+    "section": "5.4 Log-linear",
+    "text": "5.4 Log-linear\n\\(log(y_i) = \\beta_0 + \\beta_1 x_i + u_i\\)\nThe formula for exponential growth or decay:\n\\(y = (initial \\ amount) \\ e^{rt}\\)\nWhere \\(r\\) is the rate of change and \\(t\\) is the time (perhaps measured in hours, days, months, etc). The interpretation is that when t increases by 1, \\(y\\) increases by r%.\nLet’s take the log of both sides. Recalling that \\(log(a b) = log(a) + log(b)\\), and \\(log(a^b) = b \\ log(a)\\):\n\\(log(y) = log(initial \\ amount) + r t log(e)\\)\nAnd since \\(log(e) = 1\\):\n\\(log(y) = log(initial \\ amount) + r t\\)\nIf we let \\(\\beta_0 = log(initial \\ amount)\\), \\(r = \\beta_1\\), and \\(t = x\\), then we get the log-linear simple regression:\n\\(log(y_i) = \\beta_0 + \\beta_1 x_i + u_i\\)\nAnd since \\(r = \\beta_1\\), the interpretation of \\(\\beta_1\\) is the same as the interpretation for \\(r\\): when t increases by 1, \\(y\\) increases by r%."
+  },
+  {
+    "objectID": "specification.html#log-log",
+    "href": "specification.html#log-log",
+    "title": "5  Model Specification",
+    "section": "5.5 Log-log",
+    "text": "5.5 Log-log\n\\(log(y_i) = \\beta_0 + \\beta_1 log(x_i) + u_i\\)\nConsider a constant elasticity demand curve, where the elasticity \\(\\varepsilon\\) is the percent change in \\(Q_d\\) corresponding to a 1 percent change in price:\n\\[Q_d = \\beta_0 P^{\\beta_1} \\tag{5.1}\\]\nWhich parameter represents the elasticity \\(\\varepsilon\\)?\n\\[\\begin{align*}\n\\varepsilon &= \\frac{\\% \\Delta Q_d}{\\% \\Delta P} \\\\\n  &= \\frac{\\frac{\\partial Q}{Q}}{\\frac{\\partial P}{P}} \\\\\n  &= \\frac{\\partial Q}{\\partial P} \\frac{P}{Q} \\\\\n  &= \\frac{\\partial (\\beta_0 P^{\\beta_1})}{\\partial P} \\frac{P}{Q} \\\\\n  &= \\beta_0 \\beta_1 P^{\\beta_1 - 1} \\frac{P}{Q} \\\\\n  &= \\beta_0 \\beta_1 P^{\\beta_1 - 1} \\frac{P}{\\beta_0 P^{\\beta_1}} \\\\\n  &= \\beta_1\n\\end{align*}\\]\nSo if we take logs of both sides of Equation 5.1 and change Q to y and P to x:\n\\[log(y) = log(\\beta_0) + \\beta_1 log(x)\\]\nThen we can estimate this model using OLS because it’s linear in parameters. \\(\\beta_1\\) has the same interpretation as an elasticity: it’s the expected percent change in \\(y\\) corresponding to a 1 percent change in \\(x\\)."
+  },
+  {
     "objectID": "heteroskedasticity.html",
     "href": "heteroskedasticity.html",
     "title": "6  Heteroskedasticity",
     "section": "",
-    "text": "Definition. Homoskedasticity: \\(Var(u_i | X)\\) is a constant.\nDefinition. Heteroskedasticity: \\(Var(u_i | X)\\) is some non-constant function of X.\n\nUnder heteroskedasticity:\n\nOLS is unbiased,\nBut OLS standard errors will not be correct. They could be too small or too large.\nOLS is no longer BLUE because weighted least squares (WLS) is more efficient.\n\nLook for heteroskedasticity by visual inspection of your data. There are also two formal statistical tests for heteroskedasticity: the Goldfeld-Quandt test and the White test."
-  },
-  {
-    "objectID": "heteroskedasticity.html#exercises",
-    "href": "heteroskedasticity.html#exercises",
-    "title": "6  Heteroskedasticity",
-    "section": "6.8 Exercises",
-    "text": "6.8 Exercises\nClasswork 8: Heteroskedasticity (analytical)\nKoans 11-14: lm, statistical distributions, and functions\nClasswork 9: Heteroskedasticity (R)\nKoans 15-16: map\nClasswork 10: Simulation (R)"
+    "text": "🚧 This page is coming soon! 🚧"
   },
   {
     "objectID": "time_series.html",
@@ -259,13 +378,6 @@
     "text": "🚧 This page is coming soon! 🚧"
   },
   {
-    "objectID": "time_series.html#exercises",
-    "href": "time_series.html#exercises",
-    "title": "7  Time Series",
-    "section": "7.1 Exercises",
-    "text": "7.1 Exercises\nClasswork 11: Dynamics (analytical)\nKoans 17-18: lags and first differences\nClasswork 12: Dynamics (R)"
-  },
-  {
     "objectID": "stationarity.html",
     "href": "stationarity.html",
     "title": "8  Stationarity",
@@ -273,151 +385,221 @@
     "text": "🚧 This page is coming soon! 🚧"
   },
   {
-    "objectID": "stationarity.html#exercises",
-    "href": "stationarity.html#exercises",
-    "title": "8  Stationarity",
-    "section": "8.1 Exercises",
-    "text": "8.1 Exercises\nClasswork 13: Time Trends\nKoans 19-20: reduce and accumulate\nClasswork 14: random walks"
-  },
-  {
     "objectID": "instrumental_vars.html",
     "href": "instrumental_vars.html",
-    "title": "8  Instrumental Variables",
+    "title": "9  Instrumental Variables",
     "section": "",
     "text": "🚧 This page is coming soon! 🚧"
   },
   {
     "objectID": "instrumental_vars.html#exercises",
     "href": "instrumental_vars.html#exercises",
-    "title": "8  Instrumental Variables",
-    "section": "8.1 Exercises",
-    "text": "8.1 Exercises\nClasswork 15: IV part 1\nClasswork 16: IV part 2"
+    "title": "9  Instrumental Variables",
+    "section": "9.1 Exercises",
+    "text": "9.1 Exercises\nClasswork 15: IV part 1\nClasswork 16: IV part 2"
+  },
+  {
+    "objectID": "IV_2.html",
+    "href": "IV_2.html",
+    "title": "10  IV for Simultaneous Equations",
+    "section": "",
+    "text": "🚧 This page is coming soon! 🚧"
   },
   {
     "objectID": "diff_in_diff.html",
     "href": "diff_in_diff.html",
-    "title": "9  Differences-in-differences",
+    "title": "11  Differences-in-differences",
     "section": "",
     "text": "🚧 This page is coming soon! 🚧"
   },
   {
     "objectID": "diff_in_diff.html#exercises",
     "href": "diff_in_diff.html#exercises",
-    "title": "9  Differences-in-differences",
-    "section": "9.1 Exercises",
-    "text": "9.1 Exercises\nClasswork 17: diff-in-diff"
+    "title": "11  Differences-in-differences",
+    "section": "11.1 Exercises",
+    "text": "11.1 Exercises\nClasswork 17: diff-in-diff"
   },
   {
-    "objectID": "classwork.html#cw2-lm-and-qplot-r",
-    "href": "classwork.html#cw2-lm-and-qplot-r",
+    "objectID": "classwork.html#cw2",
+    "href": "classwork.html#cw2",
     "title": "Classwork",
-    "section": "CW2: lm and qplot (R)",
-    "text": "CW2: lm and qplot (R)"
+    "section": "CW2",
+    "text": "CW2\n\nlm and qplot (R)"
   },
   {
-    "objectID": "classwork.html#cw3-dplyr-murder-mystery-r",
-    "href": "classwork.html#cw3-dplyr-murder-mystery-r",
+    "objectID": "classwork.html#cw3",
+    "href": "classwork.html#cw3",
     "title": "Classwork",
-    "section": "CW3: dplyr murder mystery (R)",
-    "text": "CW3: dplyr murder mystery (R)"
+    "section": "CW3",
+    "text": "CW3\n\ndplyr murder mystery (R)"
   },
   {
-    "objectID": "classwork.html#cw4-hypothesis-testing-analytical",
-    "href": "classwork.html#cw4-hypothesis-testing-analytical",
+    "objectID": "classwork.html#cw4",
+    "href": "classwork.html#cw4",
     "title": "Classwork",
-    "section": "CW4: hypothesis testing (analytical)",
-    "text": "CW4: hypothesis testing (analytical)"
+    "section": "CW4",
+    "text": "CW4\n\nhypothesis testing (analytical)"
   },
   {
-    "objectID": "classwork.html#cw5-causal-inference-analytical",
-    "href": "classwork.html#cw5-causal-inference-analytical",
+    "objectID": "classwork.html#cw5",
+    "href": "classwork.html#cw5",
     "title": "Classwork",
-    "section": "CW5: causal inference (analytical)",
-    "text": "CW5: causal inference (analytical)"
+    "section": "CW5",
+    "text": "CW5\n\ncausal inference (analytical)"
   },
   {
-    "objectID": "classwork.html#cw6-causal-inference-r",
-    "href": "classwork.html#cw6-causal-inference-r",
+    "objectID": "classwork.html#cw6",
+    "href": "classwork.html#cw6",
     "title": "Classwork",
-    "section": "CW6: causal inference (R)",
-    "text": "CW6: causal inference (R)"
+    "section": "CW6",
+    "text": "CW6\n\ncausal inference (R)"
   },
   {
-    "objectID": "classwork.html#cw7-consistency-analytical",
-    "href": "classwork.html#cw7-consistency-analytical",
+    "objectID": "classwork.html#cw7",
+    "href": "classwork.html#cw7",
     "title": "Classwork",
-    "section": "CW7: consistency (analytical)",
-    "text": "CW7: consistency (analytical)"
+    "section": "CW7",
+    "text": "CW7\n\nconsistency (analytical)"
   },
   {
-    "objectID": "classwork.html#cw8-heteroskedasticity-analytical",
-    "href": "classwork.html#cw8-heteroskedasticity-analytical",
+    "objectID": "classwork.html#cw8",
+    "href": "classwork.html#cw8",
     "title": "Classwork",
-    "section": "CW8: heteroskedasticity (analytical)",
-    "text": "CW8: heteroskedasticity (analytical)"
+    "section": "CW8",
+    "text": "CW8\n\nheteroskedasticity (analytical)"
   },
   {
-    "objectID": "classwork.html#cw9-heteroskedasticity-r",
-    "href": "classwork.html#cw9-heteroskedasticity-r",
+    "objectID": "classwork.html#cw9",
+    "href": "classwork.html#cw9",
     "title": "Classwork",
-    "section": "CW9: heteroskedasticity (R)",
-    "text": "CW9: heteroskedasticity (R)"
+    "section": "CW9",
+    "text": "CW9\n\nheteroskedasticity (R)"
   },
   {
-    "objectID": "classwork.html#cw10-simulation-r",
-    "href": "classwork.html#cw10-simulation-r",
+    "objectID": "classwork.html#cw10",
+    "href": "classwork.html#cw10",
     "title": "Classwork",
-    "section": "CW10: simulation (R)",
-    "text": "CW10: simulation (R)"
+    "section": "CW10",
+    "text": "CW10\n\nsimulation (R)"
   },
   {
-    "objectID": "classwork.html#cw11-dynamics-analytical",
-    "href": "classwork.html#cw11-dynamics-analytical",
+    "objectID": "classwork.html#cw11",
+    "href": "classwork.html#cw11",
     "title": "Classwork",
-    "section": "CW11: dynamics (analytical)",
-    "text": "CW11: dynamics (analytical)"
+    "section": "CW11",
+    "text": "CW11\n\ndynamics (analytical)"
   },
   {
-    "objectID": "classwork.html#cw12-dynamics-r",
-    "href": "classwork.html#cw12-dynamics-r",
+    "objectID": "classwork.html#cw12",
+    "href": "classwork.html#cw12",
     "title": "Classwork",
-    "section": "CW12: dynamics (R)",
-    "text": "CW12: dynamics (R)"
+    "section": "CW12",
+    "text": "CW12\n\ndynamics (R)"
   },
   {
-    "objectID": "classwork.html#cw13-time-trends-analytical",
-    "href": "classwork.html#cw13-time-trends-analytical",
+    "objectID": "classwork.html#cw13",
+    "href": "classwork.html#cw13",
     "title": "Classwork",
-    "section": "CW13: time trends (analytical)",
-    "text": "CW13: time trends (analytical)"
+    "section": "CW13",
+    "text": "CW13\n\ntime trends (analytical)"
   },
   {
-    "objectID": "classwork.html#cw14-random-walks-half-analytical-half-r",
-    "href": "classwork.html#cw14-random-walks-half-analytical-half-r",
+    "objectID": "classwork.html#cw14",
+    "href": "classwork.html#cw14",
     "title": "Classwork",
-    "section": "CW14: random walks (half analytical, half R)",
-    "text": "CW14: random walks (half analytical, half R)"
+    "section": "CW14",
+    "text": "CW14\n\nrandom walks (half analytical, half R)"
   },
   {
-    "objectID": "classwork.html#cw15-iv-analtyical",
-    "href": "classwork.html#cw15-iv-analtyical",
+    "objectID": "classwork.html#cw15",
+    "href": "classwork.html#cw15",
     "title": "Classwork",
-    "section": "CW15: IV (analtyical)",
-    "text": "CW15: IV (analtyical)"
+    "section": "CW15",
+    "text": "CW15\n\nIV (analtyical)"
   },
   {
-    "objectID": "classwork.html#cw16-iv-r",
-    "href": "classwork.html#cw16-iv-r",
+    "objectID": "classwork.html#cw16",
+    "href": "classwork.html#cw16",
     "title": "Classwork",
-    "section": "CW16: IV (R)",
-    "text": "CW16: IV (R)"
+    "section": "CW16",
+    "text": "CW16\n\nIV (R)"
   },
   {
-    "objectID": "classwork.html#cw17-diff-in-diff-anayltical",
-    "href": "classwork.html#cw17-diff-in-diff-anayltical",
+    "objectID": "classwork.html#cw17",
+    "href": "classwork.html#cw17",
     "title": "Classwork",
-    "section": "CW17: Diff-in-diff (anayltical)",
-    "text": "CW17: Diff-in-diff (anayltical)"
+    "section": "CW17",
+    "text": "CW17\n\nDiff-in-diff (anayltical)"
+  },
+  {
+    "objectID": "koans.html",
+    "href": "koans.html",
+    "title": "Koans",
+    "section": "",
+    "text": "Here’s a preview of the 20 koans developed for this class. To download them and the corresponding tests, follow the instructions in the preface to this workbook."
+  },
+  {
+    "objectID": "koans.html#vectors-tibbles-and-pipes",
+    "href": "koans.html#vectors-tibbles-and-pipes",
+    "title": "Koans",
+    "section": "vectors, tibbles, and pipes",
+    "text": "vectors, tibbles, and pipes"
+  },
+  {
+    "objectID": "koans.html#dplyr",
+    "href": "koans.html#dplyr",
+    "title": "Koans",
+    "section": "dplyr",
+    "text": "dplyr"
+  },
+  {
+    "objectID": "koans.html#ggplot2",
+    "href": "koans.html#ggplot2",
+    "title": "Koans",
+    "section": "ggplot2",
+    "text": "ggplot2"
+  },
+  {
+    "objectID": "koans.html#lm-and-statistical-distributions",
+    "href": "koans.html#lm-and-statistical-distributions",
+    "title": "Koans",
+    "section": "lm() and statistical distributions",
+    "text": "lm() and statistical distributions"
+  },
+  {
+    "objectID": "koans.html#functions",
+    "href": "koans.html#functions",
+    "title": "Koans",
+    "section": "functions",
+    "text": "functions"
+  },
+  {
+    "objectID": "koans.html#map",
+    "href": "koans.html#map",
+    "title": "Koans",
+    "section": "map()",
+    "text": "map()"
+  },
+  {
+    "objectID": "koans.html#lags-and-first-differences",
+    "href": "koans.html#lags-and-first-differences",
+    "title": "Koans",
+    "section": "lags and first differences",
+    "text": "lags and first differences"
+  },
+  {
+    "objectID": "koans.html#reduce-and-accumulate",
+    "href": "koans.html#reduce-and-accumulate",
+    "title": "Koans",
+    "section": "reduce and accumulate",
+    "text": "reduce and accumulate"
+  },
+  {
+    "objectID": "koans.html#references",
+    "href": "koans.html#references",
+    "title": "Koans",
+    "section": "References",
+    "text": "References\nBryan (n.d.)\nHadley Wickham and Grolemund (2017)\nH. Wickham (2014)\nSpeegle and Clair (2021)\n\n\n\n\nBryan, Jennifer. n.d. Gapminder: Data from Gapminder.\n\n\nSpeegle, Darrin, and Bryan Clair. 2021. “Data for the Dplyr Murder Mystery.” https://rdrr.io/github/speegled/dplyrmurdermystery/.\n\n\nWickham, H. 2014. Advanced r. Chapman & Hall/CRC the r Series. Taylor & Francis. https://books.google.com/books?id=PFHFNAEACAAJ.\n\n\nWickham, Hadley, and Garrett Grolemund. 2017. R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. 1st ed. O’Reilly Media, Inc."
   },
   {
     "objectID": "math.html",
@@ -438,119 +620,7 @@
     "href": "math.html#variance-and-covariance",
     "title": "Math Rules and Formulas",
     "section": "Variance and Covariance",
-    "text": "Variance and Covariance\n\nSample variance:\n\\[sVar(x) \\equiv \\frac{\\sum_i (x_i - \\bar{x})^2}{n - 1}\\]\nThe sample variance measures: on average, how far away is each observation from the mean? By squaring the deviance from the mean, it gets rid of negative numbers and makes it so that a few large deviances translate to a much larger variance than many small deviances. Dividing by n - 1 instead of n is called “Bessel’s Correction”: since the mean \\(\\bar{x}\\) was calculated by looking at the same sample data, the deviances from \\(\\bar{x}\\) in the sample will be smaller than if we knew and instead used the true expectation of the random variable x. So to estimate the population variance given a sample, we make the number a little bigger by dividing by n - 1 instead of n.\n\n\nSample covariance of two variables x and y:\n\\[sCov(x, y) \\equiv \\frac{\\sum_i (x_i - \\bar{x})(y_i - \\bar{y})}{n - 1}\\]\nNotice that this implies that the sample covariance of x with itself is the same as the sample variance of x: \\(sCov(x, x) = sVar(x)\\).\n\n\nPopulation Variance\nOn average, what is the square deviance of X from its mean? \\(Var(X) \\equiv E[(X - E[X])^2]\\)\n\n\nPopulation Covariance\n\\(Cov(X, Y) \\equiv E[(X - E[X])(Y - E[Y])]\\)\n\n\nVariance Rules\n\nThe variance of a constant is zero: \\(Var(c) = 0\\)\nThe variance of a constant times a random variable: \\(Var(cX) = c^2 Var(X)\\)\nThe variance of a constant plus a random variable: \\(Var(c + X) = Var(X)\\)\nThe variance of the sum of two random variables: \\(Var(X + Y) = Var(X) + Var(Y) + 2 Cov(X, Y)\\)\n\n\n\nCovariance Rules\n\nThe covariance of a random variable with a constant is 0: \\(Cov(X, c) = 0\\)\nThe covariance of a random variable with itself is its variance: \\(Cov(X, X) = Var(X)\\)\nYou can bring constants outside of the covariance: \\(Cov(X, c Y) = c Cov(X, Y)\\)\nIf Z is a third random variable: \\(Cov(X, Y + Z) = Cov(X, Y) + Cov(X, Z)\\)"
-  },
-  {
-    "objectID": "references.html",
-    "href": "references.html",
-    "title": "References",
-    "section": "",
-    "text": "Angrist, J. D., and J. S. Pischke. 2014. Mastering ’Metrics: The\nPath from Cause to Effect. Princeton University Press. https://books.google.com/books?id=dEh-BAAAQBAJ.\n\n\nAngrist, Joshua, and Jorn-Steffen Pischke. 2010. “A Note on Bias\nin Conventional Standard Errors Under Heteroskedasticity.” https://econ.lse.ac.uk/staff/spischke/mhe/josh/Notes%20on%20conv%20std%20error.pdf.\n\n\nBryan, Jennifer. n.d. Gapminder: Data from Gapminder.\n\n\nDougherty, C. 2016. Introduction to Econometrics. Oxford\nUniversity Press. https://books.google.com/books?id=Q5cMEAAAQBAJ.\n\n\nLim, Milton, COVID-19 Mortality Working Group, Mike Callan, Actuaries\nInstitute, James Pyne, Chris Dolman, Kitty Chan, and John Connor. 2021.\n“Gauss, Least Squares, and the Missing Planet.”\nActuaries Digital. https://www.actuaries.digital/2021/03/31/gauss-least-squares-and-the-missing-planet/#:~:text=The%20early%20history%20of%20statistics,subject%20to%20random%20measurement%20errors.\n\n\nRubin, Ed. 2022. “Economics 421: Introduction to\nEconometrics.” Github. https://github.com/edrubin/EC421W22.\n\n\nSpeegle, Darrin, and Bryan Clair. 2021. “Data for the Dplyr Murder\nMystery.” https://rdrr.io/github/speegled/dplyrmurdermystery/.\n\n\nWickham, H. 2014. Advanced r. Chapman & Hall/CRC the r\nSeries. Taylor & Francis. https://books.google.com/books?id=PFHFNAEACAAJ.\n\n\nWickham, Hadley, and Garrett Grolemund. 2017. R for Data Science:\nImport, Tidy, Transform, Visualize, and Model Data. 1st ed.\nO’Reilly Media, Inc."
-  },
-  {
-    "objectID": "causal_inference.html#section",
-    "href": "causal_inference.html#section",
-    "title": "3  Causal Inference",
-    "section": "3.2 ",
-    "text": "3.2 \nI’ll tackle 1) first. Suppose you have no health insurance between the ages of 26 and 30, and then you have health insurance between the ages of 30 and 34. In your late 20’s your average health was a 7 and in your late 30’s, your average health was a 8.5. So did having health insurance cause the 1.5 point increase in health? Maybe, but maybe not: what if you had no health insurance in your late 20s because you were underemployed? And because you didn’t have a great job, you also found yourself anxious and depressed? But then at 30, you finally landed the job of your dreams, you got health insurance because you were employed full time, and you were much happier and healthier? So it could look like health insurance boosted your health, but in reality it was just that you tend to have health insurance at times in your life when your also have steady employment and enjoy better health because of your employment.\nFor 2) different people at the same time (some insured and some not insured): Can we take the average healths of the insured, subtract the average healths of the uninsured, and consider this a causal effect? Probably not, because just like in the previous paragraph, there’s selection bias: those who have insurance selected in, so they may be different on unobservables from those who did not. If the uninsured group is more likely to be underemployed (and perhaps more anxious and depressed), again it may look like health insurance makes people much healthier, but actually it’s just the effect of steady employment.\nYou may be wondering: does this have anything to do with exogeneity? Of course it does: what we’re really talking about here is exogeneity!\n\nSelection bias is a type of omitted variable bias where the omitted variable is the person’s propensity to get treated (“buy health insurance”). A selection bias diagram: if “propensity to be insured” correlates both with “being insured” and someone’s “health”, then \\(\\hat{\\beta_1}\\) is biased.\n\nClearly, someone’s propensity to be insured correlates with whether they are insured or not. Does “propensity to be insured” correlate with a person’s health? Yes, through multiple channels:\n\nStable employment boosts people’s propensity to be insured and their health, as we’ve discussed before\nCareful, responsible people are more likely to be insured and they’re probably healthier because they take care of themselves in other ways as well\nBut these variables may be correlated in another way as well: consider a person with a chronic health condition that requires them to frequent the doctor’s office or hospital. They would have a higher propensity to be insured because they know they need to visit the doctor frequently. And they also would have a lower health than a person without such a condition.\n\nAll of these are reasons why \\(\\hat{\\beta_1}\\) might be biased due to selection.\nFinally, let’s consider 3) “Twins at the same time, one of whom has health insurance while the other doesn’t”. If the twin who has health insurance has a health of 9 while the twin that doesn’t has a health of 7, does that mean health insurance boosts people’s healths by 2 points? No: we’re still worried about selection bias. What other things are different between these twins besides the fact that one has health insurance and one doesn’t? But what if we gave out health insurance randomly to one twin, and not to the other? That is, what if we did some kind of randomized experiment on these twins, and then observed their healths after a little while? And what if we got a bunch of twins and did the same thing? This would be one way to find the causal effect of health insurance on health because by randomizing who gets health insurance, we’re enforcing exogeneity. Why?\nImagine the two twins walk in to the room and you’re only told which one has health insurance and which one doesn’t. Does that give you any information about which one might have steadier employment, which one might be more responsible, or which one might have a chronic health condition? No! Because we randomized which of the twins got the insurance. So \\[E[unemployed,\\ responsible,\\ chronic\\ condition\\ |\\ health\\ insurance] = 0\\] in a randomized experiment, exogeneity holds and \\(\\hat{\\beta_1}\\) will be an unbiased estimator of the causal effect of health insurance on health.\nAnd actually we don’t need twins after all: we just need a big group of people who we can divide randomly into a treatment and a control group. As long as the treatment and control groups look enough like each other on average, exogeneity will hold. This is why we say \\(correlation + exogeneity = causation\\). And this is why a randomized controlled experiment (RCT) is the gold standard for causal inference. At the end of this course, we’ll talk about a few second-best approaches for causal inference using instrumental variables and then differences-in-differences, but it’s good to keep in mind that if an experiment is ethical and cost-effective, it’s the best approach.\nSo what’s the ideal experiment to find the causal effect of some variable X on some variable Y? It’s an RCT where you randomize X and compare average differences in Y between treatment and control groups."
-  },
-  {
-    "objectID": "causal_inference.html#same-person-at-different-times",
-    "href": "causal_inference.html#same-person-at-different-times",
-    "title": "3  Causal Inference",
-    "section": "3.2 Same person at different times",
-    "text": "3.2 Same person at different times\nI’ll tackle 1) first. Suppose you have no health insurance between the ages of 26 and 30, and then you have health insurance between the ages of 30 and 34. In your late 20’s your average health was a 7 and in your late 30’s, your average health was a 8.5. So did having health insurance cause the 1.5 point increase in health? Maybe, but maybe not: what if you had no health insurance in your late 20s because you were underemployed? And because you didn’t have a great job, you also found yourself anxious and depressed? But then at 30, you finally landed the job of your dreams, you got health insurance because you were employed full time, and you were much happier and healthier? So it could look like health insurance boosted your health, but in reality it was just that you tend to have health insurance at times in your life when your also have steady employment and enjoy better health because of your employment."
-  },
-  {
-    "objectID": "causal_inference.html#different-people-at-the-same-time",
-    "href": "causal_inference.html#different-people-at-the-same-time",
-    "title": "3  Causal Inference",
-    "section": "3.3 Different people at the same time",
-    "text": "3.3 Different people at the same time\nFor 2) different people at the same time (some insured and some not insured): Can we take the average healths of the insured, subtract the average healths of the uninsured, and consider this a causal effect? Probably not, because just like in the previous paragraph, there’s selection bias: those who have insurance selected in, so they may be different on unobservables from those who did not. If the uninsured group is more likely to be underemployed (and perhaps more anxious and depressed), again it may look like health insurance makes people much healthier, but actually it’s just the effect of steady employment.\nYou may be wondering: does this have anything to do with exogeneity? Of course it does: what we’re really talking about here is exogeneity!\n\nSelection bias is a type of omitted variable bias where the omitted variable is the person’s propensity to get treated (“buy health insurance”). A selection bias diagram: if “propensity to be insured” correlates both with “being insured” and someone’s “health”, then \\(\\hat{\\beta_1}\\) is biased.\n\nClearly, someone’s propensity to be insured correlates with whether they are insured or not. Does “propensity to be insured” correlate with a person’s health? Yes, through multiple channels:\n\nStable employment boosts people’s propensity to be insured and their health, as we’ve discussed before\nCareful, responsible people are more likely to be insured and they’re probably healthier because they take care of themselves in other ways as well\nBut these variables may be correlated in another way as well: consider a person with a chronic health condition that requires them to frequent the doctor’s office or hospital. They would have a higher propensity to be insured because they know they need to visit the doctor frequently. And they also would have a lower health than a person without such a condition.\n\nAll of these are reasons why \\(\\hat{\\beta_1}\\) might be biased due to selection."
-  },
-  {
-    "objectID": "causal_inference.html#twins-at-the-same-time",
-    "href": "causal_inference.html#twins-at-the-same-time",
-    "title": "3  Causal Inference",
-    "section": "3.4 Twins at the same time",
-    "text": "3.4 Twins at the same time\nFinally, let’s consider 3) “Twins at the same time, one of whom has health insurance while the other doesn’t”. If the twin who has health insurance has a health of 9 while the twin that doesn’t has a health of 7, does that mean health insurance boosts people’s healths by 2 points? No: we’re still worried about selection bias. What other things are different between these twins besides the fact that one has health insurance and one doesn’t? But what if we gave out health insurance randomly to one twin, and not to the other? That is, what if we did some kind of randomized experiment on these twins, and then observed their healths after a little while? And what if we got a bunch of twins and did the same thing? This would be one way to find the causal effect of health insurance on health because by randomizing who gets health insurance, we’re enforcing exogeneity. Why?\nImagine the two twins walk in to the room and you’re only told which one has health insurance and which one doesn’t. Does that give you any information about which one might have steadier employment, which one might be more responsible, or which one might have a chronic health condition? No! Because we randomized which of the twins got the insurance. So \\[E[unemployed,\\ responsible,\\ chronic\\ condition\\ |\\ health\\ insurance] = 0\\] in a randomized experiment, exogeneity holds and \\(\\hat{\\beta_1}\\) will be an unbiased estimator of the causal effect of health insurance on health.\nAnd actually we don’t need twins after all: we just need a big group of people who we can divide randomly into a treatment and a control group. As long as the treatment and control groups look enough like each other on average, exogeneity will hold. This is why we say \\(correlation + exogeneity = causation\\). And this is why a randomized controlled experiment (RCT) is the gold standard for causal inference. At the end of this course, we’ll talk about a few second-best approaches for causal inference using instrumental variables and then differences-in-differences, but it’s good to keep in mind that if an experiment is ethical and cost-effective, it’s the best approach.\nSo what’s the ideal experiment to find the causal effect of some variable X on some variable Y? It’s an RCT where you randomize X and compare average differences in Y between treatment and control groups."
-  },
-  {
-    "objectID": "causal_inference.html#quantifying-selection-bias-with-the-rubin-causal-model",
-    "href": "causal_inference.html#quantifying-selection-bias-with-the-rubin-causal-model",
-    "title": "3  Causal Inference",
-    "section": "3.5 Quantifying Selection Bias with the Rubin Causal Model",
-    "text": "3.5 Quantifying Selection Bias with the Rubin Causal Model\nThe Rubin Causal Model helps us think a little more rigorously about selection bias. Here it is:\nThere are two types of people: people that choose to get health insurance and people that don’t. The people who choose to not get health insurance have some health level which we’ll call \\(health_{0i}\\): the 0 indicates that’s their health in the universe that they are not insured.\nLet’s suppose health insurance has some causal effect on a person’s health, and we’ll call that effect \\(\\tau_i\\). Then for the types of people who choose to get health insurance, their health, \\(health_{1i}\\) is equal to their health if they hadn’t gotten insured plus the treatment effect: \\(health_{0i} + \\tau_i\\). So:\n\\[health_{1i} = health_{0i} + \\tau_i\\]\nWhen we estimate the model:\n\\[health_i = \\beta_0 + \\beta_1 insurance_i + u_i\\]\n\\(\\hat{\\beta_1}\\) will be the average difference in the insured people’s healths and the uninsured people’s healths:\n\\[\\begin{align*}\n\\hat{\\beta_1} = & E[health_{1i}\\ |\\ type\\ of\\ people\\ who\\ get\\ insured] - \\\\\n& E[health_{0i}\\ |\\ type\\ of\\ people\\ who\\ don't\\ get\\ insured]\n\\end{align*}\\]\n$$$$\nAnd since \\(health_{1i} = \\tau_i + health_{0i}\\),\n\\[\\begin{align*}\n\\hat{\\beta_1} = & E[\\tau_i + health_{0i}\\ |\\ type\\ of\\ people\\ who\\ get\\ insured] - \\\\\n& E[health_{0i}\\ |\\ type\\ of\\ people\\ who\\ don't\\ get\\ insured]\n\\end{align*}\\]\nDistributing the expectation across \\(\\tau_i + health_{0i}\\) and recognizing \\(E[\\tau_i] = \\bar{\\tau}\\):\n\\[\\begin{align*}\n\\hat{\\beta_1} = & \\bar{\\tau} + E[health_{0i}\\ |\\ type\\ of\\ people\\ who\\ get\\ insured] - \\\\\n& E[health_{0i}\\ |\\ type\\ of\\ people\\ who\\ don't\\ get\\ insured]\n\\end{align*}\\]\nThen define \\(selection \\ bias\\) as:\n\\[\\begin{align*}\nselection \\ bias = & E[health_{0i}\\ |\\ type\\ of\\ people\\ who\\ get\\ insured] - \\\\\n& E[health_{0i}\\ |\\ type\\ of\\ people\\ who\\ don't\\ get\\ insured]\n\\end{align*}\\]\nThat is, selection bias is the average difference in y for the two types of people (people who will choose x = 1 and people who will choose x = 0), insurance level held constant. It actually doesn’t matter if we hold insurance level constant at 0 or at 1: we’ll get the same answer. Finally:\n\\[\\begin{align*}\n\\hat{\\beta_1} = \\bar{\\tau} + selection \\ bias\n\\end{align*}\\]\n\nNumerical Example: Angrist and Pischke (2014)"
-  },
-  {
-    "objectID": "consistency.html#motivation",
-    "href": "consistency.html#motivation",
-    "title": "4  Consistency",
-    "section": "4.2 Motivation",
-    "text": "4.2 Motivation\nLet’s fast forward a few years. You’re at your future job in a brand new data science department at a fast growing company. You’re in a meeting and you decide to bring up some concerns you have about selection bias in a model you’re developing. Your coworker is dismissive though: they say, “don’t worry about selection bias, we’ll just get twice the amount of data! How much data do you want? 4 times the amount of data? 10 times?” You’ll have to remember back to econometrics: does selection bias disappear when we let \\(n\\) go to infinity? That is, under selection bias, is OLS consistent? That is the research question for today. (spoiler: the answer is no: no amount of data will help if there is selection bias or omitted variable bias. The only solution is to use causal inference techniques like an RCT, instrumental variables (Ch 9), of differences-in-differences (Ch 10).)"
-  },
-  {
-    "objectID": "consistency.html#is-ols-consistent-when-there-is-omitted-variable-bias",
-    "href": "consistency.html#is-ols-consistent-when-there-is-omitted-variable-bias",
-    "title": "4  Consistency",
-    "section": "4.3 Is OLS consistent when there is omitted variable bias?",
-    "text": "4.3 Is OLS consistent when there is omitted variable bias?"
-  },
-  {
-    "objectID": "consistency.html#bias-versus-consistency",
-    "href": "consistency.html#bias-versus-consistency",
-    "title": "4  Consistency",
-    "section": "4.3 Bias versus Consistency",
-    "text": "4.3 Bias versus Consistency\nRecall that \\(\\hat{\\beta_1}\\) is unbiased iff \\(E[\\hat{\\beta_1}] = \\beta_1\\), and that the key assumption for unbiasedness is exogeneity: \\(E[u_i | X] = 0\\).\nFor \\(\\hat{\\beta_1}\\) to be consistent however, we need \\(plim(\\hat{\\beta_1}) = \\beta_1\\). That is, as the number of data points \\(n\\) goes to infinity, the probability density function for \\(\\hat{\\beta_1}\\) must collapse to a spike on the true value \\(\\beta_1\\) for \\(\\hat{\\beta_1}\\) to be consistent. “Collapse to a spike” more formally means that \\(Var(\\hat{\\beta_1})\\) goes to 0 as n goes to infinity and if \\(\\hat{\\beta_1}\\) is biased, its bias goes to 0 as n goes to infinity. I’ll show at the end of the chapter that the key assumption required for \\(\\hat{\\beta_1}\\) to be consistent is that \\(Cov(x, u) = 0\\).\n\nBias versus Consistency\n\n\n\n\nEstimators that are consistent and inconsistent; biased and unbiased\n\n\n\n\nQuiz: bias and consistency"
-  },
-  {
-    "objectID": "consistency.html#proof",
-    "href": "consistency.html#proof",
-    "title": "4  Consistency",
-    "section": "4.4 Proof:",
-    "text": "4.4 Proof:"
-  },
-  {
-    "objectID": "consistency.html#proof-hatbeta_1-is-consistent-if-and-only-if-covx_i-u_i-0",
-    "href": "consistency.html#proof-hatbeta_1-is-consistent-if-and-only-if-covx_i-u_i-0",
-    "title": "4  Consistency",
-    "section": "4.4 Proof: \\(\\hat{\\beta_1}\\) is consistent if and only if \\(Cov(x_i, u_i) = 0\\)",
-    "text": "4.4 Proof: \\(\\hat{\\beta_1}\\) is consistent if and only if \\(Cov(x_i, u_i) = 0\\)\nConsistency is defined as \\(plim(\\hat{\\beta_1}) = 0\\), so to do this proof, first we need some rules about probability limits \\(plim\\).\n\n4.4.1 \\(plim\\) rules\nLet \\(c\\) be a constant. Let \\(x_n\\) and \\(y_n\\) be sequences of random variables where \\(plim(x_n) = x\\) and \\(plim(y_n) = y\\). That is, for large x, the probability density function of \\(x_n\\) collapses to a spike on the value x and the same for \\(y_n\\) and y. Then:\n\nThe probability limit of a constant is the constant: \\(plim(c) = c\\)\n\\(plim(x_n + y_n) = x + y\\)\n\\(plim(x_n y_n) = x y\\)\n\\(plim(\\frac{x_n}{y_n}) = \\frac{x}{y}\\)\n\\(plim(g(x_n, y_n)) = g(x, y)\\) for any function g.\n\n\n\n4.4.2 Proof\nWe’d like to show that \\(plim(\\hat{\\beta_1}) = \\beta_1\\) if and only if \\(Cov(x_i, u_i) = 0\\).\nI’ll start with this formula for \\(\\hat{\\beta_1}\\), where \\(sCov\\) and \\(sVar\\) refer to the sample covariance and sample variance:\n\\[\\hat{\\beta_1} = \\beta_1 + \\frac{sCov(x, u)}{sVar(x)}\\]\nTake the probability limit of both sides and recognize that the probability limit of a constant is the constant:\n\\[plim(\\hat{\\beta_1}) = \\beta_1 + plim \\left ( \\frac{sCov(x, u)}{sVar(x)} \\right )\\]\nSince \\(plim(\\frac{x_n}{y_n}) = \\frac{x}{y}\\):\n\\[plim(\\hat{\\beta_1}) = \\beta_1 + \\frac{plim(sCov(x, u))}{plim(sVar(x))}\\]\nAs n increases, a sample variance collapses to the population variance, and the same for covariance:\n\\[plim(\\hat{\\beta_1}) = \\beta_1 + \\frac{Cov(x, u)}{Var(x)}\\]\nSo for \\(plim(\\hat{\\beta_1})\\) to be equal to \\(\\beta_1\\), we just need \\(Cov(x, u)\\) to be 0."
-  },
-  {
-    "objectID": "consistency.html#proof-hatbeta_1-is-consistent-if-covx-u-0",
-    "href": "consistency.html#proof-hatbeta_1-is-consistent-if-covx-u-0",
-    "title": "4  Consistency",
-    "section": "4.4 Proof: \\(\\hat{\\beta_1}\\) is consistent if \\(Cov(x, u) = 0\\)",
-    "text": "4.4 Proof: \\(\\hat{\\beta_1}\\) is consistent if \\(Cov(x, u) = 0\\)\nConsistency is defined as \\(plim(\\hat{\\beta_1}) = 0\\), so to do this proof, first we need some rules about probability limits \\(plim\\).\n\n4.4.1 \\(plim\\) rules\nLet \\(c\\) be a constant. Let \\(x_n\\) and \\(y_n\\) be sequences of random variables where \\(plim(x_n) = x\\) and \\(plim(y_n) = y\\). That is, for large x, the probability density function of \\(x_n\\) collapses to a spike on the value x and the same for \\(y_n\\) and y. Then:\n\nThe probability limit of a constant is the constant: \\(plim(c) = c\\)\n\\(plim(x_n + y_n) = x + y\\)\n\\(plim(x_n y_n) = x y\\)\n\\(plim(\\frac{x_n}{y_n}) = \\frac{x}{y}\\)\n\\(plim(g(x_n, y_n)) = g(x, y)\\) for any function g.\n\n\n\n4.4.2 Proof\nWe’d like to show that \\(plim(\\hat{\\beta_1}) = \\beta_1\\) if \\(Cov(x, u) = 0\\).\nI’ll start with this formula for \\(\\hat{\\beta_1}\\), where \\(sCov\\) and \\(sVar\\) refer to the sample covariance and sample variance:\n\\[\\hat{\\beta_1} = \\frac{sCov(x_i, y_i)}{sVar(x_i)}\\]\nIf \\(y_i = \\beta_0 + \\beta_1 x_i + u_i\\), we can substitute in for \\(y_i\\):\n\\[\\hat{\\beta_1} = \\frac{sCov(x_i, \\beta_0 + \\beta_1 x_i + u_i)}{sVar(x_i)}\\]\nAnd use some covariance rules to simplify:\n\\[\\hat{\\beta_1} = \\beta_1 + \\frac{sCov(x_i, u_i)}{sVar(x_i)}\\]\nTake the probability limit of both sides and recognize that the probability limit of a constant is the constant:\n\\[plim(\\hat{\\beta_1}) = \\beta_1 + plim \\left ( \\frac{sCov(x_i, u_i)}{sVar(x_i)} \\right )\\]\nSince \\(plim(\\frac{x_n}{y_n}) = \\frac{x}{y}\\):\n\\[plim(\\hat{\\beta_1}) = \\beta_1 + \\frac{plim(sCov(x_i, u_i))}{plim(sVar(x_i))}\\]\nAs n increases, a sample variance collapses to the population variance, and the same for covariance:\n\\[plim(\\hat{\\beta_1}) = \\beta_1 + \\frac{Cov(x_i, u_i)}{Var(x_i)}\\]\nSo for \\(plim(\\hat{\\beta_1})\\) to be equal to \\(\\beta_1\\), we just need \\(Cov(x_i, u_i)\\) to be 0."
-  },
-  {
-    "objectID": "consistency.html#covx-u-neq-0-under-omitted-variable-bias",
-    "href": "consistency.html#covx-u-neq-0-under-omitted-variable-bias",
-    "title": "4  Consistency",
-    "section": "4.5 \\(Cov(x, u) \\neq 0\\) under omitted variable bias",
-    "text": "4.5 \\(Cov(x, u) \\neq 0\\) under omitted variable bias"
-  },
-  {
-    "objectID": "consistency.html#covx_i-u_i-neq-0-under-omitted-variable-bias",
-    "href": "consistency.html#covx_i-u_i-neq-0-under-omitted-variable-bias",
-    "title": "4  Consistency",
-    "section": "4.5 \\(Cov(x_i, u_i) \\neq 0\\) under omitted variable bias",
-    "text": "4.5 \\(Cov(x_i, u_i) \\neq 0\\) under omitted variable bias\nSuppose the true data generating process is this:\n\\[wage_i = \\alpha_0 + \\alpha_1 education_i + \\alpha_2 ability_i + v_i\\]\nBut we have to omit \\(ability\\), so we fit this model instead:\n\\[wage_i = \\beta_0 + \\beta_1 education_i + u_i\\]\nThen u absorbs v and \\(\\alpha_2 ability_i\\), so that \\(u_i = \\alpha_2 ability_i + v_i\\). So:\n\\[\\hat{\\beta_1} = \\beta_1 + \\frac{sCov(education_i, u_i)}{sVar(education_i)}\\]\nAnd taking probability limits of both sides while substituting in for \\(u_i\\):\n\\[plim(\\hat{\\beta_1}) = \\beta_1 + \\frac{Cov(education_i, \\alpha_2 ability_i + v_i)}{sVar(education_i)}\\]\n\\[\\begin{align*}\nplim(\\hat{\\beta_1}) = \\beta_1 + \\frac{\\alpha_2 Cov(education_i, ability_i) + Cov(education_i, v_i)}{Var(education_i)}\n\\end{align*}\\]\nAssuming \\(Cov(education_i, v_i) = 0\\):\n\\[\nplim(\\hat{\\beta_1}) = \\beta_1 + \\frac{\\alpha_2 Cov(education_i, ability_i)}{Var(education_i)}\n\\tag{4.1}\\]\nCompare this to the omitted variable bias diagram:\n\nIn the last chapter we learned that if you can draw both lines going out from u (if you can tell stories about why x and u are likely related and why u and y are likely related), then u confounds the relationship you’re trying to detect between x and y, and \\(\\hat{\\beta_1}\\) is likely biased.\nNow I’ve added one more detail to the diagram: we can label those lines. Specifically, the relationship between x and u is \\(Cov(x_i, u_i)\\) and the relationship between y and u is \\(\\alpha_2\\) from Equation 4.1. And if both \\(Cov(x_i, u_i)\\) and \\(\\alpha_2\\) are nonzero, both the diagram and Equation 4.1 verify that \\(\\hat{\\beta_1}\\) will be biased."
-  },
-  {
-    "objectID": "consistency.html#references",
-    "href": "consistency.html#references",
-    "title": "4  Consistency",
-    "section": "4.8 References",
-    "text": "4.8 References\nDougherty (2016) pages 68-75\nRubin (2022)\n\n\n\n\nDougherty, C. 2016. Introduction to Econometrics. Oxford University Press. https://books.google.com/books?id=Q5cMEAAAQBAJ.\n\n\nRubin, Ed. 2022. “Economics 421: Introduction to Econometrics.” Github. https://github.com/edrubin/EC421W22."
-  },
-  {
-    "objectID": "consistency.html#signing-the-bias",
-    "href": "consistency.html#signing-the-bias",
-    "title": "4  Consistency",
-    "section": "4.6 Signing the bias",
-    "text": "4.6 Signing the bias\nLabeling the lines in the diagram above does one more thing for us: it lets us sign the bias."
+    "text": "Variance and Covariance\n\nSample variance:\n\\[sVar(x) \\equiv \\frac{\\sum_i (x_i - \\bar{x})^2}{n - 1}\\]\nThe sample variance measures: on average, how far away is each observation from the mean? By squaring the deviance from the mean, it gets rid of negative numbers and makes it so that a few large deviances translate to a much larger variance than many small deviances. Dividing by n - 1 instead of n is called “Bessel’s Correction”: since the mean \\(\\bar{x}\\) was calculated by looking at the same sample data, the deviances from \\(\\bar{x}\\) in the sample will be smaller than if we knew and instead used the true expectation of the random variable x. So to estimate the population variance given a sample, we make the number a little bigger by dividing by n - 1 instead of n.\n\n\nSample covariance of two variables x and y:\n\\[sCov(x, y) \\equiv \\frac{\\sum_i (x_i - \\bar{x})(y_i - \\bar{y})}{n - 1}\\]\nNotice that this implies that the sample covariance of x with itself is the same as the sample variance of x: \\(sCov(x, x) = sVar(x)\\).\n\n\nPopulation Variance\nOn average, what is the square deviance of X from its mean? \\(Var(X) \\equiv E[(X - E[X])^2]\\)\n\n\nPopulation Covariance\n\\(Cov(X, Y) \\equiv E[(X - E[X])(Y - E[Y])]\\)\n\n\nCorrelation\nCorrelation is a function of covariance:\n\\(Correlation(X, Y) = \\frac{Cov(X, Y)}{\\sqrt{Var(X)} \\sqrt{Var(Y)}}\\)\nIf two random variables have 0 covariance, they will have 0 correlation.\n\n\nVariance Rules\n\nThe variance of a constant is zero: \\(Var(c) = 0\\)\nThe variance of a constant times a random variable: \\(Var(cX) = c^2 Var(X)\\)\nThe variance of a constant plus a random variable: \\(Var(c + X) = Var(X)\\)\nThe variance of the sum of two random variables: \\(Var(X + Y) = Var(X) + Var(Y) + 2 Cov(X, Y)\\)\n\n\n\nCovariance Rules\n\nThe covariance of a random variable with a constant is 0: \\(Cov(X, c) = 0\\)\nThe covariance of a random variable with itself is its variance: \\(Cov(X, X) = Var(X)\\)\nYou can bring constants outside of the covariance: \\(Cov(X, c Y) = c Cov(X, Y)\\)\nIf Z is a third random variable: \\(Cov(X, Y + Z) = Cov(X, Y) + Cov(X, Z)\\)"
   },
   {
     "objectID": "math.html#plim-rules",
@@ -567,62 +637,6 @@
     "text": "Expectations\nLet A and B be random variables, and let c be a constant.\n\n\\(E[A + B] = E[A] + E[B]\\)\nIn general, \\(E[A B] \\neq E[A] E[B]\\)\nConstants can pass outside of an expectation: \\(E[c A] = c E[A]\\)\n\nAnd continuing from 3), since \\(E[A]\\) is a constant, \\(E[B \\ E[A]] = E[A] E[B]\\).\n\nConditional Expectations\nIf the conditional expectation of something is a constant, then the unconditional expectation is that same constant:\nIf \\(E[A | B] = c\\), then \\(E[A] = c\\).\nWhy? The law of iterated expectations:\n\\[\\begin{align*}\nE[A] &= E \\left [ E[A | B] \\right ] \\\\\n&= E[c] \\\\\n&= c\n\\end{align*}\\]"
   },
   {
-    "objectID": "specification.html#squared-terms",
-    "href": "specification.html#squared-terms",
-    "title": "5  Model Specification",
-    "section": "5.2 Squared terms",
-    "text": "5.2 Squared terms\n\\(y_i = \\beta_0 + \\beta_1 x_i + \\beta_2 x_i^2 + u_i\\)\nVIDEO 1"
-  },
-  {
-    "objectID": "specification.html#interactions",
-    "href": "specification.html#interactions",
-    "title": "5  Model Specification",
-    "section": "5.3 Interactions",
-    "text": "5.3 Interactions\n\\(y_i = \\beta_0 + \\beta_1 x_i + \\beta_2 z_i + \\beta_3 x_i z_i + u_i\\)\nVIDEO 2\nConsider another model of weight and height:\n\\(weight_i = \\beta_0 + \\beta_1 male_i + \\beta_2 height_i + \\beta_3 male_i height_i + u_i\\)\nWhere weight is measured in lbs, male is a dummy variable that takes on a 1 if"
-  },
-  {
-    "objectID": "specification.html#log-linear",
-    "href": "specification.html#log-linear",
-    "title": "5  Model Specification",
-    "section": "5.4 Log-linear",
-    "text": "5.4 Log-linear\n\\(log(y_i) = \\beta_0 + \\beta_1 x_i + u_i\\)\nThe formula for exponential growth or decay:\n\\(y = (initial \\ amount) \\ e^{rt}\\)\nWhere \\(r\\) is the rate of change and \\(t\\) is the time (perhaps measured in hours, days, months, etc). The interpretation is that when t increases by 1, \\(y\\) increases by r%.\nLet’s take the log of both sides. Recalling that \\(log(a b) = log(a) + log(b)\\), and \\(log(a^b) = b \\ log(a)\\):\n\\(log(y) = log(initial \\ amount) + r t log(e)\\)\nAnd since \\(log(e) = 1\\):\n\\(log(y) = log(initial \\ amount) + r t\\)\nIf we let \\(\\beta_0 = log(initial \\ amount)\\), \\(r = \\beta_1\\), and \\(t = x\\), then we get the log-linear simple regression:\n\\(log(y_i) = \\beta_0 + \\beta_1 x_i + u_i\\)\nAnd since \\(r = \\beta_1\\), the interpretation of \\(\\beta_1\\) is the same as the interpretation for \\(r\\): when t increases by 1, \\(y\\) increases by r%."
-  },
-  {
-    "objectID": "specification.html#log-log",
-    "href": "specification.html#log-log",
-    "title": "5  Model Specification",
-    "section": "5.5 Log-log",
-    "text": "5.5 Log-log\n\\(log(y_i) = \\beta_0 + \\beta_1 log(x_i) + u_i\\)\nConsider a constant elasticity demand curve, where the elasticity \\(\\varepsilon\\) is the percent change in \\(Q_d\\) corresponding to a 1 percent change in price:\n\\[Q_d = \\beta_0 P^{\\beta_1} \\tag{5.1}\\]\nWhich parameter represents the elasticity \\(\\varepsilon\\)?\n\\[\\begin{align*}\n\\varepsilon &= \\frac{\\% \\Delta Q_d}{\\% \\Delta P} \\\\\n  &= \\frac{\\frac{\\partial Q}{Q}}{\\frac{\\partial P}{P}} \\\\\n  &= \\frac{\\partial Q}{\\partial P} \\frac{P}{Q} \\\\\n  &= \\frac{\\partial (\\beta_0 P^{\\beta_1})}{\\partial P} \\frac{P}{Q} \\\\\n  &= \\beta_0 \\beta_1 P^{\\beta_1 - 1} \\frac{P}{Q} \\\\\n  &= \\beta_0 \\beta_1 P^{\\beta_1 - 1} \\frac{P}{\\beta_0 P^{\\beta_1}} \\\\\n  &= \\beta_1\n\\end{align*}\\]\nSo if we take logs of both sides of Equation 5.1 and change Q to y and P to x:\n\\[log(y) = log(\\beta_0) + \\beta_1 log(x)\\]\nThen we can estimate this model using OLS because it’s linear in parameters. \\(\\beta_1\\) has the same interpretation as an elasticity: it’s the expected percent change in \\(y\\) corresponding to a 1 percent change in \\(x\\)."
-  },
-  {
-    "objectID": "specification.html#linear",
-    "href": "specification.html#linear",
-    "title": "5  Model Specification",
-    "section": "5.1 Linear",
-    "text": "5.1 Linear\n\\(y_i = \\beta_0 + \\beta_1 x_i + u_i\\)\n\nIntercept: \\(\\beta_0 = E[y | x = 0]\\).\nSlope: \\(\\beta_1\\) is the expected change in y given an increase in x of one unit.\n\nFor example:\n\\(weight_i = -80 + 40 height_i + u_i\\)\nIf \\(weight_i\\) is measured in lbs and \\(height_i\\) is measured in feet, then we’d interpret -80 as: “Someone 0 feet tall is expected to weigh -80 lbs”. And we’d interpret 40 as “If someone grows 1 foot, they’re expected to gain 40 lbs”."
-  },
-  {
-    "objectID": "specification.html",
-    "href": "specification.html",
-    "title": "5  Model Specification",
-    "section": "",
-    "text": "When you’re reading papers in applied economics, you’ll often see models with transformations of variables (squared, interacted with other variables, logs of variables). This chapter offers some explanation about why you’ll see those things. All of these models can be estimated using OLS because while they’re not necessarily linear in variables, they’re linear in the parameters \\(\\beta\\)."
-  },
-  {
-    "objectID": "specification.html#overview",
-    "href": "specification.html#overview",
-    "title": "5  Model Specification",
-    "section": "5.1 Overview",
-    "text": "5.1 Overview"
-  },
-  {
-    "objectID": "specification.html#linear-y_i-beta_0-beta_1-x_i-u_i",
-    "href": "specification.html#linear-y_i-beta_0-beta_1-x_i-u_i",
-    "title": "5  Model Specification",
-    "section": "5.1 Linear: \\(y_i = \\beta_0 + \\beta_1 x_i + u_i\\)",
-    "text": "5.1 Linear: \\(y_i = \\beta_0 + \\beta_1 x_i + u_i\\)"
-  },
-  {
     "objectID": "math.html#log-rules",
     "href": "math.html#log-rules",
     "title": "Math Rules and Formulas",
@@ -630,220 +644,10 @@
     "text": "Log rules\n\n\\(log_e(e) = 1\\)\n\\(log(a b) = log(a) + log(b)\\)\n\\(log(\\frac{a}{b}) = log(a) - log(b)\\)\n\\(log(a^b) = b \\ log(a)\\)"
   },
   {
-    "objectID": "heteroskedasticity.html#gauss-markov-assumptions",
-    "href": "heteroskedasticity.html#gauss-markov-assumptions",
-    "title": "6  Heteroskedasticity",
-    "section": "6.2 Gauss-Markov Assumptions",
-    "text": "6.2 Gauss-Markov Assumptions\nOLS is BLUE (the best linear unbiased estimator) if:\n\nThe data generating process is linear in parameters with an additive disturbance\nExplanatory variables X are exogeneous: \\(E(u_i | X) = 0\\)\nExplanatory variables X have variation and are not perfectly collinear\n\\(u_i\\) is iid (independently and identically distributed) \\(N(0, \\sigma^2)\\)\n\nIf the model has an intercept, the intercept de-means \\(u_i\\), so \\(E[u_i] = 0\\) is a freebie\nHomoskedasticity: \\(Var(u_i) = \\sigma^2\\), a constant\nNo autocorrelation: \\(E[u_i, u_j] = 0 \\forall i \\neq j\\): an assumption we’ll discuss in the chapter on time series\n\n\nWe needed assumptions 1-3 in the proof of the unbiasedness of OLS, so those assumptions are required for OLS to be unbiased.\nWe did not need assumption 4 in that proof, so if only assumption 4 is violated, OLS will remain unbiased. But we used assumption 4 when we derived OLS standard errors, so when assumption 4 is violated, OLS standard errors will be incorrect."
-  },
-  {
-    "objectID": "exogeneity.html#proof-of-the-unbiasedness-of-hatbeta_1-under-exogeneity",
-    "href": "exogeneity.html#proof-of-the-unbiasedness-of-hatbeta_1-under-exogeneity",
-    "title": "2  Exogeneity",
-    "section": "2.5 Proof of the unbiasedness of \\(\\hat{\\beta_1}\\) under exogeneity",
-    "text": "2.5 Proof of the unbiasedness of \\(\\hat{\\beta_1}\\) under exogeneity"
-  },
-  {
-    "objectID": "heteroskedasticity.html#detecting-heteroskedasticity",
-    "href": "heteroskedasticity.html#detecting-heteroskedasticity",
-    "title": "6  Heteroskedasticity",
-    "section": "6.3 Detecting Heteroskedasticity",
-    "text": "6.3 Detecting Heteroskedasticity"
-  },
-  {
-    "objectID": "heteroskedasticity.html#detecting-heteroskedasticity-through-visual-inspection",
-    "href": "heteroskedasticity.html#detecting-heteroskedasticity-through-visual-inspection",
-    "title": "6  Heteroskedasticity",
-    "section": "6.3 Detecting Heteroskedasticity through Visual Inspection",
-    "text": "6.3 Detecting Heteroskedasticity through Visual Inspection\nHeteroskedasticity tends to be obvious when you plot some explanatory variable on the x-axis and your dependent variable on the y-axis. In the image below, the left hand side illustrates an example of homoskedasticity, where the variance of the u’s are constant across X. The right hand side illustrates an example of heteroskedasticity, where the variance of the u’s starts small and increases with X."
-  },
-  {
-    "objectID": "heteroskedasticity.html#weighted-least-squares",
-    "href": "heteroskedasticity.html#weighted-least-squares",
-    "title": "6  Heteroskedasticity",
-    "section": "6.4 Weighted Least Squares",
-    "text": "6.4 Weighted Least Squares\nUnder heteroskedasticity, OLS is no longer the best linear unbiased estimator because weighted least squares (WLS) is more efficient. WLS is very similar to OLS except that you can use it to re-weight observations according to the variance of the \\(u_i\\)’s:\n\n\n\n\nNote: heteroskedasticity is the reason you’d see GDP/capita instead of GDP as the dependent variable in a model."
-  },
-  {
-    "objectID": "heteroskedasticity.html#references",
-    "href": "heteroskedasticity.html#references",
-    "title": "6  Heteroskedasticity",
-    "section": "6.9 References",
-    "text": "6.9 References\nDougherty (2016) Chapter 7: Heteroskedasticity\nAngrist and Pischke (2010)\n\n\n\n\nAngrist, Joshua, and Jorn-Steffen Pischke. 2010. “A Note on Bias in Conventional Standard Errors Under Heteroskedasticity.” https://econ.lse.ac.uk/staff/spischke/mhe/josh/Notes%20on%20conv%20std%20error.pdf.\n\n\nDougherty, C. 2016. Introduction to Econometrics. Oxford University Press. https://books.google.com/books?id=Q5cMEAAAQBAJ."
-  },
-  {
-    "objectID": "heteroskedasticity.html#general-types-of-heteroskedasticity",
-    "href": "heteroskedasticity.html#general-types-of-heteroskedasticity",
-    "title": "6  Heteroskedasticity",
-    "section": "6.5 General types of heteroskedasticity",
-    "text": "6.5 General types of heteroskedasticity\nWe’ll refer to five general types of heteroskedasticity: “increasing \\(var(u_i)\\)”, “decreasing \\(var(u_i)\\)”, “bubble”, “bowtie”, and heteroskedasticity due to outliers."
-  },
-  {
-    "objectID": "heteroskedasticity.html#tests-for-heteroskedasticity",
-    "href": "heteroskedasticity.html#tests-for-heteroskedasticity",
-    "title": "6  Heteroskedasticity",
-    "section": "6.6 Tests for heteroskedasticity",
-    "text": "6.6 Tests for heteroskedasticity\n\n6.6.1 Goldfeld-Quandt\n\nArrange the dataset by the explanatory variable you think is associated with the heteroskedasticity.\nEstimate your model using only the first 3/8 of the data (that is, only low values for x). Then do the same thing for the last 3/8 of the data (only large values for x).\nCalculate the SSR’s (sum of squared residuals \\(\\sum_i e_i^2\\)) for each of the regressions in step 2. The test statistic is \\(\\frac{SSR_2}{SSR_1}\\) where the larger SSR is in the numerator. The idea is that under homoskedasticity, both sides will have similar SSR’s and \\(\\frac{SSR_2}{SSR_1}\\) will be near 1. But under heteroskedasticity, \\(\\frac{SSR_2}{SSR_1}\\) would be much larger than 1.\nCompare the test statistic to the critical value: \\(F_{.999, \\ df1 = df2 = (\\frac{3}{8} n) - k}\\), where k is the number of explanatory variables in the model. If the test statistic is larger than the critical value, the evidence points toward rejecting the null hypothesis of homoskedasticity.\n\n\nWhich types of heteroskedasticity will the Goldfeld-Quandt test detect?\n\n\n\n\n\n6.6.2 White Test\n\nEstimate the model to get OLS residuals \\(e_i\\). Square it to get \\(e_i^2\\). The intuition for the White test is: Does x have explanatory power over \\(e_i^2\\)? If so, that’s evidence of possible heteroskedasticity.\nThe test statistic is n * \\(R^2\\) where the \\(R^2\\) is from this regression: lm(e^2 ~ x + x^2). Or for a multiple regression: lm(e^2 ~ x1 + x2 + x1:x2 + x1^2 + x2^2).\nCompare the test statistic to the critical value: \\(\\chi^2_{.999, \\ df = k}\\), where k is the number of explanatory variables in step 2. Just like in the Goldfeld-Quandt test, a test statistic that’s larger than the critical value points to rejecting the null hypothesis of homoskedasticity.\n\n\nWhich types of heteroskedasticity will the White test detect?"
-  },
-  {
-    "objectID": "heteroskedasticity.html#heteroskedasticity-consistent-standard-errors",
-    "href": "heteroskedasticity.html#heteroskedasticity-consistent-standard-errors",
-    "title": "6  Heteroskedasticity",
-    "section": "6.7 Heteroskedasticity-Consistent Standard Errors",
-    "text": "6.7 Heteroskedasticity-Consistent Standard Errors\nIn chapter 2, we saw that under assumption 4, OLS standard errors are:\n\\[se(\\hat{\\beta_1}) = \\sqrt{\\frac{\\sum_i e_i^2}{(n -1 )\\sum_i (x_i - \\bar{x})^2}}\\]\nWithout the homoskedasticity assumption, I’ll add an “HC” to indicate they are heteroskedasticity-consistent standard errors:\n\\[\\begin{align*}\nVar(\\hat{\\beta_1} | X)^{HC} &= \\sum_i w_i^2 Var(u_i | X) \\\\\n&= \\frac{\\sum_i (x_i - \\bar{x})^2 Var(u_i | X)}{(\\sum_i (x_i - \\bar{x})^2)^2}\n\\end{align*}\\]\nWhich White (1980) showed can be estimated by:\n\\[se(\\hat{\\beta_1})^{HC} = \\sqrt{\\frac{\\sum_i (x_i - \\bar{x})^2 e_i^2}{(\\sum_i (x_i - \\bar{x})^2)^2}}\\]\nWhen you account for heteroskedasticity by using HC standard errors instead of conventional standard errors, you may see that, depending on the type of heteroskedasticity, sometimes your standard errors will increase and sometimes they will decrease. Let’s explore this phenomenon to understand why:\n\\[\\begin{align*}\nHC \\ standard \\ errors &> Conv \\ standard \\ errors \\ when: \\\\\n\\sqrt{\\frac{\\sum_i (x_i - \\bar{x})^2 e_i^2}{(\\sum_i (x_i - \\bar{x})^2)^2}} &> \\sqrt{\\frac{\\sum_i e_i^2}{(n -1 )\\sum_i (x_i - \\bar{x})^2}} \\\\\n\\frac{\\sum_i (x_i - \\bar{x})^2 e_i^2}{(\\sum_i (x_i - \\bar{x})^2)^2} &> \\frac{\\sum_i e_i^2}{(n -1 )\\sum_i (x_i - \\bar{x})^2} \\\\\n\\frac{\\sum_i (x_i - \\bar{x})^2 e_i^2}{\\sum_i (x_i - \\bar{x})^2} &> \\frac{\\sum_i e_i^2}{n -1} \\\\\n\\sum_i (x_i - \\bar{x})^2 e_i^2 &> \\frac{\\sum_i e_i^2 \\sum_i (x_i - \\bar{x})^2}{n - 1}\n\\end{align*}\\]\nMultiply both sides by \\(\\frac{1}{n - 1}\\):\n\\[\\frac{\\sum_i (x_i - \\bar{x})^2 e_i^2}{n - 1} > \\frac{\\sum_i e_i^2 \\sum_i (x_i - \\bar{x})^2}{(n - 1)^2}\\]\nAnd if we take the equation above and apply probability limits, we’ve found that HC standard errors > Conv standard errors when:\n\\[E[(x_i - \\bar{x})^2 e_i^2] > E[(x_i - \\bar{x})^2] E[e_i^2]\\]\nOr, subtracting the right hand side from both sides:\n\\[E[(x_i - \\bar{x})^2 e_i^2] - E[(x_i - \\bar{x})^2] E[e_i^2] > 0\\]\nFinally, recall that you showed in your classwork that \\(Cov(X, Y) = E[XY] - E[X] E[Y]\\), so \\(Cov(e_i^2, (x_i - \\bar{x})^2) = E[e_i^2 (x_i - \\bar{x})^2] - E[e_i^2] E[(x_i - \\bar{x})^2]\\).\nSo HC standard errors > Conv standard errors when:\n\\[Cov(e_i^2, (x_i - \\bar{x})^2) > 0\\]\nThis formula has interesting intuition about heteroskedasticity:"
-  },
-  {
-    "objectID": "koans.html",
-    "href": "koans.html",
-    "title": "Koans",
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References",
     "section": "",
-    "text": "Here’s a preview of the 20 koans developed for this class. To download them and the corresponding tests, follow the instructions in the preface to this workbook."
-  },
-  {
-    "objectID": "koans.html#references",
-    "href": "koans.html#references",
-    "title": "Koans",
-    "section": "References",
-    "text": "References\nBryan (n.d.)\nHadley Wickham and Grolemund (2017)\nH. Wickham (2014)\nSpeegle and Clair (2021)\n\n\n\n\nBryan, Jennifer. n.d. Gapminder: Data from Gapminder.\n\n\nSpeegle, Darrin, and Bryan Clair. 2021. “Data for the Dplyr Murder Mystery.” https://rdrr.io/github/speegled/dplyrmurdermystery/.\n\n\nWickham, H. 2014. Advanced r. Chapman & Hall/CRC the r Series. Taylor & Francis. https://books.google.com/books?id=PFHFNAEACAAJ.\n\n\nWickham, Hadley, and Garrett Grolemund. 2017. R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. 1st ed. O’Reilly Media, Inc."
-  },
-  {
-    "objectID": "koans.html#vectors",
-    "href": "koans.html#vectors",
-    "title": "Koans",
-    "section": "Vectors",
-    "text": "Vectors"
-  },
-  {
-    "objectID": "koans.html#tibbles",
-    "href": "koans.html#tibbles",
-    "title": "Koans",
-    "section": "Tibbles",
-    "text": "Tibbles"
-  },
-  {
-    "objectID": "koans.html#piping",
-    "href": "koans.html#piping",
-    "title": "Koans",
-    "section": "Piping",
-    "text": "Piping"
-  },
-  {
-    "objectID": "koans.html#dplyr-1-filter-select-mutate",
-    "href": "koans.html#dplyr-1-filter-select-mutate",
-    "title": "Koans",
-    "section": "dplyr 1: filter, select, mutate",
-    "text": "dplyr 1: filter, select, mutate"
-  },
-  {
-    "objectID": "koans.html#dplyr-2-summarize-and-group_by",
-    "href": "koans.html#dplyr-2-summarize-and-group_by",
-    "title": "Koans",
-    "section": "dplyr 2: summarize and group_by",
-    "text": "dplyr 2: summarize and group_by"
-  },
-  {
-    "objectID": "koans.html#dplyr-3-arrange-and-slice",
-    "href": "koans.html#dplyr-3-arrange-and-slice",
-    "title": "Koans",
-    "section": "dplyr 3: arrange and slice",
-    "text": "dplyr 3: arrange and slice"
-  },
-  {
-    "objectID": "koans.html#left-join",
-    "href": "koans.html#left-join",
-    "title": "Koans",
-    "section": "left join",
-    "text": "left join"
-  },
-  {
-    "objectID": "koans.html#qplot-to-ggplot",
-    "href": "koans.html#qplot-to-ggplot",
-    "title": "Koans",
-    "section": "qplot to ggplot",
-    "text": "qplot to ggplot"
-  },
-  {
-    "objectID": "koans.html#ggplot-aesthetic-mappings",
-    "href": "koans.html#ggplot-aesthetic-mappings",
-    "title": "Koans",
-    "section": "ggplot aesthetic mappings",
-    "text": "ggplot aesthetic mappings"
-  },
-  {
-    "objectID": "koans.html#ggplot-geoms",
-    "href": "koans.html#ggplot-geoms",
-    "title": "Koans",
-    "section": "ggplot geoms",
-    "text": "ggplot geoms"
-  },
-  {
-    "objectID": "koans.html#lm",
-    "href": "koans.html#lm",
-    "title": "Koans",
-    "section": "lm()",
-    "text": "lm()"
-  },
-  {
-    "objectID": "koans.html#statistical-distributions",
-    "href": "koans.html#statistical-distributions",
-    "title": "Koans",
-    "section": "statistical distributions",
-    "text": "statistical distributions"
-  },
-  {
-    "objectID": "koans.html#functions",
-    "href": "koans.html#functions",
-    "title": "Koans",
-    "section": "functions",
-    "text": "functions"
-  },
-  {
-    "objectID": "koans.html#functions-using-dplyr",
-    "href": "koans.html#functions-using-dplyr",
-    "title": "Koans",
-    "section": "functions using dplyr",
-    "text": "functions using dplyr"
-  },
-  {
-    "objectID": "koans.html#map",
-    "href": "koans.html#map",
-    "title": "Koans",
-    "section": "map()",
-    "text": "map()"
-  },
-  {
-    "objectID": "koans.html#more-map",
-    "href": "koans.html#more-map",
-    "title": "Koans",
-    "section": "more map()",
-    "text": "more map()"
-  },
-  {
-    "objectID": "koans.html#lags",
-    "href": "koans.html#lags",
-    "title": "Koans",
-    "section": "lags",
-    "text": "lags"
-  },
-  {
-    "objectID": "koans.html#first-differences",
-    "href": "koans.html#first-differences",
-    "title": "Koans",
-    "section": "first differences",
-    "text": "first differences"
-  },
-  {
-    "objectID": "koans.html#reduce",
-    "href": "koans.html#reduce",
-    "title": "Koans",
-    "section": "reduce()",
-    "text": "reduce()"
-  },
-  {
-    "objectID": "koans.html#accumulate",
-    "href": "koans.html#accumulate",
-    "title": "Koans",
-    "section": "accumulate()",
-    "text": "accumulate()"
+    "text": "Angrist, J. D., and J. S. Pischke. 2014. Mastering ’Metrics: The\nPath from Cause to Effect. Princeton University Press. https://books.google.com/books?id=dEh-BAAAQBAJ.\n\n\nBryan, Jennifer. n.d. Gapminder: Data from Gapminder.\n\n\nDougherty, C. 2016. Introduction to Econometrics. Oxford\nUniversity Press. https://books.google.com/books?id=Q5cMEAAAQBAJ.\n\n\nLim, Milton, COVID-19 Mortality Working Group, Mike Callan, Actuaries\nInstitute, James Pyne, Chris Dolman, Kitty Chan, and John Connor. 2021.\n“Gauss, Least Squares, and the Missing Planet.”\nActuaries Digital. https://www.actuaries.digital/2021/03/31/gauss-least-squares-and-the-missing-planet/#:~:text=The%20early%20history%20of%20statistics,subject%20to%20random%20measurement%20errors.\n\n\nRubin, Ed. 2022. “Economics 421: Introduction to\nEconometrics.” Github. https://github.com/edrubin/EC421W22.\n\n\nSpeegle, Darrin, and Bryan Clair. 2021. “Data for the Dplyr Murder\nMystery.” https://rdrr.io/github/speegled/dplyrmurdermystery/.\n\n\nWickham, H. 2014. Advanced r. Chapman & Hall/CRC the r\nSeries. Taylor & Francis. https://books.google.com/books?id=PFHFNAEACAAJ.\n\n\nWickham, Hadley, and Garrett Grolemund. 2017. R for Data Science:\nImport, Tidy, Transform, Visualize, and Model Data. 1st ed.\nO’Reilly Media, Inc."
   }
 ]

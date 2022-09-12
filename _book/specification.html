@@ -141,12 +141,22 @@ ul.task-list{list-style: none;}
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./diff_in_diff.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Differences-in-differences</span></a>
+  <a href="./IV_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">IV for Simultaneous Equations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./diff_in_diff.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Differences-in-differences</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./classwork.html" class="sidebar-item-text sidebar-link">Classwork</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./koans.html" class="sidebar-item-text sidebar-link">Koans</a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -196,6 +206,16 @@ ul.task-list{list-style: none;}
 </header>
 
 <p>When you’re reading papers in applied economics, you’ll often see models with transformations of variables (squared, interacted with other variables, logs of variables). This chapter offers some explanation about why you’ll see those things. All of these models can be estimated using OLS because while they’re not necessarily linear in variables, they’re linear in the parameters <span class="math inline">\(\beta\)</span>.</p>
+<p>Models that are linear in parameters (and can be estimated with OLS):</p>
+<p><span class="math display">\[\begin{align}
+y_i &amp;= \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + u_i \\
+y_i &amp;= \beta_0 + \beta_1 x_{i} + \beta_2 x_{i}^2 + u_i \\
+y_i &amp;= \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \beta_3 x_{1i} x_{2i} + u_i \\
+log(y_i) &amp;= \beta_0 + \beta_1 log(x_{i}) + u_i \\
+log(y_i) &amp;= \beta_0 + \beta_1 x_{i} + u_i
+\end{align}\]</span></p>
+<p>And an example of a model that’s not linear in parameters (and can’t be estimated with OLS, because <span class="math inline">\(\beta_1\)</span> and <span class="math inline">\(\beta_2\)</span> can’t be separately identified here):</p>
+<p><span class="math display">\[y_i = \beta_0 + \beta_1 \beta_2 x_{i} + u_i\]</span></p>
 <section id="linear" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="linear"><span class="header-section-number">5.1</span> Linear</h2>
 <p><span class="math inline">\(y_i = \beta_0 + \beta_1 x_i + u_i\)</span></p>
@@ -205,20 +225,20 @@ ul.task-list{list-style: none;}
 </ul>
 <p>For example:</p>
 <p><span class="math inline">\(weight_i = -80 + 40 height_i + u_i\)</span></p>
-<p>If <span class="math inline">\(weight_i\)</span> is measured in lbs and <span class="math inline">\(height_i\)</span> is measured in feet, then we’d interpret -80 as: “Someone 0 feet tall is expected to weigh -80 lbs”. And we’d interpret 40 as “If someone grows 1 foot, they’re expected to gain 40 lbs”.</p>
+<p>If <span class="math inline">\(weight_i\)</span> is measured in lbs and <span class="math inline">\(height_i\)</span> is measured in feet, then we’d interpret -80 as: “Someone 0 feet tall is expected to weigh -80 lbs”. And we’d interpret 40 as “If you’re told that a person is 1 foot taller than average, you’d expect them to be 40 lbs heavier than average”.</p>
 </section>
 <section id="squared-terms" class="level2" data-number="5.2">
 <h2 data-number="5.2" class="anchored" data-anchor-id="squared-terms"><span class="header-section-number">5.2</span> Squared terms</h2>
 <p><span class="math inline">\(y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + u_i\)</span></p>
-<p>VIDEO 1</p>
+<iframe src="https://uoregon.hosted.panopto.com/Panopto/Pages/Embed.aspx?id=766c86ba-a020-4da1-9b96-af0e01598739&amp;autoplay=false&amp;offerviewer=true&amp;showtitle=true&amp;showbrand=true&amp;captions=false&amp;start=0&amp;interactivity=all" height="405" width="720" style="border: 1px solid #464646;" allowfullscreen="" allow="autoplay">
+</iframe>
 </section>
 <section id="interactions" class="level2" data-number="5.3">
 <h2 data-number="5.3" class="anchored" data-anchor-id="interactions"><span class="header-section-number">5.3</span> Interactions</h2>
-<p><span class="math inline">\(y_i = \beta_0 + \beta_1 x_i + \beta_2 z_i + \beta_3 x_i z_i + u_i\)</span></p>
-<p>VIDEO 2</p>
-<p>Consider another model of weight and height:</p>
-<p><span class="math inline">\(weight_i = \beta_0 + \beta_1 male_i + \beta_2 height_i + \beta_3 male_i height_i + u_i\)</span></p>
-<p>Where weight is measured in lbs, male is a dummy variable that takes on a 1 if</p>
+<p>An interaction is two variables multiplied. They would usually appear in the model alone as well:</p>
+<p><span class="math inline">\(y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \beta_3 x_{1i} x_{2i} + u_i\)</span></p>
+<iframe src="https://uoregon.hosted.panopto.com/Panopto/Pages/Embed.aspx?id=266ece9c-66c2-4612-a0b6-af0e016c7b2b&amp;autoplay=false&amp;offerviewer=true&amp;showtitle=true&amp;showbrand=true&amp;captions=false&amp;start=0&amp;interactivity=all" height="405" width="720" style="border: 1px solid #464646;" allowfullscreen="" allow="autoplay">
+</iframe>
 </section>
 <section id="log-linear" class="level2" data-number="5.4">
 <h2 data-number="5.4" class="anchored" data-anchor-id="log-linear"><span class="header-section-number">5.4</span> Log-linear</h2>

@@ -160,12 +160,22 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./diff_in_diff.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Differences-in-differences</span></a>
+  <a href="./IV_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">IV for Simultaneous Equations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./diff_in_diff.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Differences-in-differences</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./classwork.html" class="sidebar-item-text sidebar-link">Classwork</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./koans.html" class="sidebar-item-text sidebar-link">Koans</a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -223,15 +233,29 @@ div.csl-indent {
 
 <section id="overview" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="overview"><span class="header-section-number">4.1</span> Overview</h2>
-<p>We’ve already learned that estimators can be <strong>biased</strong> or <strong>unbiased</strong>. This chapter introduces a new property for estimators: estimators can be <strong>consistent</strong> or <strong>inconsistent</strong>.</p>
+<p>What to expect in this chapter:</p>
+<ul>
+<li>Section <a href="#motivation">4.2</a> builds some motivation for when you’d need to use the concept of consistency.</li>
+</ul>
 <p style="background-color:#dbdbdb; border-width:3px; border-style:solid; border-color:#dbdbdb; padding: 1em;">
 Definition. An estimator <span class="math inline">\(\hat{\beta_1}\)</span> is <strong>consistent</strong> if <span class="math inline">\(plim(\hat{\beta_1}) = \beta_1\)</span>. That is, <span class="math inline">\(\hat{\beta_1}\)</span> is consistent if it converges in probability to the true value <span class="math inline">\(\beta_1\)</span> as <span class="math inline">\(n\)</span>, the number of data points, goes to infinity.
 </p>
-<p>The key assumption for <span class="math inline">\(\hat{\beta_1}\)</span> to be consistent is for <span class="math inline">\(Cov(x_i, u_i) = 0\)</span>. Under omitted variable bias, this will not hold, so we know if an estimator suffers from omitted variable bias, not only is it biased, but it is also inconsistent. The discussion of consistency also gives us the tools to sign the bias under omitted variable bias.</p>
+<ul>
+<li><p>In section <a href="#bias-versus-consistency">4.3</a>, I discuss the differences between the concepts of biasedness and consistency.</p></li>
+<li><p>In section <a href="#proof-hatbeta_1-is-consistent-if-covx-u-0">4.4</a>, I provide some rules for the plim operator and I prove that <span class="math inline">\(\hat{\beta_1}\)</span> is consistent when <span class="math inline">\(Cov(x_i, u_i) = 0\)</span>.</p></li>
+</ul>
+<p style="background-color:#dbdbdb; border-width:3px; border-style:solid; border-color:#dbdbdb; padding: 1em;">
+Definition: Probability Limit <strong>plim</strong>. For a sequence of random variables <span class="math inline">\(x_n\)</span> and some value <span class="math inline">\(x\)</span>, <span class="math inline">\(plim(x_n) = x\)</span> if, as <span class="math inline">\(n\)</span> goes to infinity, the probability distribution of <span class="math inline">\(x_n\)</span> collapses to a spike on the value <span class="math inline">\(x\)</span>.
+</p>
+<ul>
+<li><p>Section <a href="#covx_i-u_i-neq-0-under-omitted-variable-bias">4.5</a> explains how the key consistency assumption of 0 covariance between x and u does not hold under omitted variable bias.</p></li>
+<li><p>Finally in <a href="#signing-the-bias">4.6</a>, I show how the discussion of consistency also gives us the tools to sign the bias under omitted variable bias.</p></li>
+</ul>
 </section>
 <section id="motivation" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="motivation"><span class="header-section-number">4.2</span> Motivation</h2>
-<p>Let’s fast forward a few years. You’re at your future job in a brand new data science department at a fast growing company. You’re in a meeting and you decide to bring up some concerns you have about selection bias in a model you’re developing. Your coworker is dismissive though: they say, “don’t worry about selection bias, we’ll just get twice the amount of data! How much data do you want? 4 times the amount of data? 10 times?” You’ll have to remember back to econometrics: does selection bias disappear when we let <span class="math inline">\(n\)</span> go to infinity? That is, under selection bias, is OLS consistent? That is the research question for today. <em>(spoiler: the answer is no: no amount of data will help if there is selection bias or omitted variable bias. The only solution is to use causal inference techniques like an RCT, instrumental variables (Ch 9), of differences-in-differences (Ch 10).)</em></p>
+<p>Let’s fast forward a few years. You’re at your future job in a brand new data science department at a fast growing company. You’re in a meeting and you decide to bring up some concerns you have about selection bias in a model you’re developing. Your coworker is dismissive though: they say, “don’t worry about selection bias, we’ll just get twice the amount of data! How much data do you want? 4 times the amount of data? 10 times?”</p>
+<p>You’ll have to remember back to econometrics: does selection bias disappear when we let <span class="math inline">\(n\)</span> go to infinity? That is, under selection bias, is OLS consistent? That is the research question for today. <em>(spoiler: the answer is no: no amount of data will help if there is selection bias or omitted variable bias. The only solution is to use causal inference techniques like an RCT, instrumental variables (Ch 9), of differences-in-differences (Ch 10).)</em></p>
 </section>
 <section id="bias-versus-consistency" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="bias-versus-consistency"><span class="header-section-number">4.3</span> Bias versus Consistency</h2>

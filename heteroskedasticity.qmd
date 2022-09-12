@@ -1,5 +1,9 @@
 # Heteroskedasticity
 
+ 🚧 This page is coming soon! 🚧
+
+::: {.content-hidden unless-format="pdf"}
+
 ## Overview
 
 <p style="background-color:#dbdbdb; border-width:3px; border-style:solid; border-color:#dbdbdb; padding: 1em;">
@@ -150,3 +154,6 @@ Koans 15-16: map
 @dougherty2016 Chapter 7: Heteroskedasticity
 
 @angrist2010
+
+:::
+

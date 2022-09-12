@@ -159,7 +159,12 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./diff_in_diff.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Differences-in-differences</span></a>
+  <a href="./IV_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">IV for Simultaneous Equations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./diff_in_diff.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Differences-in-differences</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -191,26 +196,14 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#vectors" id="toc-vectors" class="nav-link active" data-scroll-target="#vectors">Vectors</a></li>
-  <li><a href="#tibbles" id="toc-tibbles" class="nav-link" data-scroll-target="#tibbles">Tibbles</a></li>
-  <li><a href="#piping" id="toc-piping" class="nav-link" data-scroll-target="#piping">Piping</a></li>
-  <li><a href="#dplyr-1-filter-select-mutate" id="toc-dplyr-1-filter-select-mutate" class="nav-link" data-scroll-target="#dplyr-1-filter-select-mutate">dplyr 1: filter, select, mutate</a></li>
-  <li><a href="#dplyr-2-summarize-and-group_by" id="toc-dplyr-2-summarize-and-group_by" class="nav-link" data-scroll-target="#dplyr-2-summarize-and-group_by">dplyr 2: summarize and group_by</a></li>
-  <li><a href="#dplyr-3-arrange-and-slice" id="toc-dplyr-3-arrange-and-slice" class="nav-link" data-scroll-target="#dplyr-3-arrange-and-slice">dplyr 3: arrange and slice</a></li>
-  <li><a href="#left-join" id="toc-left-join" class="nav-link" data-scroll-target="#left-join">left join</a></li>
-  <li><a href="#qplot-to-ggplot" id="toc-qplot-to-ggplot" class="nav-link" data-scroll-target="#qplot-to-ggplot">qplot to ggplot</a></li>
-  <li><a href="#ggplot-aesthetic-mappings" id="toc-ggplot-aesthetic-mappings" class="nav-link" data-scroll-target="#ggplot-aesthetic-mappings">ggplot aesthetic mappings</a></li>
-  <li><a href="#ggplot-geoms" id="toc-ggplot-geoms" class="nav-link" data-scroll-target="#ggplot-geoms">ggplot geoms</a></li>
-  <li><a href="#lm" id="toc-lm" class="nav-link" data-scroll-target="#lm">lm()</a></li>
-  <li><a href="#statistical-distributions" id="toc-statistical-distributions" class="nav-link" data-scroll-target="#statistical-distributions">statistical distributions</a></li>
+  <li><a href="#vectors-tibbles-and-pipes" id="toc-vectors-tibbles-and-pipes" class="nav-link active" data-scroll-target="#vectors-tibbles-and-pipes">vectors, tibbles, and pipes</a></li>
+  <li><a href="#dplyr" id="toc-dplyr" class="nav-link" data-scroll-target="#dplyr">dplyr</a></li>
+  <li><a href="#ggplot2" id="toc-ggplot2" class="nav-link" data-scroll-target="#ggplot2">ggplot2</a></li>
+  <li><a href="#lm-and-statistical-distributions" id="toc-lm-and-statistical-distributions" class="nav-link" data-scroll-target="#lm-and-statistical-distributions">lm() and statistical distributions</a></li>
   <li><a href="#functions" id="toc-functions" class="nav-link" data-scroll-target="#functions">functions</a></li>
-  <li><a href="#functions-using-dplyr" id="toc-functions-using-dplyr" class="nav-link" data-scroll-target="#functions-using-dplyr">functions using dplyr</a></li>
   <li><a href="#map" id="toc-map" class="nav-link" data-scroll-target="#map">map()</a></li>
-  <li><a href="#more-map" id="toc-more-map" class="nav-link" data-scroll-target="#more-map">more map()</a></li>
-  <li><a href="#lags" id="toc-lags" class="nav-link" data-scroll-target="#lags">lags</a></li>
-  <li><a href="#first-differences" id="toc-first-differences" class="nav-link" data-scroll-target="#first-differences">first differences</a></li>
-  <li><a href="#reduce" id="toc-reduce" class="nav-link" data-scroll-target="#reduce">reduce()</a></li>
-  <li><a href="#accumulate" id="toc-accumulate" class="nav-link" data-scroll-target="#accumulate">accumulate()</a></li>
+  <li><a href="#lags-and-first-differences" id="toc-lags-and-first-differences" class="nav-link" data-scroll-target="#lags-and-first-differences">lags and first differences</a></li>
+  <li><a href="#reduce-and-accumulate" id="toc-reduce-and-accumulate" class="nav-link" data-scroll-target="#reduce-and-accumulate">reduce and accumulate</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
@@ -235,63 +228,39 @@ div.csl-indent {
 </header>
 
 <p>Here’s a preview of the 20 koans developed for this class. To download them and the corresponding tests, follow the instructions in the preface to this workbook.</p>
-<section id="vectors" class="level2">
-<h2 class="anchored" data-anchor-id="vectors">Vectors</h2>
+<section id="vectors-tibbles-and-pipes" class="level2">
+<h2 class="anchored" data-anchor-id="vectors-tibbles-and-pipes">vectors, tibbles, and pipes</h2>
 <iframe src="koans/K01_vector.html" width="700" height="400">
 </iframe>
-</section>
-<section id="tibbles" class="level2">
-<h2 class="anchored" data-anchor-id="tibbles">Tibbles</h2>
 <iframe src="koans/K02_tibble.html" width="700" height="400">
 </iframe>
-</section>
-<section id="piping" class="level2">
-<h2 class="anchored" data-anchor-id="piping">Piping</h2>
 <iframe src="koans/K03_pipe.html" width="700" height="400">
 </iframe>
 </section>
-<section id="dplyr-1-filter-select-mutate" class="level2">
-<h2 class="anchored" data-anchor-id="dplyr-1-filter-select-mutate">dplyr 1: filter, select, mutate</h2>
+<section id="dplyr" class="level2">
+<h2 class="anchored" data-anchor-id="dplyr">dplyr</h2>
 <iframe src="koans/K04_dplyr1.html" width="700" height="400">
 </iframe>
-</section>
-<section id="dplyr-2-summarize-and-group_by" class="level2">
-<h2 class="anchored" data-anchor-id="dplyr-2-summarize-and-group_by">dplyr 2: summarize and group_by</h2>
 <iframe src="koans/K05_dplyr2.html" width="700" height="400">
 </iframe>
-</section>
-<section id="dplyr-3-arrange-and-slice" class="level2">
-<h2 class="anchored" data-anchor-id="dplyr-3-arrange-and-slice">dplyr 3: arrange and slice</h2>
 <iframe src="koans/K06_dplyr3.html" width="700" height="400">
 </iframe>
-</section>
-<section id="left-join" class="level2">
-<h2 class="anchored" data-anchor-id="left-join">left join</h2>
 <iframe src="koans/K07_left_join.html" width="700" height="400">
 </iframe>
 </section>
-<section id="qplot-to-ggplot" class="level2">
-<h2 class="anchored" data-anchor-id="qplot-to-ggplot">qplot to ggplot</h2>
+<section id="ggplot2" class="level2">
+<h2 class="anchored" data-anchor-id="ggplot2">ggplot2</h2>
 <iframe src="koans/K08_qplot_to_ggplot.html" width="700" height="400">
 </iframe>
-</section>
-<section id="ggplot-aesthetic-mappings" class="level2">
-<h2 class="anchored" data-anchor-id="ggplot-aesthetic-mappings">ggplot aesthetic mappings</h2>
 <iframe src="koans/K09_ggplot_aes.html" width="700" height="400">
 </iframe>
-</section>
-<section id="ggplot-geoms" class="level2">
-<h2 class="anchored" data-anchor-id="ggplot-geoms">ggplot geoms</h2>
 <iframe src="koans/K10_ggplot_geom.html" width="700" height="400">
 </iframe>
 </section>
-<section id="lm" class="level2">
-<h2 class="anchored" data-anchor-id="lm">lm()</h2>
+<section id="lm-and-statistical-distributions" class="level2">
+<h2 class="anchored" data-anchor-id="lm-and-statistical-distributions">lm() and statistical distributions</h2>
 <iframe src="koans/K11_lm.html" width="700" height="400">
 </iframe>
-</section>
-<section id="statistical-distributions" class="level2">
-<h2 class="anchored" data-anchor-id="statistical-distributions">statistical distributions</h2>
 <iframe src="koans/K12_stats.html" width="700" height="400">
 </iframe>
 </section>
@@ -299,9 +268,6 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="functions">functions</h2>
 <iframe src="koans/K13_functions.html" width="700" height="400">
 </iframe>
-</section>
-<section id="functions-using-dplyr" class="level2">
-<h2 class="anchored" data-anchor-id="functions-using-dplyr">functions using dplyr</h2>
 <iframe src="koans/K14_functions_dplyr.html" width="700" height="400">
 </iframe>
 </section>
@@ -309,29 +275,20 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="map">map()</h2>
 <iframe src="koans/K15_map.html" width="700" height="400">
 </iframe>
-</section>
-<section id="more-map" class="level2">
-<h2 class="anchored" data-anchor-id="more-map">more map()</h2>
 <iframe src="koans/K16_more_map.html" width="700" height="400">
 </iframe>
 </section>
-<section id="lags" class="level2">
-<h2 class="anchored" data-anchor-id="lags">lags</h2>
+<section id="lags-and-first-differences" class="level2">
+<h2 class="anchored" data-anchor-id="lags-and-first-differences">lags and first differences</h2>
 <iframe src="koans/K17_lag.html" width="700" height="400">
 </iframe>
-</section>
-<section id="first-differences" class="level2">
-<h2 class="anchored" data-anchor-id="first-differences">first differences</h2>
 <iframe src="koans/K18_first_differences.html" width="700" height="400">
 </iframe>
 </section>
-<section id="reduce" class="level2">
-<h2 class="anchored" data-anchor-id="reduce">reduce()</h2>
+<section id="reduce-and-accumulate" class="level2">
+<h2 class="anchored" data-anchor-id="reduce-and-accumulate">reduce and accumulate</h2>
 <iframe src="koans/K19_reduce.html" width="700" height="400">
 </iframe>
-</section>
-<section id="accumulate" class="level2">
-<h2 class="anchored" data-anchor-id="accumulate">accumulate()</h2>
 <iframe src="koans/K20_accumulate.html" width="700" height="400">
 </iframe>
 </section>

@@ -26,7 +26,7 @@ ul.task-list{list-style: none;}
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./references.html" rel="next">
-<link href="./classwork.html" rel="prev">
+<link href="./koans.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -141,12 +141,22 @@ ul.task-list{list-style: none;}
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./diff_in_diff.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Differences-in-differences</span></a>
+  <a href="./IV_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">IV for Simultaneous Equations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./diff_in_diff.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Differences-in-differences</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./classwork.html" class="sidebar-item-text sidebar-link">Classwork</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./koans.html" class="sidebar-item-text sidebar-link">Koans</a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -175,6 +185,7 @@ ul.task-list{list-style: none;}
   <li><a href="#sample-covariance-of-two-variables-x-and-y" id="toc-sample-covariance-of-two-variables-x-and-y" class="nav-link" data-scroll-target="#sample-covariance-of-two-variables-x-and-y">Sample covariance of two variables x and y:</a></li>
   <li><a href="#population-variance" id="toc-population-variance" class="nav-link" data-scroll-target="#population-variance">Population Variance</a></li>
   <li><a href="#population-covariance" id="toc-population-covariance" class="nav-link" data-scroll-target="#population-covariance">Population Covariance</a></li>
+  <li><a href="#correlation" id="toc-correlation" class="nav-link" data-scroll-target="#correlation">Correlation</a></li>
   <li><a href="#variance-rules" id="toc-variance-rules" class="nav-link" data-scroll-target="#variance-rules">Variance Rules</a></li>
   <li><a href="#covariance-rules" id="toc-covariance-rules" class="nav-link" data-scroll-target="#covariance-rules">Covariance Rules</a></li>
   </ul></li>
@@ -236,6 +247,12 @@ ul.task-list{list-style: none;}
 <section id="population-covariance" class="level3">
 <h3 class="anchored" data-anchor-id="population-covariance">Population Covariance</h3>
 <p><span class="math inline">\(Cov(X, Y) \equiv E[(X - E[X])(Y - E[Y])]\)</span></p>
+</section>
+<section id="correlation" class="level3">
+<h3 class="anchored" data-anchor-id="correlation">Correlation</h3>
+<p>Correlation is a function of covariance:</p>
+<p><span class="math inline">\(Correlation(X, Y) = \frac{Cov(X, Y)}{\sqrt{Var(X)} \sqrt{Var(Y)}}\)</span></p>
+<p>If two random variables have 0 covariance, they will have 0 correlation.</p>
 </section>
 <section id="variance-rules" class="level3">
 <h3 class="anchored" data-anchor-id="variance-rules">Variance Rules</h3>
@@ -400,8 +417,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./classwork.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Classwork</span>
+      <a href="./koans.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Koans</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

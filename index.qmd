@@ -23,28 +23,28 @@ This workbook will cover a variety of topics in econometrics that will allow rea
 
 Classwork for the week is always due on Wednesdays at 5pm. Homework is always due before the next class period.
 
-| Date | Day | Classwork | Homework |
+| Date | Classwork | Homework |
 |----|----|-----------|----------|
-| Wed 9/28 | 1 | Syllabus  | [CH1: Least Squares](/least_squares.html) |
-| Mon 10/3 | 2 | [CW1: Deriving OLS Estimators (analytical)](classwork.html#cw1-deriving-ols-estimators-analytical)  | [Koans 1-3](#install-the-tidyverse-koans) |
-| Wed 10/5 | 3 | CW2: lm and qplot (R) | Koans 4-7 |
-| Mon 10/10 | 4 | CW3: dplyr murder mystery (R) | CH2: Exogeneity |
-| Wed 10/12 | 5 | CW4: hypothesis testing (analytical) | CH3: Causal Inference|
-| Mon 10/17 | 6 | CW5: causal inference (analytical) | Koans 8-10 |
-| Wed 10/19 | 7 | CW6: causal inference (R) | CH4: Consistency |
-| Mon 10/24 | 8 | CW7: consistency (analytical) | Ch 5: Heteroskedasticity |
-| Wed 10/26 | 9 | CW8: heteroskedasticity (analytical) | Koans 11-14 |
-| Mon 10/31 | 10 | CW9: heteroskedasticity (R) | practice midterm |
-| Wed 11/2 | 11 | **Midterm Exam** | Koans 15-16 |
-| Mon 11/7 | 12 | CW10: simulation (R) | CH6: Time Series |
-| Wed 11/9 | 13 | CW11: dynamics (analytical) | Koans 17-18 |
-| Mon 11/14 | 14 | CW12: dynamics (R) | CH7: Stationarity |
-| Wed 11/16 | 15 | CW13: time trends (analytical) | Koans 19-20 |
-| Mon 11/21 | 16 | CW14: random walks (half analytical, half R) | CH8: IV for causal inference|
-| Wed 11/23 | 17 | CW15: IV (analtyical) | CH9: IV for simultaneous equations |
-| Mon 11/28 | 18 | CW16: IV (R) | CH10: Diff-in-diff |
-| Mon 11/30 | 19 | CW17: Diff-in-diff (anayltical) | practice final |
-| TBA | 20 | **Final Exam** | |
+| W 9/28 | Syllabus  | [CH1: Least Squares](/least_squares.html) |
+| M 10/3 | [CW1: Deriving OLS Estimators (analytical)](classwork.html#cw1)  | [Koans 1-3](koans.html#vectors-tibbles-and-pipes) |
+| W 10/5 | [CW2: lm and qplot (R)](classwork.html#cw2) | [Koans 4-7](koans.html#dplyr) |
+| M 10/10 | [CW3: dplyr murder mystery (R)](classwork.html#cw3) | [CH2: Exogeneity](exogeneity.html) |
+| W 10/12 | [CW4: hypothesis testing (analytical)](classwork.html#cw4) | [CH3: Causal Inference](causal_inference.html)|
+| M 10/17 | [CW5: causal inference (analytical)](classwork.html#cw5) | [Koans 8-10](koans.html#ggplot2) |
+| W 10/19 | [CW6: causal inference (R)](classwork.html#cw6) | [CH4: Consistency](consistency.html) and [CH5: Model Specification](specification.html) |
+| M 10/24 | [CW7: consistency (analytical)](classwork.html#cw7) | [Ch 6: Heteroskedasticity](heteroskedasticity.html) |
+| W 10/26 | [CW8: heteroskedasticity (analytical)](classwork.html#cw8) | [Koans 11-14](koans.html#lm-and-statistical-distributions) |
+| M 10/31 | [CW9: heteroskedasticity (R)](classwork.html#cw9) | practice midterm |
+| W 11/2 | **Midterm Exam** | [Koans 15-16](koans.html#map) |
+| M 11/7 | [CW10: simulation (R)](classwork.html#cw10) | [CH7: Time Series](time_series.html) |
+| W 11/9 | [CW11: dynamics (analytical)](classwork.html#cw11) | [Koans 17-18](koans.html#lags-and-first-differences) |
+| M 11/14 | [CW12: dynamics (R)](classwork.html#cw12) | [CH8: Stationarity](stationarity.html) |
+| W 11/16 | [CW13: time trends (analytical)](classwork.html#cw13) | [Koans 19-20](koans.html#reduce-and-accumulate) |
+| M 11/21 | [CW14: random walks (half analytical, half R)](classwork.html#cw14) | [CH9: IV for causal inference](instrumental_vars.html)|
+| W 11/23 | [CW15: IV (analtyical)](classwork.html#cw15) | CH10: IV for simultaneous equations |
+| M 11/28 | [CW16: IV (R)](classwork.html#cw16) | [CH11: Diff-in-diff](diff_in_diff.html) |
+| M 11/30 | [CW17: Diff-in-diff (anayltical)](classwork.html#cw17) | practice final |
+| R 12/8 | **Final Exam** at 2:45pm | |
 
 # Programming Philosophy
 

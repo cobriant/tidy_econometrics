@@ -36,6 +36,14 @@ On average, what is the square deviance of X from its mean? $Var(X) \equiv E[(X 
 
 $Cov(X, Y) \equiv E[(X - E[X])(Y - E[Y])]$
 
+### Correlation
+
+Correlation is a function of covariance:
+
+$Correlation(X, Y) = \frac{Cov(X, Y)}{\sqrt{Var(X)} \sqrt{Var(Y)}}$
+
+If two random variables have 0 covariance, they will have 0 correlation.
+
 ### Variance Rules
   - The variance of a constant is zero: $Var(c) = 0$
   - The variance of a constant times a random variable: $Var(cX) = c^2 Var(X)$

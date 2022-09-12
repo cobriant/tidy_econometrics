@@ -2,18 +2,33 @@
 
 ## Overview
 
-We've already learned that estimators can be **biased** or **unbiased**. This chapter introduces a new property for estimators: estimators can be **consistent** or **inconsistent**.
+What to expect in this chapter:
+
+- Section [4.2](#motivation) builds some motivation for when you'd need to use the concept of consistency.
 
 <p style="background-color:#dbdbdb; border-width:3px; border-style:solid; border-color:#dbdbdb; padding: 1em;">
 
 Definition. An estimator $\hat{\beta_1}$ is **consistent** if $plim(\hat{\beta_1}) = \beta_1$. That is, $\hat{\beta_1}$ is consistent if it converges in probability to the true value $\beta_1$ as $n$, the number of data points, goes to infinity.
 </p>
 
-The key assumption for $\hat{\beta_1}$ to be consistent is for $Cov(x_i, u_i) = 0$. Under omitted variable bias, this will not hold, so we know if an estimator suffers from omitted variable bias, not only is it biased, but it is also inconsistent. The discussion of consistency also gives us the tools to sign the bias under omitted variable bias.
+- In section [4.3](#bias-versus-consistency), I discuss the differences between the concepts of biasedness and consistency.
+
+- In section [4.4](#proof-hatbeta_1-is-consistent-if-covx-u-0), I provide some rules for the plim operator and I prove that $\hat{\beta_1}$ is consistent when $Cov(x_i, u_i) = 0$.
+
+<p style="background-color:#dbdbdb; border-width:3px; border-style:solid; border-color:#dbdbdb; padding: 1em;">
+
+Definition: Probability Limit **plim**. For a sequence of random variables $x_n$ and some value $x$, $plim(x_n) = x$ if, as $n$ goes to infinity, the probability distribution of $x_n$ collapses to a spike on the value $x$. 
+</p>
+
+- Section [4.5](#covx_i-u_i-neq-0-under-omitted-variable-bias) explains how the key consistency assumption of 0 covariance between x and u does not hold under omitted variable bias.
+
+- Finally in [4.6](#signing-the-bias), I show how the discussion of consistency also gives us the tools to sign the bias under omitted variable bias.
 
 ## Motivation
 
-Let's fast forward a few years. You're at your future job in a brand new data science department at a fast growing company. You're in a meeting and you decide to bring up some concerns you have about selection bias in a model you're developing. Your coworker is dismissive though: they say, "don't worry about selection bias, we'll just get twice the amount of data! How much data do you want? 4 times the amount of data? 10 times?" You'll have to remember back to econometrics: does selection bias disappear when we let $n$ go to infinity? That is, under selection bias, is OLS consistent? That is the research question for today. *(spoiler: the answer is no: no amount of data will help if there is selection bias or omitted variable bias. The only solution is to use causal inference techniques like an RCT, instrumental variables (Ch 9), of differences-in-differences (Ch 10).)*
+Let's fast forward a few years. You're at your future job in a brand new data science department at a fast growing company. You're in a meeting and you decide to bring up some concerns you have about selection bias in a model you're developing. Your coworker is dismissive though: they say, "don't worry about selection bias, we'll just get twice the amount of data! How much data do you want? 4 times the amount of data? 10 times?" 
+
+You'll have to remember back to econometrics: does selection bias disappear when we let $n$ go to infinity? That is, under selection bias, is OLS consistent? That is the research question for today. *(spoiler: the answer is no: no amount of data will help if there is selection bias or omitted variable bias. The only solution is to use causal inference techniques like an RCT, instrumental variables (Ch 9), of differences-in-differences (Ch 10).)*
 
 ## Bias versus Consistency
 

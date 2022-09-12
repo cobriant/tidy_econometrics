@@ -17,6 +17,7 @@ book:
     - time_series.qmd
     - stationarity.qmd
     - instrumental_vars.qmd
+    - IV_2.qmd
     - diff_in_diff.qmd
     - classwork.qmd
     - koans.qmd

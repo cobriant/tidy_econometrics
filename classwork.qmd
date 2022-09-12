@@ -1,6 +1,10 @@
 # Classwork {.unnumbered}
 
-## CW1: Deriving OLS Estimators (analytical)
+## CW1
+
+### Deriving OLS Estimators (analytical)
+
+::: {.content-hidden unless-format="pdf"}
 
 <html>  
 <body>
@@ -14,37 +18,324 @@
 </body>
 </html>
 
-## CW2: lm and qplot (R)
+:::
 
-## CW3: dplyr murder mystery (R)
+## CW2
 
-## CW4: hypothesis testing (analytical)
+::: {.content-hidden unless-format="pdf"}
 
-## CW5: causal inference (analytical)
+<html>  
+<body>
+    <center>
+        <iframe src=
+"https://cobriant.github.io/421/materials/Classwork2.html" 
+                width="750" 
+                height="400">
+        </iframe>
+    </center>
+</body>
+</html>
 
-## CW6: causal inference (R)
+:::
 
-## CW7: consistency (analytical)
+### lm and qplot (R)
 
-## CW8: heteroskedasticity (analytical)
+## CW3
 
-## CW9: heteroskedasticity (R)
+### dplyr murder mystery (R)
 
-## CW10: simulation (R)
+::: {.content-hidden unless-format="pdf"}
 
-## CW11: dynamics (analytical)
+<html>  
+<body>
+    <center>
+        <iframe src=
+"https://cobriant.github.io/421/materials/Classwork3.html" 
+                width="750" 
+                height="400">
+        </iframe>
+    </center>
+</body>
+</html>
 
-## CW12: dynamics (R)
+:::
 
-## CW13: time trends (analytical)
+## CW4
 
-## CW14: random walks (half analytical, half R)
+### hypothesis testing (analytical)
 
-## CW15: IV (analtyical)
+::: {.content-hidden unless-format="pdf"}
 
-## CW16: IV (R)
+<html>  
+<body>
+    <center>
+        <iframe src=
+"https://cobriant.github.io/421/materials/Classwork4.pdf" 
+                width="750" 
+                height="400">
+        </iframe>
+    </center>
+</body>
+</html>
 
-## CW17: Diff-in-diff (anayltical)
+:::
 
+## CW5
 
+### causal inference (analytical)
 
+::: {.content-hidden unless-format="pdf"}
+
+<html>  
+<body>
+    <center>
+        <iframe src=
+"https://cobriant.github.io/421/materials/Classwork5.pdf" 
+                width="750" 
+                height="400">
+        </iframe>
+    </center>
+</body>
+</html>
+
+:::
+
+## CW6
+
+### causal inference (R)
+
+::: {.content-hidden unless-format="pdf"}
+
+<html>  
+<body>
+    <center>
+        <iframe src=
+"https://cobriant.github.io/421/materials/Classwork6.html" 
+                width="750" 
+                height="400">
+        </iframe>
+    </center>
+</body>
+</html>
+
+:::
+
+## CW7
+
+### consistency (analytical)
+
+::: {.content-hidden unless-format="pdf"}
+
+<html>  
+<body>
+    <center>
+        <iframe src=
+"https://cobriant.github.io/421/materials/Classwork7.pdf" 
+                width="750" 
+                height="400">
+        </iframe>
+    </center>
+</body>
+</html>
+
+:::
+
+## CW8
+
+### heteroskedasticity (analytical)
+
+::: {.content-hidden unless-format="pdf"}
+
+<html>  
+<body>
+    <center>
+        <iframe src=
+"https://cobriant.github.io/421/materials/Classwork8.pdf" 
+                width="750" 
+                height="400">
+        </iframe>
+    </center>
+</body>
+</html>
+
+:::
+
+## CW9
+
+### heteroskedasticity (R)
+
+::: {.content-hidden unless-format="pdf"}
+
+<html>  
+<body>
+    <center>
+        <iframe src=
+"https://cobriant.github.io/421/materials/Classwork9.html" 
+                width="750" 
+                height="400">
+        </iframe>
+    </center>
+</body>
+</html>
+
+:::
+
+## CW10
+
+### simulation (R)
+
+::: {.content-hidden unless-format="pdf"}
+
+<html>  
+<body>
+    <center>
+        <iframe src=
+"https://cobriant.github.io/421/materials/Classwork10.html" 
+                width="750" 
+                height="400">
+        </iframe>
+    </center>
+</body>
+</html>
+
+:::
+
+## CW11
+
+### dynamics (analytical)
+
+::: {.content-hidden unless-format="pdf"}
+
+<html>  
+<body>
+    <center>
+        <iframe src=
+"https://cobriant.github.io/421/materials/Classwork11.pdf" 
+                width="750" 
+                height="400">
+        </iframe>
+    </center>
+</body>
+</html>
+
+:::
+
+## CW12
+
+### dynamics (R)
+
+::: {.content-hidden unless-format="pdf"}
+
+<html>  
+<body>
+    <center>
+        <iframe src=
+"https://cobriant.github.io/421/materials/Classwork12.html" 
+                width="750" 
+                height="400">
+        </iframe>
+    </center>
+</body>
+</html>
+
+:::
+
+## CW13
+
+### time trends (analytical)
+
+::: {.content-hidden unless-format="pdf"}
+
+<html>  
+<body>
+    <center>
+        <iframe src=
+"https://cobriant.github.io/421/materials/Classwork13.pdf" 
+                width="750" 
+                height="400">
+        </iframe>
+    </center>
+</body>
+</html>
+
+:::
+
+## CW14
+
+### random walks (half analytical, half R)
+
+::: {.content-hidden unless-format="pdf"}
+
+<html>  
+<body>
+    <center>
+        <iframe src=
+"https://cobriant.github.io/421/materials/Classwork14.pdf" 
+                width="750" 
+                height="400">
+        </iframe>
+    </center>
+</body>
+</html>
+
+:::
+
+## CW15
+
+### IV (analtyical)
+
+::: {.content-hidden unless-format="pdf"}
+
+<html>  
+<body>
+    <center>
+        <iframe src=
+"https://cobriant.github.io/421/materials/Classwork15.pdf" 
+                width="750" 
+                height="400">
+        </iframe>
+    </center>
+</body>
+</html>
+
+:::
+
+## CW16
+
+### IV (R)
+
+::: {.content-hidden unless-format="pdf"}
+
+<html>  
+<body>
+    <center>
+        <iframe src=
+"https://cobriant.github.io/421/materials/Classwork16.html" 
+                width="750" 
+                height="400">
+        </iframe>
+    </center>
+</body>
+</html>
+
+:::
+
+## CW17
+
+### Diff-in-diff (anayltical)
+
+::: {.content-hidden unless-format="pdf"}
+
+<html>  
+<body>
+    <center>
+        <iframe src=
+"https://cobriant.github.io/421/materials/Classwork17.pdf" 
+                width="750" 
+                height="400">
+        </iframe>
+    </center>
+</body>
+</html>
+
+:::
